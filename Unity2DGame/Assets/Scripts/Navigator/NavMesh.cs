@@ -1,86 +1,98 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NavMesh : MonoBehaviour
 {
     List<NavCell> cells = new List<NavCell>();
 
-    [SerializeField]
-    Material material;
+    MarchingSquares marchingSquares = new MarchingSquares();
 
-    Vector3[] vertices;
-
-    [SerializeField]
-    Transform start;
-    [SerializeField]
-    Transform end;
-
-    List<Vector2> routes;
-
-
-    private void Awake()
-    {
-        /*NavCell c1 = CreateCell(new Vector2(0, 10), new Vector2(10, 0), new Vector2(10, 10), null);
-        NavCell c2 = CreateCell(new Vector2(10, 0), new Vector2(10, 10), new Vector2(20, 10), c1);
-        NavCell c3 = CreateCell(new Vector2(10, 10), new Vector2(10, 20), new Vector2(20, 10), c2);*/
-
-        //routes = PathFinding(start, end);
-    }
     private void Start()
     {
+        marchingSquares.Init();
 
+        StartCoroutine(marchingSquares.DrawMS());
+        /*AddCell(new Vector2(0, 0), new Vector2(5, 0), new Vector2(0, 5));
+        AddCell(new Vector2(0, 0), new Vector2(5, 0), new Vector2(0, -5));
+        AddCell(new Vector2(0, 0), new Vector2(-5, 0), new Vector2(0, -5));*/
+
+        //삼각형 계산 함수 실행
+        //Triangulation();
+
+        StartCoroutine(DrawNavCells());
     }
-    private void Update()
+    public void Triangulation()
     {
+        //점 하나로 시작
+        // 1.모든 점을 검색하여 가장 가까운 점 두개를 찾는다
+        //2.점 두개와 시작점으로 cell을 만든다
+        //3.다른 점이 cell이 있는지 확인하고 없으면 2번은 반복한다
+        //남은 점이 없을때까지 반복한다
 
-
-        //DrawNaviCells();
-        //DrawRoot(routes);
-    }
-    public NavCell CreateCell(Vector2 vec1, Vector2 vec2, Vector2 vec3, NavCell cell)
-    {
-        NavCell temp = new NavCell(vec1, vec2, vec3);
-        if(cell != null)
+        //점, 거리 저장
+        Dictionary<Vector2, float> distanceDic;
+        //기준 점 루프
+        foreach (var edgeData1 in marchingSquares.EdgeDatas)
         {
-            //NavCell t1 = temp.EmptyCell();
-            //NavCell t2 = cell.EmptyCell();
-
-            temp.EmptyCell = cell;
-            cell.EmptyCell = temp;
+            distanceDic = new Dictionary<Vector2, float>();
+            //상대 점 루프
+            foreach (var edgeData2 in marchingSquares.EdgeDatas)
+            {
+                //같은 점이면 continue;
+                if (edgeData1.start == edgeData2.start)
+                    continue;
+                //거리 계산
+                float distance = Vector2.Distance(edgeData1.start, edgeData2.start);
+                //distanceDic가 비어있으면 집어넣는다, 안의 값보다 작으면 대체한다
+                if(distanceDic.Count == 0)
+                    distanceDic.Add(edgeData1.start, distance);
+            }
+            //점의 cell이 이미 있는지 확인
+            //IsIncludedCell();
         }
-        cells.Add(temp);
-        return temp;
-    }
-    /*public void CreateTriangle(Vector2 vec1, Vector2 vec2, Vector2 vec3)
-    {
-        *//*Mesh mesh = new Mesh();
-        mesh.vertices = new Vector3[] { vec1, vec2, vec3 };
-        mesh.triangles = new int[] { 0, 1, 2 };
 
-        // Mesh를 렌더링하는 GameObject 생성
-        GameObject triangleObject = new GameObject("FilledTriangle");
-        triangleObject.AddComponent<MeshFilter>().mesh = mesh;
-        MeshRenderer mr = triangleObject.AddComponent<MeshRenderer>();
-        mr.material = material;
-        mr.material.color = RandColor();*//*
-    }*/
-    
-    public void DrawNaviCells()
+    }
+    public bool IsIncludedCell(Vector2 vec1, Vector2 vec2, Vector2 vec3)
     {
+        //일단 세 점을 가지고 있는 cell이 있는지 확인한다
+        //있으면 true
+        //아니면 false
+        Vector2[] vecs = new Vector2[3] { vec1, vec2, vec3 };
         foreach (var cell in cells)
         {
-            Debug.DrawLine(cell.vec1, cell.vec2, Color.red);
-            Debug.DrawLine(cell.vec2, cell.vec3, Color.red);
-            Debug.DrawLine(cell.vec3, cell.vec1, Color.red);
+            if (cell.datas.All(x => vecs.Contains(x.vertex)))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    //셀 그리기 함수
+    IEnumerator DrawNavCells()
+    {
+        while(true)
+        {
+            for (int i = 0; i < cells.Count; i++)
+            {
+                for (int c = 0; c < cells[i].datas.Count(); c++)
+                {
+                    Debug.DrawLine(cells[i].datas[c].vertex, cells[i].NextVertex(c), Color.red);
+                }
+            }
+            yield return null;
         }
     }
-
+    //셀 추가 함수
     public void AddCell(Vector2 vec1, Vector2 vec2, Vector2 vec3)
     {
-
+        cells.Add(new NavCell(vec1, vec2, vec3));
     }
+    //길찾기 함수
     public List<Vector2> PathFinding(Vector2 start, Vector2 end)
     {
         NavCell temp = null;
@@ -97,135 +109,87 @@ public class NavMesh : MonoBehaviour
         if (temp == null)
             return null;
 
-        route.Add(start);
-        NavCell next = temp.ExistingCell;
-        route.Add(next.Center);
-        NavCell nNext = next.ExistingCell;
-        route.Add(end);
-
+        //길찾기 알고리즘
 
         return route;
     }
-
-    public void DrawRoot(List<Vector2> routes)
-    {
-        Vector2 vec1 = Vector2.zero;
-        Vector2 vec2 = Vector2.zero;
-
-
-        Debug.DrawLine(routes[0], routes[1], Color.red);
-        Debug.DrawLine(routes[1], routes[2], Color.red);
-
-        foreach (var route in routes)
-        {
-            Debug.Log(route);
-        }
-    }
-
-    public Color RandColor()
-    {
-        // 랜덤한 RGB 값 생성
-        float randomRed = UnityEngine.Random.Range(0f, 1f);
-        float randomGreen = UnityEngine.Random.Range(0f, 1f);
-        float randomBlue = UnityEngine.Random.Range(0f, 1f);
-        // 알파 값은 보통 1로 설정하여 완전 불투명한 색을 얻습니다.
-        float alpha = 1f;
-        // Color 생성
-        return new Color(randomRed, randomGreen, randomBlue, alpha);
-    }
 }
+
 public class NavCell
 {
-    //세 점을 가지고 이웃Cell을 가진다
-    public Vector2 vec1;
-    public Vector2 vec2;
-    public Vector2 vec3;
-
-    public NavCell cell1;
-    public NavCell cell2;
-    public NavCell cell3;
+    //세 데이터 각각 점과 이웃Cell을 가진다
+    public NavData[] datas = new NavData[3];
 
     public NavCell(Vector2 vec1, Vector2 vec2, Vector2 vec3)
     {
-        this.vec1 = vec1;
-        this.vec2 = vec2;
-        this.vec3 = vec3;
+        datas[0] = new NavData(vec1);
+        datas[1] = new NavData(vec2);
+        datas[2] = new NavData(vec3);
     }
-
-    public bool IsInArea(Vector2 testP)
+    public Vector2 NextVertex(int index)
     {
-        float signAB = Mathf.Sign((testP.x - vec1.x) * (vec2.y - vec1.y) - (testP.y - vec1.y) * (vec2.x - vec1.x));
-        float signBC = Mathf.Sign((testP.x - vec2.x) * (vec3.y - vec2.y) - (testP.y - vec2.y) * (vec3.x - vec2.x));
-        float signCA = Mathf.Sign((testP.x - vec3.x) * (vec1.y - vec3.y) - (testP.y - vec3.y) * (vec1.x - vec3.x));
-
+        switch(index)
+        {
+            case 0:
+                return datas[1].vertex;
+            case 1:
+                return datas[2].vertex;
+            case 2:
+                return datas[0].vertex;
+        }
+        return Vector2.zero;
+    }
+    public bool IsInArea(Vector2 position)
+    {
+        float signAB = Mathf.Sign((position.x - datas[0].vertex.x) * (datas[1].vertex.y - datas[0].vertex.y) - (position.y - datas[0].vertex.y) * (datas[1].vertex.x - datas[0].vertex.x));
+        float signBC = Mathf.Sign((position.x - datas[1].vertex.x) * (datas[2].vertex.y - datas[1].vertex.y) - (position.y - datas[1].vertex.y) * (datas[2].vertex.x - datas[1].vertex.x));
+        float signCA = Mathf.Sign((position.x - datas[2].vertex.x) * (datas[0].vertex.y - datas[2].vertex.y) - (position.y - datas[2].vertex.y) * (datas[0].vertex.x - datas[2].vertex.x));
         return (signAB == signBC) && (signBC == signCA);
     }
-    public Vector2 Center
+    public Vector2 Center { get { return (datas[0].vertex + datas[1].vertex + datas[2].vertex) / 3; } }
+
+    //이웃Cell이면 노드참조 추가
+    public bool CheakStuckAddCell(NavCell navCell)
     {
-        get
+        List<int> equalNum = new List<int>();
+        for (int i = 0; i < datas.Count(); i++)
         {
-            return (vec1 + vec2 + vec3) / 3;
+            for (int k = 0; k < navCell.datas.Count(); k++)
+            {
+                if (datas[i].vertex == navCell.datas[k].vertex)
+                {
+                    equalNum.Add(i);
+                    continue;
+                }
+            }
         }
-    }
-
-    public NavCell EmptyCell 
-    {  
-        get 
+        // 조건을 만족하는 경우 해당 인덱스의 datas에 navCell을 추가하고 true를 반환합니다.
+        if (equalNum[0] == (equalNum[1] + 1) % 3)
         {
-            if (cell1 == null)
-                return cell1;
-            else if (cell2 == null)
-                return cell2;
-            else if (cell3 == null)
-                return cell3;
-            else
-                return null;
-        } 
-        set 
-        {
-            if (cell1 == null)
-                cell1 = value;
-            else if (cell2 == null)
-                cell2 = value;
-            else if (cell3 == null)
-                cell3 = value;
+            datas[equalNum[0]].AddCell(navCell);
+            return true;
         }
+        // 만족하는 조건이 없는 경우 false를 반환합니다.
+        return false;
     }
+}
+public class NavData
+{
+    public Vector2 vertex;
+    public NavCell stuckCell = null;
 
-    public NavCell ExistingCell
+    public NavData(Vector2 vec)
     {
-        get 
-        {
-            if (cell1 != null)
-                return cell1;
-            else if (cell2 != null)
-                return cell2;
-            else if (cell3 != null)
-                return cell3;
-            else
-                return null;
-        }
-        set
-        {
-            if (cell1 != null)
-                cell1 = value;
-            else if (cell2 != null)
-                cell2 = value;
-            else if (cell3 != null)
-                cell3 = value;
-        }
+        this.vertex = vec;
     }
-
-
-    /*public NavCell EmptyCell()
+    public bool IsCellNull { get { return stuckCell == null; } }
+    public bool AddCell(NavCell cell)
     {
-        if (cell1 == null)
-            return cell1;
-        else if (cell2 == null)
-            return cell2;
-        else if (cell3 == null)
-            return cell3;
-        else
-            return null;
-    }*/
+        if (stuckCell != null)
+        {
+            stuckCell = cell;
+            return false;
+        }
+        return false;
+    }
 }
