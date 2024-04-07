@@ -152,6 +152,63 @@ public class MarchingSquares// : MonoBehaviour
     }
     #endregion
 
+    /*// Down과 Left 함수를 보간을 사용하도록 수정
+    Vector2 Top(Vector2 vec)
+    {
+        Vector2 start = new Vector2(vec.x, vec.y + distance); // 현재 위치
+        Vector2 end = new Vector2(vec.x + distance, vec.y + distance); // 위쪽 방향으로 이동
+
+        // start와 end 사이에서 보간하여 실제 경계 위치를 계산
+        return Interpolate(start, end);
+    }
+    Vector2 Down(Vector2 vec)
+    {
+        Vector2 start = new Vector2(vec.x, vec.y);
+        Vector2 end = new Vector2(vec.x + distance, vec.y);
+
+        // start와 end 사이에 보간하여 실제 경계 위치를 계산
+        return Interpolate(start, end);
+    }
+
+    Vector2 Left(Vector2 vec)
+    {
+        Vector2 start = new Vector2(vec.x, vec.y);
+        Vector2 end = new Vector2(vec.x, vec.y + distance);
+
+        // start와 end 사이에 보간하여 실제 경계 위치를 계산
+        return Interpolate(start, end);
+    }
+    Vector2 Right(Vector2 vec)
+    {
+        Vector2 start = new Vector2(vec.x + distance, vec.y);
+        Vector2 end = new Vector2(vec.x + distance, vec.y + distance); // 오른쪽 방향으로 이동
+
+        // start와 end 사이에서 보간하여 실제 경계 위치를 계산
+        return Interpolate(start, end);
+    }
+    
+
+    #region 보간 테스트
+    Vector2 Interpolate(Vector2 point1, Vector2 point2, float value1, float value2, float isoValue)
+    {
+        // 두 점의 값이 isoValue와 같거나, 값의 차이가 없으면,
+        // 간단하게 첫 번째 점을 반환합니다.
+        if (Math.Abs(value1 - value2) < 0.0001 || value1 == isoValue)
+        {
+            return point1;
+        }
+        else if (value2 == isoValue)
+        {
+            return point2;
+        }
+
+        // 선형 보간을 사용하여 경계 위치 계산
+        float t = (isoValue - value1) / (value2 - value1);
+        Vector2 interpolatedPoint = point1 + t * (point2 - point1);
+        return interpolatedPoint;
+    }
+    #endregion*/
+
     public void GenerateMSData()
     {
         int temp = 0;
