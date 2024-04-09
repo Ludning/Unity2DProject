@@ -20,19 +20,18 @@ public class MarchingSquares
     3번째 비트      2번째 비트
     */
 
-    bool[,] mapData = null;
+    //2진화 맵 데이터
+    public bool[,] mapData = null;
+    //매칭 데이터
     Dictionary<Vector2, MarchingType> MachingData = new Dictionary<Vector2, MarchingType>();
-    //public List<Edge> EdgeDatas = new List<Edge>();
-    //public List<Vertex> VertexDatas = new List<Vertex>();
-
+    //정점 데이터
     public HashSet<Vertex> VertexDatas = new HashSet<Vertex>();
-
+    //등고선
     public List<List<Vertex>> ContourLines = new List<List<Vertex>>();
-
-    float distance = 1.0f;
-
+    //블럭간 거리
+    public float distance = 1.0f;
     // 기울기 허용 오차
-    private const double tiltTolerance = 0.1f;
+    public const double tiltTolerance = 0.1f;
 
     // Start is called before the first frame update
     public void Init()
@@ -45,10 +44,10 @@ public class MarchingSquares
         ProcessPattern();
         //Edge단순화
         SimplifyGraph(tiltTolerance);
+        //등고선 분리
+        GenerationContourLine();
         //삼각화
         Triangulation();
-        //들로네 삼각화
-        GenerationContourLine();
 
         //Debug.Log(EdgeData.Count);
         //StartCoroutine(DrawMS());
@@ -101,8 +100,30 @@ public class MarchingSquares
         //이렇게 반복하여 여러 등고선을 분리하고 등고선끼리 연결한다
         //등고선끼리 제일 가까운 Vertex와 연결하여 삼각형 Cell을 만든다, Cell은 점 세개와 중심점을 가지고 있다.
 
-
+        //ContourLink(ContourLines[0], ContourLines[1]);
+        //ContourLink(ContourLines[1], ContourLines[0]);
     }
+
+    //Cell 생성
+    /*public void ContourLink(List<Vertex> left, List<Vertex> right)
+    {
+        foreach(var origin in left)
+        {
+            Vertex temp = null;
+            float distance = 0.0f;
+            foreach (var search in right)
+            {
+                float currentDistance = Vector2.Distance(origin.vertex, search.vertex);
+                if (temp == null || currentDistance < distance)
+                {
+                    temp = search;
+                    distance = currentDistance;
+                }
+            }
+            origin.Link(temp);
+        }
+    }*/
+
 
     //등고선 분리
     public void GenerationContourLine()
@@ -230,7 +251,6 @@ public class MarchingSquares
             int pattern = (int)data.Value;
             Vector2 position = data.Key;
 
-            Debug.Log(position);
             if (pattern == 0b0001) { HandlePattern0b0001(position); }
             else if (pattern == 0b0010) { HandlePattern0b0010(position); }
             else if (pattern == 0b0011) { HandlePattern0b0011(position); }
@@ -403,6 +423,15 @@ public class MarchingSquares
     }
     #endregion
 
+    public Vertex? FindVertex(Vector2 target)
+    {
+        foreach (var vector in VertexDatas)
+            if (vector.vertex.Equals(target))
+                return vector;
+        // 일치하는 Vector2 객체가 없을 경우
+        return new Vertex(target);
+    }
+
     public void GenerateMSData()
     {
         int temp = 0;
@@ -456,65 +485,61 @@ public class MarchingSquares
             return true;
         return false;
     }
+}
+public class Vertex
+{
+    public Vector2 vertex;
+    public Dictionary<Vertex, double> connectionVertex;
 
-    public class Vertex
+    public bool isClose = false;
+
+    public Vertex(Vector2 vector)
     {
-        public Vector2 vertex;
-        public Dictionary<Vertex, double> connectionVertex;
-        public Vertex(Vector2 vector)
-        {
-            this.vertex = vector;
-            connectionVertex = new Dictionary<Vertex, double>();
-        }
-        public void Link(Vertex other)
-        {
-            if (!connectionVertex.ContainsKey(other))
-                connectionVertex.Add(other, CalculateSlope(vertex, other.vertex));
-            if (!other.connectionVertex.ContainsKey(this))
-                other.connectionVertex.Add(this, CalculateSlope(other.vertex, vertex));
-        }
-        public void Unlink(Vertex other)
-        {
-            if (connectionVertex.ContainsKey(other))
-                connectionVertex.Remove(other);
-            if (other.connectionVertex.ContainsKey(this))
-                other.connectionVertex.Remove(this);
-        }
-        public void UnlinkSelf()
-        {
-            Vertex[] conVer = connectionVertex.Keys.ToArray();
-            foreach (Vertex vt in conVer)
-            {
-                this.Unlink(vt);
-            }
-        }
-        // 두 점 사이의 기울기를 계산합니다.
-        private double CalculateSlope(Vector2 a, Vector2 b)
-        {
-            if (b.x == a.x) return double.MaxValue; // 수직선 처리
-            return (b.y - a.y) / (b.x - a.x);
-        }
-        /*public Vertex NextRandomVertex(Vertex prevVertex)
-        {
-            foreach (Vertex vt in connectionVertex.Keys)
-            {
-                if(vt == prevVertex)
-                    continue;
-                Vertex temp = vt;
-                prevVertex = vt;
-                return temp;
-            }
-            return null;
-        }*/
+        this.vertex = vector;
+        connectionVertex = new Dictionary<Vertex, double>();
     }
-    public Vertex? FindVertex(Vector2 target)
+    public void Link(Vertex other)
     {
-        foreach (var vector in VertexDatas)
-            if (vector.vertex.Equals(target))
-                return vector;
-        // 일치하는 Vector2 객체가 없을 경우
-        return new Vertex(target);
+        if (!connectionVertex.ContainsKey(other))
+            connectionVertex.Add(other, CalculateSlope(vertex, other.vertex));
+        if (!other.connectionVertex.ContainsKey(this))
+            other.connectionVertex.Add(this, CalculateSlope(other.vertex, vertex));
     }
+    public void Unlink(Vertex other)
+    {
+        if (connectionVertex.ContainsKey(other))
+            connectionVertex.Remove(other);
+        if (other.connectionVertex.ContainsKey(this))
+            other.connectionVertex.Remove(this);
+    }
+    public void UnlinkSelf()
+    {
+        Vertex[] conVer = connectionVertex.Keys.ToArray();
+        foreach (Vertex vt in conVer)
+        {
+            this.Unlink(vt);
+        }
+    }
+    // 두 점 사이의 기울기를 계산합니다.
+    private double CalculateSlope(Vector2 a, Vector2 b)
+    {
+        if (b.x == a.x) return double.MaxValue; // 수직선 처리
+        return (b.y - a.y) / (b.x - a.x);
+    }
+    /*public Vertex NextRandomVertex(Vertex prevVertex)
+    {
+        foreach (Vertex vt in connectionVertex.Keys)
+        {
+            if(vt == prevVertex)
+                continue;
+            Vertex temp = vt;
+            prevVertex = vt;
+            return temp;
+        }
+        return null;
+    }*/
+}
+    
     public enum MarchingType
     {
         _0,          //0,    // 0000   없다
@@ -534,4 +559,4 @@ public class MarchingSquares
         _14,          //14,    // 1110  좌상, 우상, 우하
         _15,          //15,    // 1111  좌상, 우상, 우하, 좌하
     }
-}
+

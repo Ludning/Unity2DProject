@@ -11,10 +11,66 @@ public class NavMesh : MonoBehaviour
     List<NavCell> cells = new List<NavCell>();
 
     MarchingSquares marchingSquares = new MarchingSquares();
+    DelaunayTriangulation delaunayTriangulation = new DelaunayTriangulation();
 
     private void Start()
     {
         marchingSquares.Init();
+
+        delaunayTriangulation.GenerationNormalTriangulation(marchingSquares.VertexDatas, marchingSquares.ContourLines, marchingSquares.mapData, marchingSquares.distance);
+
+        //Dictionary<Vector2, List<Vertex>> triangulationData = delaunayTriangulation.Triangulation(marchingSquares.VertexDatas, marchingSquares.ContourLines, marchingSquares.mapData, marchingSquares.distance);
+
+        Dictionary<Vector2, List<Vertex>> triangulationData = new Dictionary<Vector2, List<Vertex>>();
+        triangulationData.Add(new Vector2(0, 0), new List<Vertex>() { new Vertex(new Vector2(8.5f, 2f)), new Vertex(new Vector2(6.5f, 2f)), new Vertex(new Vector2(9.5f, 1f)) });
+        triangulationData.Add(new Vector2(1, 0), new List<Vertex>() { new Vertex(new Vector2(14f, 1.5f)), new Vertex(new Vector2(9.5f, 1f)), new Vertex(new Vector2(13.5f, 1f)) });
+
+
+
+        /*
+            new Vertex(new Vector2(8.5f, 2f)), new Vertex(new Vector2(6.5f, 2f)), new Vertex(new Vector2(9.5f, 1f)
+            new Vertex(new Vector2(14f, 1.5f)), new Vertex(new Vector2(9.5f, 1f)), new Vertex(new Vector2(13.5f, 1f)
+            new Vertex(new Vector2(13.5f, 1f)), new Vertex(new Vector2(14f, 5.5f)), new Vertex(new Vector2(14f, 1.5f)
+            new Vertex(new Vector2(5.5f, 3f)), new Vertex(new Vector2(8.5f, 2f)), new Vertex(new Vector2(6.5f, 2f)
+            new Vertex(new Vector2(9.5f, 1f)), new Vertex(new Vector2(6.5f, 2f)), new Vertex(new Vector2(8.5f, 2f)
+            new Vertex(new Vector2(1.5f, 3f)), new Vertex(new Vector2(2f, 4.5f)), new Vertex(new Vector2(1f, 3.5f)
+            new Vertex(new Vector2(1f, 3.5f)), new Vertex(new Vector2(2.5f, 3f)), new Vertex(new Vector2(1.5f, 3f)
+            new Vertex(new Vector2(1.5f, 3f)), new Vertex(new Vector2(3.5f, 4f)), new Vertex(new Vector2(2.5f, 3f)
+            new Vertex(new Vector2(5.5f, 3f)), new Vertex(new Vector2(3.5f, 4f)), new Vertex(new Vector2(4.5f, 3f)
+            new Vertex(new Vector2(4.5f, 3f)), new Vertex(new Vector2(6.5f, 2f)), new Vertex(new Vector2(5.5f, 3f)
+            new Vertex(new Vector2(2f, 5.5f)), new Vertex(new Vector2(1f, 3.5f)), new Vertex(new Vector2(2f, 4.5f)
+            new Vertex(new Vector2(2.5f, 3f)), new Vertex(new Vector2(4.5f, 3f)), new Vertex(new Vector2(3.5f, 4f)
+            new Vertex(new Vector2(2f, 4.5f)), new Vertex(new Vector2(1f, 6.5f)), new Vertex(new Vector2(2f, 5.5f)
+            new Vertex(new Vector2(12f, 7.5f)), new Vertex(new Vector2(13f, 8.5f)), new Vertex(new Vector2(14f, 5.5f)
+            new Vertex(new Vector2(1f, 7.5f)), new Vertex(new Vector2(2f, 5.5f)), new Vertex(new Vector2(1f, 6.5f)
+            new Vertex(new Vector2(6f, 6.5f)), new Vertex(new Vector2(7.5f, 6f)), new Vertex(new Vector2(6.5f, 6f)
+            new Vertex(new Vector2(6.5f, 6f)), new Vertex(new Vector2(7.5f, 6f)), new Vertex(new Vector2(6f, 6.5f)
+            new Vertex(new Vector2(8f, 6.5f)), new Vertex(new Vector2(6.5f, 6f)), new Vertex(new Vector2(7.5f, 6f)
+            new Vertex(new Vector2(7.5f, 6f)), new Vertex(new Vector2(6.5f, 6f)), new Vertex(new Vector2(8f, 6.5f)
+            new Vertex(new Vector2(1f, 6.5f)), new Vertex(new Vector2(2f, 8.5f)), new Vertex(new Vector2(1f, 7.5f)
+            new Vertex(new Vector2(13f, 8.5f)), new Vertex(new Vector2(11.5f, 10f)), new Vertex(new Vector2(12f, 7.5f)
+            new Vertex(new Vector2(1f, 7.5f)), new Vertex(new Vector2(1f, 6.5f)), new Vertex(new Vector2(2f, 8.5f)
+            new Vertex(new Vector2(6.5f, 9f)), new Vertex(new Vector2(7.5f, 9f)), new Vertex(new Vector2(6f, 8.5f)
+            new Vertex(new Vector2(7.5f, 9f)), new Vertex(new Vector2(6.5f, 9f)), new Vertex(new Vector2(8f, 8.5f)
+            new Vertex(new Vector2(12f, 7.5f)), new Vertex(new Vector2(11.5f, 10f)), new Vertex(new Vector2(13f, 8.5f)
+            new Vertex(new Vector2(6f, 8.5f)), new Vertex(new Vector2(7.5f, 9f)), new Vertex(new Vector2(6.5f, 9f)
+            new Vertex(new Vector2(8f, 8.5f)), new Vertex(new Vector2(6.5f, 9f)), new Vertex(new Vector2(7.5f, 9f)
+            new Vertex(new Vector2(10f, 10.5f)), new Vertex(new Vector2(11.5f, 10f)), new Vertex(new Vector2(10.5f, 10f)
+            new Vertex(new Vector2(10.5f, 10f)), new Vertex(new Vector2(10f, 11.5f)), new Vertex(new Vector2(10f, 10.5f)
+            new Vertex(new Vector2(10.5f, 10f)), new Vertex(new Vector2(10f, 10.5f)), new Vertex(new Vector2(11.5f, 10f)
+            new Vertex(new Vector2(1f, 12.5f)), new Vertex(new Vector2(1f, 13.5f)), new Vertex(new Vector2(2f, 11.5f)
+            new Vertex(new Vector2(10f, 10.5f)), new Vertex(new Vector2(10.5f, 10f)), new Vertex(new Vector2(10f, 11.5f)
+            new Vertex(new Vector2(1f, 13.5f)), new Vertex(new Vector2(2f, 11.5f)), new Vertex(new Vector2(1f, 12.5f)
+            new Vertex(new Vector2(1.5f, 14f)), new Vertex(new Vector2(1f, 12.5f)), new Vertex(new Vector2(1f, 13.5f)
+            new Vertex(new Vector2(3.5f, 14f)), new Vertex(new Vector2(2f, 11.5f)), new Vertex(new Vector2(4.5f, 13f)
+            new Vertex(new Vector2(10f, 11.5f)), new Vertex(new Vector2(10f, 10.5f)), new Vertex(new Vector2(8.5f, 13f)
+            new Vertex(new Vector2(1f, 13.5f)), new Vertex(new Vector2(1f, 12.5f)), new Vertex(new Vector2(1.5f, 14f)
+            new Vertex(new Vector2(4.5f, 13f)), new Vertex(new Vector2(1.5f, 14f)), new Vertex(new Vector2(3.5f, 14f)
+         */
+
+
+        //ReadCellData(triangulationData);
+
 
         StartCoroutine(marchingSquares.DrawContourLines());
         /*AddCell(new Vector2(0, 0), new Vector2(5, 0), new Vector2(0, 5));
@@ -24,15 +80,42 @@ public class NavMesh : MonoBehaviour
         //삼각형 계산 함수 실행
         //Triangulation();
 
-        StartCoroutine(DrawNavCells());
+        //StartCoroutine(DrawNavCells());
     }
-   
-    public bool IsIncludedCell(Vector2 vec1, Vector2 vec2, Vector2 vec3)
+
+    /*//삼각화
+    public void Triangulation()
+    {
+        //삼각화
+        //삼각화를 해서 Cell이 되었으며 Cell에 포함된 이웃정점외에 다른 정점이 없으면 제거
+
+
+        Vertex vertex = marchingSquares.VertexDatas.First();
+        //vertex.connectionVertex
+    }*/
+
+    public void ReadCellData(Dictionary<Vector2, List<Vertex>> triangulationData)
+    {
+        foreach(var data in triangulationData)
+        {
+            AddCell(data.Value, data.Key);
+        }
+    }
+    //셀 추가 함수
+    public void AddCell(List<Vertex> vertices, Vector2 centroid)
+    {
+        if (vertices == null || vertices.Count != 3)
+            return;
+        //if (!IsIncludedCell(vertices))
+            cells.Add(new NavCell(vertices[0].vertex, vertices[1].vertex, vertices[2].vertex, centroid));
+    }
+    //일단 세 점을 가지고 있는 cell이 있는지 확인한다
+    public bool IsIncludedCell(List<Vertex> vertices)
     {
         //일단 세 점을 가지고 있는 cell이 있는지 확인한다
         //있으면 true
         //아니면 false
-        Vector2[] vecs = new Vector2[3] { vec1, vec2, vec3 };
+        Vector2[] vecs = new Vector2[3] { vertices[0].vertex, vertices[1].vertex, vertices[2].vertex };
         foreach (var cell in cells)
         {
             if (cell.datas.All(x => vecs.Contains(x.vertex)))
@@ -57,11 +140,7 @@ public class NavMesh : MonoBehaviour
             yield return null;
         }
     }
-    //셀 추가 함수
-    public void AddCell(Vector2 vec1, Vector2 vec2, Vector2 vec3)
-    {
-        cells.Add(new NavCell(vec1, vec2, vec3));
-    }
+    
     //길찾기 함수
     public List<Vector2> PathFinding(Vector2 start, Vector2 end)
     {
@@ -90,11 +169,16 @@ public class NavCell
     //세 데이터 각각 점과 이웃Cell을 가진다
     public NavData[] datas = new NavData[3];
 
-    public NavCell(Vector2 vec1, Vector2 vec2, Vector2 vec3)
+    Vector2 centroid;
+
+    public Dictionary<NavEdge, NavCell> adjacencyCell = new Dictionary<NavEdge, NavCell>();
+
+    public NavCell(Vector2 vec1, Vector2 vec2, Vector2 vec3, Vector2 Centroid)
     {
         datas[0] = new NavData(vec1);
         datas[1] = new NavData(vec2);
         datas[2] = new NavData(vec3);
+        centroid = Centroid;
     }
     public Vector2 NextVertex(int index)
     {
@@ -162,4 +246,9 @@ public class NavData
         }
         return false;
     }
+}
+public class NavEdge
+{
+    public Vector2 left;
+    public Vector2 right;
 }
