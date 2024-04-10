@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -6,6 +7,8 @@ using Unity.VisualScripting;
 using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+using static UnityEngine.UI.Image;
 
 
 public class DelaunayTriangulation
@@ -108,12 +111,257 @@ public class DelaunayTriangulation
             vt.Link(vtListOrderByDis[0]);
         }
     }
+    public Dictionary<Vector2, List<Vertex>> GenerationNormalTriangulationMK4(HashSet<Vertex> VertexDatas, List<List<Vertex>> ContourLines, bool[,] mapData, float distance)
+    {
+        //가까운 선끼리 삼각형을 만들어보자
+        Dictionary<Vector2, List<Vertex>> nearestPoints = new Dictionary<Vector2, List<Vertex>>();
+        foreach (var currentVertex in VertexDatas)
+        {
+            int count = 0;
+            while(true)
+            {
+                var vtListOrderByDis = VertexDatas.Where(x => x != currentVertex)
+                                                .Select(x => new { vertex = x, distance = Distance(currentVertex, x) })
+                                                .OrderBy(x => x.distance)
+                                                .Select(x => x.vertex)
+                                                .ToList();
+
+
+                List<Vertex> tri = new List<Vertex>() { currentVertex, vtListOrderByDis[count], vtListOrderByDis[count + 1] };
+                if(!nearestPoints.ContainsKey(Centroid(tri)))
+                {
+                    nearestPoints.Add(Centroid(tri), tri);
+                    currentVertex.UnlinkSelf();
+                    break;
+                }
+                count++;
+                if (count + 1 >= vtListOrderByDis.Count)
+                    break;
+            }
+            
+        }
+        return nearestPoints;
+    }
+
+    public Dictionary<Vector2, List<Vertex>> GenerationContourLines(HashSet<Vertex> VertexDatas, List<List<Vertex>> ContourLines, bool[,] mapData, float distance)
+    {
+        Dictionary<Vector2, List<Vertex>> nearestPoints = new Dictionary<Vector2, List<Vertex>>();
+        //제일 긴 등고선을 가져온다
+        var longestList = ContourLines.OrderByDescending(list => list.Count).FirstOrDefault();
+
+        bool research = false;
+        bool searchEnd = false;
+        while (true)
+        {
+            research = false;
+            searchEnd = false;
+            //주위를 돌면서 삼각화를 한다
+            foreach (var vt in longestList)
+            {
+                var vecList = vt.connectionVertex.ToList();
+                if(longestList.Count <= 2)
+                {
+                    searchEnd = true;
+                    break;
+                }
+                //수직 벡터로부터 좌우로 90도를 넘어가지 않으면
+                if (DotProduct(vecList[0].Value, vecList[1].Value))
+                {
+                    //삼각형 리스트를 만들고
+                    List<Vertex> vTri = new List<Vertex>();
+                    vTri.Add(vt);
+                    vTri.AddRange(vt.connectionVertex.Keys.ToList());
+                    nearestPoints.Add(Centroid(vTri), vTri);
+                    vt.Unlink(vecList[0].Key);
+                    vt.Unlink(vecList[1].Key);
+                    vecList[0].Key.Link(vecList[1].Key);
+                    longestList.Remove(vt);
+                    research = true;
+                }
+                if (research)
+                    break;
+            }
+            if (searchEnd)
+                break;
+        }
+
+        
+        return nearestPoints;
+
+    }
+    public Dictionary<Vector2, List<Vertex>> GenerationContourLinesMK2(HashSet<Vertex> VertexDatas, List<List<Vertex>> ContourLines, bool[,] mapData, float distance)
+    {
+        Dictionary<Vector2, List<Vertex>> nearestPoints = new Dictionary<Vector2, List<Vertex>>();
+        //제일 긴 등고선을 가져온다
+        var longestList = ContourLines.OrderByDescending(list => list.Count).FirstOrDefault();
+
+        int count = 0;
+        while (count < longestList.Count)
+        {
+
+            var vecList = longestList[count].connectionVertex.ToList();
+            if (longestList.Count <= 2)
+            {
+                count++;
+                continue; 
+            }
+            //수직 벡터로부터 좌우로 90도를 넘어가면
+            if (!DotProduct(vecList[0].Value, vecList[1].Value))
+            {
+                count++;
+                continue; 
+            }
+
+            //삼각형 리스트를 만들고
+            List<Vertex> vTri = new List<Vertex>();
+            vTri.Add(longestList[count]);
+            vTri.AddRange(longestList[count].connectionVertex.Keys.ToList());
+
+            nearestPoints.Add(Centroid(vTri), vTri);
+
+            longestList[count].UnlinkSelf();
+            longestList.Remove(longestList[count]);
+        }
+        return nearestPoints;
+    }
+
+    public Dictionary<Vector2, List<Vertex>> GenerationContourLinesMK3(HashSet<Vertex> VertexDatas, List<List<Vertex>> ContourLines, bool[,] mapData, float distance)
+    {
+        Dictionary<Vector2, List<Vertex>> nearestPoints = new Dictionary<Vector2, List<Vertex>>();
+        //제일 긴 등고선을 가져온다
+        var ContourList = OrderByContourLineLength(ContourLines);
+
+        int count = 0;
+        //등고선 연결
+        var longestList = ContourList.Last();
+        ContourList.Remove(longestList);
+
+        List<Vertex> newContourLine = new List<Vertex>();
+        foreach (var ContourLine in ContourList)
+        {
+            (Vertex, Vertex, float)? minLine = null;
+            foreach(var otherVertex in ContourLine)
+            {
+                foreach(var vertex in longestList)
+                {
+                    if (minLine == null)
+                    { 
+                        minLine = (vertex, otherVertex, Distance(vertex, otherVertex));
+                        continue;
+                    }
+                    float dis = Distance(vertex, otherVertex);
+                    if (minLine.Value.Item3 > dis)
+                    {
+                        minLine = (vertex, otherVertex, Distance(vertex, otherVertex));
+                        continue;
+                    }
+                }
+            }
+            List<Vertex> vTri1 = new List<Vertex>() { minLine.Value.Item1, minLine.Value.Item2, minLine.Value.Item1.connectionVertex.First().Key };
+            List<Vertex> vTri2 = new List<Vertex>() { minLine.Value.Item2.connectionVertex.OrderBy(x => Distance(minLine.Value.Item1.connectionVertex.First().Key, x.Key)).ToList().First().Key, minLine.Value.Item2, minLine.Value.Item1.connectionVertex.First().Key };
+            nearestPoints.Add(Centroid(vTri1), vTri1);
+            nearestPoints.Add(Centroid(vTri2), vTri2);
+        }
+
+
+        return nearestPoints;
+    }
+    public List<List<Vertex>> OrderByContourLineLength(List<List<Vertex>> ContourLines)
+    {
+        Dictionary<List<Vertex>, float> Contours = new Dictionary<List<Vertex>, float>();
+        foreach (var ContourLine in ContourLines)
+        {
+            Contours.Add(ContourLine, ContourLineLength(ContourLine));
+        }
+        return Contours.OrderBy(x => x.Value).Select(x => x.Key).ToList();
+    }
+    public float ContourLineLength(List<Vertex> ContourLine)
+    {
+        Vertex first = ContourLine.First();
+        return VerticsLength(first, first, null);
+    }
+    public float VerticsLength(Vertex vt, Vertex origin, Vertex prev)
+    {
+        float dis = 0f;
+
+        foreach (var conVt in vt.connectionVertex)
+        {
+            if(prev != null && conVt.Key == prev)
+                continue;
+            if (origin == conVt.Key)
+                break;
+            dis += Distance(vt, conVt.Key) + VerticsLength(conVt.Key, origin, vt);
+        }
+        return dis;
+    }
+    //변과 점이 삼각형이 될수 있는 조건
+    /*public bool IsCanTriangle(Vertex vt1, Vertex vt2, Vertex other)
+    {
+        vt1.
+    }*/
+
+    //내적 검사
+    public bool DotProduct(Vector2 v1, Vector2 v2)
+    {
+        float dotProduct = v1.x * v2.x + v1.y * v2.y;
+        if (dotProduct < 0)
+        {
+            //수직 벡터로부터 좌우로 90도를 넘어감
+            return false;
+        }
+        return true;
+    }
+
+    //삼각재귀
+    /*public void GenTri(HashSet<Vertex> VertexDatas, Vertex currentVertex)
+    {
+        List<Vertex> conVtList = currentVertex.connectionVertex.Keys.ToList();
+
+        var vtListOrderByDis = VertexDatas.Where(x => x != currentVertex)
+                                                .Select(x => new { vertex = x, distance = Distance(currentVertex, x) })
+                                                .OrderBy(x => x.distance)
+                                                .Select(x => x.vertex)
+                                                .ToList();
+
+        foreach (var conVt in conVtList)
+        {
+            
+        }
+        VertexDatas.Remove();
+    }*/
+
+    #region 들로네 수학 함수
+    // 삼각형의 외접원 중심을 계산
+    public Vector2 CalculateCircumcenter(Vertex vt1, Vertex vt2, Vertex vt3)
+    {
+        float d = 2 * (vt1.vertex.x * (vt2.vertex.y - vt3.vertex.y) + vt2.vertex.x * (vt3.vertex.y - vt1.vertex.y) + vt3.vertex.x * (vt1.vertex.y - vt2.vertex.y));
+        float ux = ((vt1.vertex.x * vt1.vertex.x + vt1.vertex.y * vt1.vertex.y) * (vt2.vertex.y - vt3.vertex.y) + (vt2.vertex.x * vt2.vertex.x + vt2.vertex.y * vt2.vertex.y) * (vt3.vertex.y - vt1.vertex.y) + (vt3.vertex.x * vt3.vertex.x + vt3.vertex.y * vt3.vertex.y) * (vt1.vertex.y - vt2.vertex.y)) / d;
+        float uy = ((vt1.vertex.x * vt1.vertex.x + vt1.vertex.y * vt1.vertex.y) * (vt3.vertex.x - vt2.vertex.x) + (vt2.vertex.x * vt2.vertex.x + vt2.vertex.y * vt2.vertex.y) * (vt1.vertex.x - vt3.vertex.x) + (vt3.vertex.x * vt3.vertex.x + vt3.vertex.y * vt3.vertex.y) * (vt2.vertex.x - vt1.vertex.x)) / d;
+        return new Vector2(ux, uy);
+    }
+
+    // 외접원 반지름 계산
+    public double CalculateCircumradius(Vector2 circumcenter, Vertex vt)
+    {
+        return Math.Sqrt((circumcenter.x - vt.vertex.x) * (circumcenter.x - vt.vertex.x) + (circumcenter.y - vt.vertex.y) * (circumcenter.y - vt.vertex.y));
+    }
+
+    // 주어진 점이 삼각형의 외접원 내에 있는지 검사
+    public bool IsPointInsideCircumcircle(Vertex vt1, Vertex vt2, Vertex vt3, Vector2 point)
+    {
+        Vector2 circumcenter = CalculateCircumcenter(vt1, vt2, vt3);
+        double circumradius = CalculateCircumradius(circumcenter, vt1);
+        double distance = Math.Sqrt((point.x - circumcenter.x) * (point.x - circumcenter.x) + (point.y - circumcenter.y) * (point.y - circumcenter.y));
+        return distance < circumradius;
+    }
+    #endregion
 
     //두 점 사이의 거리 측정
     public float Distance(Vertex left, Vertex right)
     {
         return (float)Mathf.Sqrt((left.vertex.x - right.vertex.x) * (left.vertex.x - right.vertex.x) + (left.vertex.y - right.vertex.y) * (left.vertex.y - right.vertex.y));
     }
+
     //셀의 무게중심을 구하는 함수
     public Vector2 Centroid(List<Vertex> triangleVertices)
     {

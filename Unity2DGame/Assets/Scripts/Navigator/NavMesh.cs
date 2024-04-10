@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,18 +14,26 @@ public class NavMesh : MonoBehaviour
     MarchingSquares marchingSquares = new MarchingSquares();
     DelaunayTriangulation delaunayTriangulation = new DelaunayTriangulation();
 
+    [SerializeField]
+    GameObject textUIPrefab;
+
     private void Start()
     {
         marchingSquares.Init();
 
-        delaunayTriangulation.GenerationNormalTriangulation(marchingSquares.VertexDatas, marchingSquares.ContourLines, marchingSquares.mapData, marchingSquares.distance);
+        //delaunayTriangulation.GenerationNormalTriangulationMK3(marchingSquares.VertexDatas, marchingSquares.ContourLines, marchingSquares.mapData, marchingSquares.distance);
+
+        //Dictionary<Vector2, List<Vertex>> triangulationData = delaunayTriangulation.GenerationNormalTriangulationMK4(marchingSquares.VertexDatas, marchingSquares.ContourLines, marchingSquares.mapData, marchingSquares.distance);
+
+        //Dictionary<Vector2, List<Vertex>> triangulationData = delaunayTriangulation.GenerationContourLines(marchingSquares.VertexDatas, marchingSquares.ContourLines, marchingSquares.mapData, marchingSquares.distance);
+        Dictionary<Vector2, List<Vertex>> triangulationData = delaunayTriangulation.GenerationContourLinesMK3(marchingSquares.VertexDatas, marchingSquares.ContourLines, marchingSquares.mapData, marchingSquares.distance);
 
         //Dictionary<Vector2, List<Vertex>> triangulationData = delaunayTriangulation.Triangulation(marchingSquares.VertexDatas, marchingSquares.ContourLines, marchingSquares.mapData, marchingSquares.distance);
-
+        /*
         Dictionary<Vector2, List<Vertex>> triangulationData = new Dictionary<Vector2, List<Vertex>>();
         triangulationData.Add(new Vector2(0, 0), new List<Vertex>() { new Vertex(new Vector2(8.5f, 2f)), new Vertex(new Vector2(6.5f, 2f)), new Vertex(new Vector2(9.5f, 1f)) });
         triangulationData.Add(new Vector2(1, 0), new List<Vertex>() { new Vertex(new Vector2(14f, 1.5f)), new Vertex(new Vector2(9.5f, 1f)), new Vertex(new Vector2(13.5f, 1f)) });
-
+        */
 
 
         /*
@@ -69,10 +78,11 @@ public class NavMesh : MonoBehaviour
          */
 
 
-        //ReadCellData(triangulationData);
+        ReadCellData(triangulationData);
 
 
-        StartCoroutine(marchingSquares.DrawContourLines());
+        //StartCoroutine(DrawMarchingSquares(marchingSquares.VertexDatas));
+        //StartCoroutine(marchingSquares.DrawContourLines());
         /*AddCell(new Vector2(0, 0), new Vector2(5, 0), new Vector2(0, 5));
         AddCell(new Vector2(0, 0), new Vector2(5, 0), new Vector2(0, -5));
         AddCell(new Vector2(0, 0), new Vector2(-5, 0), new Vector2(0, -5));*/
@@ -80,9 +90,49 @@ public class NavMesh : MonoBehaviour
         //삼각형 계산 함수 실행
         //Triangulation();
 
-        //StartCoroutine(DrawNavCells());
+        StartCoroutine(DrawNavCells());
     }
+    /*public void DrawTextUI(HashSet<Vertex> VertexDatas)
+    {
+        foreach (var cell in VertexDatas)
+        {
 
+        }
+
+        GameObject go = Instantiate(textUIPrefab);
+        TextMeshProUGUI tmp = go.GetComponent<TextMeshProUGUI>();
+        go.transform.position = 
+        tmp.text = ""
+    }*/
+    public IEnumerator DrawMarchingSquares(HashSet<Vertex> VertexDatas)
+    {
+        while (true)
+        {
+            //연결선
+            foreach (var data in VertexDatas)
+            {
+                foreach (var con in data.connectionVertex.Keys)
+                {
+                    Debug.DrawLine(data.vertex, con.vertex);
+                }
+            }
+            //수직선
+            foreach (var data in VertexDatas)
+            {
+                foreach (var con in data.connectionVertex)
+                {
+                    Debug.DrawLine(data.vertex, data.vertex + con.Value, Color.blue);
+                }
+            }
+            //정점
+            foreach (var data in VertexDatas)
+            {
+                Debug.DrawLine(data.vertex, data.vertex + Vector2.one * 0.1f, Color.red);
+            }
+            Debug.Log(VertexDatas.Count);
+            yield return null;
+        }
+    }
     /*//삼각화
     public void Triangulation()
     {

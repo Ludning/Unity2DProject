@@ -43,36 +43,23 @@ public class MarchingSquares
         //Pattern처리, Edge생성
         ProcessPattern();
         //Edge단순화
-        SimplifyGraph(tiltTolerance);
+        SimplifyGraph(10);
         //등고선 분리
         GenerationContourLine();
         //삼각화
-        Triangulation();
+        //Triangulation();
 
         //Debug.Log(EdgeData.Count);
         //StartCoroutine(DrawMS());
     }
 
     #region DebugDraw
-    public IEnumerator DrawMarchingSquares()
-    {
-        while (true)
-        {
-            foreach (var data in VertexDatas)
-            {
-                foreach (var con in data.connectionVertex.Keys)
-                {
-                    Debug.DrawLine(data.vertex, con.vertex);
-                    Debug.DrawLine(data.vertex, data.vertex + Vector2.one * 0.1f, Color.red);
-                }
-            }
-            yield return null;
-        }
-    }
+    
     public IEnumerator DrawContourLines()
     {
         while (true)
         {
+            int count = 0;
             foreach (var list in ContourLines)
             {
                 foreach (var vt in list)
@@ -82,8 +69,10 @@ public class MarchingSquares
                         Debug.DrawLine(vt.vertex, con.Key.vertex);
                     }
                     Debug.DrawLine(vt.vertex, vt.vertex + Vector2.one * 0.1f, Color.red);
+                    count++;
                 }
             }
+            //Debug.Log($"ContourLines : {count}");
             yield return null;
         }
     }
@@ -159,7 +148,7 @@ public class MarchingSquares
 
     #region 정점 단순화
     // 기울기가 유사한 연결을 단순화합니다.
-    public void SimplifyGraph(double slopeTolerance)
+    /*public void SimplifyGraph(double slopeTolerance)
     {
         //vertex 복사리스트
         bool searchEnd = false;
@@ -176,7 +165,7 @@ public class MarchingSquares
                 var slopes = new Dictionary<Vertex, double>();
                 foreach (var conVertex in vertex.connectionVertex)
                 {
-                    slopes[conVertex.Key] = conVertex.Value;
+                    slopes[conVertex.Key] = vertex.CalculateSlope(conVertex.Key);
                 }
                 // 기울기가 비슷한 점을 찾아 제거 리스트에 추가
                 foreach (var pair in slopes)
@@ -188,7 +177,7 @@ public class MarchingSquares
                         //만약 기울기가 기준치를 벗어나지 않았다면 처리
                         if (Math.Abs(pair.Value - innerPair.Value) <= slopeTolerance)
                         {
-                            pair.Key.Link(innerPair.Key);
+                            //pair.Key.Link(innerPair.Key);
                             vertex.UnlinkSelf();
                             vtList.Remove(vertex);
                             research = true;
@@ -208,7 +197,8 @@ public class MarchingSquares
         }
         // 연결이 없는 점 제거
         ClearGraph();
-        /*foreach (var removeVertex in toRemove)
+        */
+    /*foreach (var removeVertex in toRemove)
         {
             if (!VertexDatas.TryGetValue(removeVertex, out var vertexData))
                 continue;
@@ -219,26 +209,61 @@ public class MarchingSquares
             }
             VertexDatas.Remove(removeVertex);
         }*/
+    /*
+    }
+*/
+    public void SimplifyGraph(float angle)
+    {
+        //vertex 복사리스트
+        List<Vertex> vtList = VertexDatas.ToList();
+
+
+        int cursor = 0;
+        while (cursor < vtList.Count)
+        {
+            if (vtList[cursor].connectionVertex.Count != 2)
+            {
+                vtList.Remove(vtList[cursor]);
+                cursor = 0;
+                continue;
+            }
+            var conVt = vtList[cursor].connectionVertex.ToList();
+
+            double dotProduct = DotProduct(conVt[0].Value, conVt[1].Value);
+
+            // 내적이 slopeTolerance보다 작은지 확인
+            float cos20Degrees = Mathf.Cos(angle * (float)Math.PI / 180f);
+            if (dotProduct > cos20Degrees)
+            {
+                vtList[cursor].UnlinkSelf();
+                vtList.Remove(vtList[cursor]);
+                cursor--;
+            }
+            cursor++;
+        }
+
+
+        // 연결이 없는 점 제거
+        ClearGraph();
+    }
+    //내적 계산
+    public double DotProduct(Vector2 vec1, Vector2 vec2)
+    {
+        return vec1.x * vec2.x + vec1.y * vec2.y;
     }
     public void ClearGraph()
     {
-        bool searchEnd = false;
-        bool research = false;
-        while (searchEnd == false)
+        List<Vertex> delete = new List<Vertex>();
+        foreach (var vertex in VertexDatas)
         {
-            research = false;
-            foreach (var vertex in VertexDatas)
+            if (vertex.connectionVertex.Count == 0)
             {
-                if (vertex.connectionVertex.Count == 0)
-                {
-                    VertexDatas.Remove(vertex);
-                    research = true;
-                }
-                if (research == true)
-                    break;
-                if (VertexDatas.Last() == vertex)
-                    searchEnd = true;
+                delete.Add(vertex);
             }
+        }
+        foreach(var del in delete)
+        {
+            VertexDatas.Remove(del);
         }
     }
     #endregion
@@ -489,21 +514,21 @@ public class MarchingSquares
 public class Vertex
 {
     public Vector2 vertex;
-    public Dictionary<Vertex, double> connectionVertex;
+    public Dictionary<Vertex, Vector2> connectionVertex;
 
     public bool isClose = false;
 
     public Vertex(Vector2 vector)
     {
         this.vertex = vector;
-        connectionVertex = new Dictionary<Vertex, double>();
+        connectionVertex = new Dictionary<Vertex, Vector2>();
     }
     public void Link(Vertex other)
     {
         if (!connectionVertex.ContainsKey(other))
-            connectionVertex.Add(other, CalculateSlope(vertex, other.vertex));
+            connectionVertex.Add(other, CalculateVector(vertex, other.vertex));
         if (!other.connectionVertex.ContainsKey(this))
-            other.connectionVertex.Add(this, CalculateSlope(other.vertex, vertex));
+            other.connectionVertex.Add(this, CalculateVector(vertex, other.vertex));
     }
     public void Unlink(Vertex other)
     {
@@ -514,17 +539,37 @@ public class Vertex
     }
     public void UnlinkSelf()
     {
-        Vertex[] conVer = connectionVertex.Keys.ToArray();
-        foreach (Vertex vt in conVer)
-        {
-            this.Unlink(vt);
-        }
+        var conPair = connectionVertex.ToArray();
+        this.Unlink(conPair[0].Key);
+        this.Unlink(conPair[1].Key);
+        //conPair[0].Key.Link(this);
+        if (!conPair[0].Key.connectionVertex.ContainsKey(conPair[1].Key))
+            conPair[0].Key.connectionVertex.Add(conPair[1].Key, (conPair[0].Value + conPair[1].Value).normalized);
+        if (!conPair[1].Key.connectionVertex.ContainsKey(conPair[0].Key))
+            conPair[1].Key.connectionVertex.Add(conPair[0].Key, (conPair[0].Value + conPair[1].Value).normalized);
+
+        
     }
-    // 두 점 사이의 기울기를 계산합니다.
-    private double CalculateSlope(Vector2 a, Vector2 b)
+    // 연결된 두 점 사이의 기울기를 계산합니다.
+    public double CalculateSlope(Vertex vt)
     {
-        if (b.x == a.x) return double.MaxValue; // 수직선 처리
-        return (b.y - a.y) / (b.x - a.x);
+        if (!connectionVertex.ContainsKey(vt))
+            return double.MaxValue;
+        Vector2 vec = connectionVertex[vt];
+        if(vec.x == 0)
+            return 0;
+        return vec.y / vec.x;
+    }
+    //수직벡터를 계산
+    private Vector2 CalculateVector(Vector2 a, Vector2 b)
+    {
+        //a To b의 벡터 계산
+        Vector2 ab = new Vector2(b.x - a.x, b.y - a.y);
+        // AB에 수직이면서 위를 향하는 벡터 계산
+        Vector2 perpendicular = new Vector2(-ab.y, ab.x);
+        //Debug.Log(perpendicular);
+
+        return perpendicular.normalized;
     }
     /*public Vertex NextRandomVertex(Vertex prevVertex)
     {
