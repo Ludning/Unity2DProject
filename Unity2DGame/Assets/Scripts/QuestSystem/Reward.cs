@@ -1,18 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Reward : MonoBehaviour
+[Serializable]
+public class Reward
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    public RewardType rewardType;
+    [SerializeField]
+    public int rewardValue;
+    public void GetReward()
     {
-        
+        switch (rewardType)
+        {
+            case RewardType.Gold:
+                break;
+            case RewardType.Equipment:
+                break;
+            case RewardType.Exp:
+                break;
+            case RewardType.SkillPoint:
+                break;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public string GetString()
     {
-        
+        return $"{rewardType.ToString()} : {rewardValue}";
     }
 }

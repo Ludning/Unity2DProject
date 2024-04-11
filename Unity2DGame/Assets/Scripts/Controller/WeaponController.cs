@@ -35,8 +35,6 @@ public class WeaponController : MonoBehaviour
 
         SetPosition();
         SetRotation();
-
-        Debug.Log($"{Sprite.rotation}");
     }
 
     public void SetPosition()
