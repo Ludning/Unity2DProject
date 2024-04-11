@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    public Transform target;
+    //public Transform target;
+    public Player player;
     public float lerpSpeed = 1.0f;
 
     private Vector3 offset = new Vector3(0.38f, 0.32f, 0);
     private Quaternion leftQuaternion = new Quaternion(0, 0, -0.2f, 1.0f);
     private Quaternion rightQuaternion = new Quaternion(0, 0, 0.2f, 1.0f);
 
-    private Vector3 targetPos;
+    private Vector3 playerPos;
 
     private Direction targetDir;
 
@@ -23,7 +24,7 @@ public class WeaponController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (target == null) return;
+        if (player == null) return;
 
         //offset = transform.position - target.position;
     }
@@ -31,7 +32,7 @@ public class WeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (target == null) return;
+        if (player == null) return;
 
         SetPosition();
         SetRotation();
@@ -40,12 +41,12 @@ public class WeaponController : MonoBehaviour
     public void SetPosition()
     {
         Vector3 dis;
-        if (target.position.x > transform.position.x)
+        if (player.transform.position.x > transform.position.x)
         {
             dis = new Vector3(-offset.x, offset.y, offset.z);
             Debug.Log("blade is left");
         }
-        else if (target.position.x < transform.position.x)
+        else if (player.transform.position.x < transform.position.x)
         {
             dis = new Vector3(offset.x, offset.y, offset.z);
             Debug.Log("blade is right");
@@ -54,18 +55,18 @@ public class WeaponController : MonoBehaviour
         {
             dis = Vector3.zero;
         }
-        targetPos = target.position + dis;
-        transform.position = Vector3.Lerp(transform.position, targetPos, lerpSpeed * Time.deltaTime);
+        playerPos = player.transform.position + dis;
+        transform.position = Vector3.Lerp(transform.position, playerPos, lerpSpeed * Time.deltaTime);
     }
     public void SetRotation()
     {
         Quaternion flippedRotation;
-        if(target.position.x > transform.position.x)
+        if(player.transform.position.x > transform.position.x)
         {
             flippedRotation = leftQuaternion;
             Debug.Log("blade is left");
         }
-        else if(target.position.x < transform.position.x)
+        else if(player.transform.position.x < transform.position.x)
         {
             flippedRotation = rightQuaternion;
             Debug.Log("blade is right");

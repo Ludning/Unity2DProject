@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuestTestSceneInstaller : MonoBehaviour
+public class QuestTestSceneInstaller : SceneInstaller
 {
     // Start is called before the first frame update
     void Start()
