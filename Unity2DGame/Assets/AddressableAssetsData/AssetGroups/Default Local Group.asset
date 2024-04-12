@@ -26,27 +26,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: e29f54d9029176843b7fcbee8fa9c599
-    m_Address: HPBar_Fire
+    m_Address: UI_HPBar
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 56c02a5817b4f3043b00f1b1aa335d1b
-    m_Address: HPBar_Armor
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 7e77176cebb56a94e80d85e4e5ee07a5
-    m_Address: HPBar_Purple
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: b816afb8992976742b6a207c541aff73
-    m_Address: HPBar_Ice
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 5e6031c3e9ab92245828b1882c97122e
-    m_Address: HPBar_Poison
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 4d2023f626780924aa5188dae1470e2e
-    m_Address: HPBar_Stasis
+  - m_GUID: 2ab91018d1052b144aaadc16d6198771
+    m_Address: UI_MonsterStatusBar
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

@@ -8,6 +8,8 @@ public class GameManager : Manager<GameManager>
     private UserData userdata;
     private GameSettingData gameSettingData;
 
+    public Player player;
+
     public void GetPlayerData()
     {
         return;

@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     Animator animator;
     Rigidbody2D rigidbody;
+    Player player;
     Direction playerDir;
     bool IsRun;
 
@@ -26,9 +27,12 @@ public class PlayerController : MonoBehaviour
     Vector2 playerNormal = Vector2.zero;
     float playerMagnitude = 0f;
 
-    void Start()
+    Coroutine skillCoroutine = null;
+
+    void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        player = GetComponent<Player>();
         playerDir = Direction.IDLE;
     }
 
@@ -75,6 +79,18 @@ public class PlayerController : MonoBehaviour
         playerNormal = playerInput.normalized;
         playerMagnitude = Mathf.Sqrt(playerInput.x * playerInput.x + playerInput.y * playerInput.y);
         SetDirection();
+    }
+    public void OnAttackInput(InputValue context)
+    {
+        //player.attackData
+    }
+    public void OnSkillInput(InputValue context)
+    {
+        //player.skillData
+    }
+    public void OnSpecialInput(InputValue context)
+    {
+        //player.specialData
     }
 
     public enum Direction

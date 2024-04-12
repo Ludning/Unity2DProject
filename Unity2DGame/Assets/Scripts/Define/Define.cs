@@ -1,5 +1,7 @@
 
 
+using System;
+
 public enum UIType
 {
     HPBar,
@@ -83,5 +85,44 @@ public enum DebuffType
     Weak,
     //부식
     Corrosion,
+}
+#endregion
+
+#region 스킬타입
+public enum SkillEquipmentType
+{
+    Attack,
+    Skill,
+    Special,
+}
+public enum SkillRangeType
+{
+    Circle,
+    SemiCircle,
+    Box,
+}
+[Flags]
+public enum SkillType
+{
+    BuffType = 1 << 0,
+    DamageType = 1 << 1,
+    DebuffType = 1 << 2,
+}
+[Flags]
+public enum SkillMovementType
+{
+    RushType = 1 << 0,
+    FollowType = 1 << 1,
+    IdleType = 1 << 2,
+    SwapPositionType = 1 << 3,
+    TeleportationType = 1 << 4,
+}
+public enum SkillDirectionType
+{
+    Idle,
+    Front,
+    Back,
+    Left,
+    Right,
 }
 #endregion

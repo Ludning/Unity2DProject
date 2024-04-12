@@ -10,45 +10,40 @@ public class Unit : MonoBehaviour
 {
     //버프, 디버프는 상태패턴으로 갱신
 
-    GameObject hpBar;
-    GameObject hpBarPrefab;
-    Slider hpBarSlider;
+    protected GameObject statusBarBar;
+    protected GameObject statusBarPrefab;
+    protected UIStatusBar uiStatusBar;
 
     Status status = new Status();
 
-    public void Init()
+    public virtual void Init(string statusBarName)
     {
-        Debug.Log("OnEnable!");
         #region HPBar 생성
         string name = gameObject.name;
-        if(hpBarPrefab == null)
+        if(statusBarPrefab == null)
         {
-            hpBarPrefab = Addressables.LoadAssetAsync<GameObject>("HPBar_Fire").WaitForCompletion();
+            statusBarPrefab = Addressables.LoadAssetAsync<GameObject>(statusBarName).WaitForCompletion();
         }
-        hpBar = ObjectPool.Instance.GetGameObject(hpBarPrefab);
-        hpBar.GetComponent<UI_TrackTarget>().Target = gameObject;
-        hpBar.transform.parent = UIManager.Instance.Canvas.transform;
-        hpBar.transform.localScale = Vector3.one;
-        #endregion
-        #region hpBar 초기화
-        hpBarSlider = hpBar.GetComponent<Slider>();
-        HPBarRefresh();
+        statusBarBar = ObjectPool.Instance.GetGameObject(statusBarPrefab);
+        statusBarBar.GetComponent<UI_TrackTarget>().Target = gameObject;
+        uiStatusBar = statusBarBar.GetComponent<UIStatusBar>();
+        statusBarBar.transform.parent = UIManager.Instance.Canvas.transform;
+        statusBarBar.transform.localScale = Vector3.one;
         #endregion
     }
     public void OnDie()
     {
-        ObjectPool.Instance.ReturnToPool(hpBar);
-        hpBar = null;
-        hpBarSlider = null;
+        ObjectPool.Instance.ReturnToPool(statusBarBar);
+        statusBarBar = null;
+        uiStatusBar = null;
     }
-
     public void HPChange(int value)
     {
         if (status.hp <= value)
             status.hp = 0;
         else
             status.hp -= value;
-        HPBarRefresh();
+        uiStatusBar.HPBarRefresh(HpRatio);
     }
     public float HpRatio
     {
@@ -57,8 +52,5 @@ public class Unit : MonoBehaviour
             return (status.maxHp != 0) ? status.hp / (float)status.maxHp : 0f;
         }
     }
-    public void HPBarRefresh()
-    {
-        hpBarSlider.value = HpRatio;
-    }
+    
 }

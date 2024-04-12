@@ -1,5 +1,8 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -21,18 +24,13 @@ public class MapTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        #region TEST
-        //GameObject go = Instantiate(prefab);
-        //go.GetComponentInChildren<SpriteRenderer>().color;
-        #endregion
-
         BSP = new BinarySpacePartition(new Vector2Int(100, 100));
 
-        List<BSPNode> bspNode = BSP.GetLastNode();
+        List<BSPNode> bspNodes = BSP.GetLastNode();
 
-        foreach (BSPNode node in bspNode)
+        #region 鸥老积己
+        foreach (BSPNode node in bspNodes)
         {
-            #region 鸥老积己
             int rand = Random.Range(0, 3);
             RectInt mapdata = node.mapRect;
             TileBase tileBase;
@@ -48,32 +46,79 @@ public class MapTest : MonoBehaviour
                     tileBase = tileBase3;
                     break;
             }
-            for (int y = mapdata.position.y; y < mapdata.height + mapdata.position.y; y++)
+            for (int y = mapdata.position.y + 1; y < mapdata.height + mapdata.position.y - 1; y++)
             {
-                for (int x = mapdata.position.x; x < mapdata.width + mapdata.position.x; x++)
+                for (int x = mapdata.position.x + 1; x < mapdata.width + mapdata.position.x - 1; x++)
                 {
                     tilemap.SetTile(new Vector3Int(x, y, 0), tileBase);
                 }
             }
-            #endregion
+        }
+        #endregion
 
-            /*Color color = RandColor();
-            RectInt mapdata = node.mapRect;
+        GenerationRoute(bspNodes);
 
-            GameObject go = Instantiate(prefab, new Vector3(mapdata.position.x, mapdata.position.y, 0), new Quaternion());
-            go.GetComponentInChildren<SpriteRenderer>().color = color;
-            go.transform.localScale = new Vector3(mapdata.width, mapdata.height, 1);
+    }
 
-            for (int y = mapdata.position.y; y < mapdata.height + mapdata.position.y; y++)
-            {
-                for (int x = mapdata.position.x; x < mapdata.width + mapdata.position.x; x++)
-                {
-                    //tilemap.SetTile(new Vector3Int(x, y, 0), tileBase);
-                    
-                }
-            }*/
+    public void GenerationRoute(List<BSPNode> bspNodes)
+    {
+        var data = BSP.map.GetNearNodes();
+        foreach(List<BSPNode> node in data)
+        {
+            //LinkRoute(node[0], node[1]);
+            DrawLine(new Vector2Int((int)node[0].mapRect.center.x, (int)node[0].mapRect.center.y), new Vector2Int((int)node[1].mapRect.center.x, (int)node[1].mapRect.center.y));
         }
     }
+    void DrawLine(Vector2Int start, Vector2Int end)
+    {
+        int x1 = start.x;
+        int y1 = start.y;
+        int x2 = end.x;
+        int y2 = end.y;
+
+        if (x1 == x2) // Vertical line
+        {
+            int minY = Mathf.Min(y1, y2);
+            int maxY = Mathf.Max(y1, y2);
+            for (int y = minY; y <= maxY; y++)
+            {
+                tilemap.SetTile(new Vector3Int(x1, y, 0), tileBase1);
+            }
+        }
+        else if (y1 == y2) // Horizontal line
+        {
+            int minX = Mathf.Min(x1, x2);
+            int maxX = Mathf.Max(x1, x2);
+            for (int x = minX; x <= maxX; x++)
+            {
+                tilemap.SetTile(new Vector3Int(x, y1, 0), tileBase1);
+            }
+        }
+        else // Right angle
+        {
+            int minX = Mathf.Min(x1, x2);
+            int maxX = Mathf.Max(x1, x2);
+            int minY = Mathf.Min(y1, y2);
+            int maxY = Mathf.Max(y1, y2);
+            for (int x = minX; x <= maxX; x++)
+            {
+                tilemap.SetTile(new Vector3Int(x, y1, 0), tileBase1);
+            }
+            for (int y = minY; y <= maxY; y++)
+            {
+                tilemap.SetTile(new Vector3Int(x2, y, 0), tileBase1);
+            }
+        }
+    }
+    public void LinkRoute(BSPNode bspNode1, BSPNode bspNode2)
+    {
+        /*var position1 = bspNode1.RandomPosition();
+        var position2 = bspNode2.RandomPosition();*/
+        var position1 = bspNode1.mapRect.center;
+        var position2 = bspNode2.mapRect.center;
+        Debug.DrawLine(new Vector3(position1.x, position1.y, 0), new Vector3(position2.x, position2.y, 0), Color.red, float.MaxValue);
+    }
+
     /*public Color RandColor()
     {
         // 罚待茄 RGB 蔼 积己

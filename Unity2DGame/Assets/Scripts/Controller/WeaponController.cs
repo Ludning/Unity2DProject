@@ -6,7 +6,20 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     //public Transform target;
-    public Player player;
+    private Player player;
+    public Player Player
+    {
+        get
+        {
+            return player;
+        }
+        set
+        {
+            player = value;
+            player.weapon = this;
+            player.GetComponent<SkillSystem>().weaponController = this;
+        }
+    }
     public float lerpSpeed = 1.0f;
 
     private Vector3 offset = new Vector3(0.38f, 0.32f, 0);
@@ -36,6 +49,13 @@ public class WeaponController : MonoBehaviour
 
         SetPosition();
         SetRotation();
+    }
+
+    IEnumerator FollowPlayer()
+    {
+        SetPosition();
+        SetRotation();
+        yield return null;
     }
 
     public void SetPosition()
