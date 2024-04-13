@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class WeaponController : MonoBehaviour
+public class WeaponController : InteractiveObject
 {
     //public Transform target;
     private Player player;
@@ -16,8 +16,8 @@ public class WeaponController : MonoBehaviour
         set
         {
             player = value;
-            player.weapon = this;
-            player.GetComponent<SkillSystem>().weaponController = this;
+            player.SetWeaponController(this);
+            player.GetComponent<SkillSystem>().SetWeaponController(this);
         }
     }
     public float lerpSpeed = 1.0f;

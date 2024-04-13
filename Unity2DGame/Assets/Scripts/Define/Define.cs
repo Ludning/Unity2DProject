@@ -36,57 +36,39 @@ public enum RewardType
 #endregion
 
 #region 상태이상
-//상태이상의 종류
-public enum StatusEffectType
+//버프의 종류
+public enum SkillBuffType
 {
-    //지속 피해
-    ContinuousDamage,
-    //행동 제한
-    RestrictedBehavior,
-    //디버프
-    Debuff,
+    //공격력 증가
+    IncreaseAttack,
+    //이동속도 증가
+    IncreaseMoveSpeed,
+    //경직 면역
+    StiffImmunity,
+    //체력 회복
+    StaminaRecovery,
 }
-//지속 피해의 종류
-public enum ContinuousDamageType
+//디버프의 종류
+public enum SkillDebuffType
 {
-    //중독
-    Poisoning,
-    //출혈
-    Bleeding,
-    //화상
-    Burning,
-}
-//행동 제한의 종류
-public enum RestrictedBehaviorType
-{
-    //기절
-    Stun,
-    //속박
-    Restraint,
-    //수면
-    Sleep,
+    //없음
+    None,
+    //둔화
+    Slowdown,
+    //취약
+    Weak,
     //빙결
     Freezing,
     //감전
     Shock,
-}
-//디버프의 종류
-public enum DebuffType
-{
-    //광폭화
-    Berserk,
-    //둔화
-    Slowdown,
-    //약화
-    Weakening,
-    //무장 해제
-    Disarm,
-    //취약
-    Weak,
-    //부식
-    Corrosion,
+    //기절
+    Stun,
+    //출혈
+    Bleeding,
 }
 #endregion
+
+
 
 #region 스킬타입
 public enum SkillEquipmentType
@@ -101,21 +83,13 @@ public enum SkillRangeType
     SemiCircle,
     Box,
 }
-[Flags]
-public enum SkillType
-{
-    BuffType = 1 << 0,
-    DamageType = 1 << 1,
-    DebuffType = 1 << 2,
-}
-[Flags]
 public enum SkillMovementType
 {
-    RushType = 1 << 0,
-    FollowType = 1 << 1,
-    IdleType = 1 << 2,
-    SwapPositionType = 1 << 3,
-    TeleportationType = 1 << 4,
+    Idle,
+    Rush,
+    Follow,
+    SwapPosition,
+    Teleportation,
 }
 public enum SkillDirectionType
 {
@@ -124,5 +98,14 @@ public enum SkillDirectionType
     Back,
     Left,
     Right,
+}
+public enum SkillTargetMovementType
+{
+    //없음
+    None,
+    //당기다
+    Grab,
+    //밀치다
+    Thrust,
 }
 #endregion

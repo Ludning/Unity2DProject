@@ -33,6 +33,10 @@ MonoBehaviour:
     m_Address: UI_MonsterStatusBar
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 7e0ebf452f2fac141b8924cfd6eb663b
+    m_Address: UI_PlayerStatusBar
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1de0419587956f147b530cd7cd220994, type: 2}
   m_SchemaSet:
