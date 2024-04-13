@@ -20,7 +20,7 @@ public class SkillSystem : MonoBehaviour
     private readonly Dictionary<SkillDirectionType, ISkillDirectionTask> SkillDirectionTaskDic = new Dictionary<SkillDirectionType, ISkillDirectionTask>();
     private readonly Dictionary<SkillTargetMovementType, ISkillTargetMovementTask> SkillTargetMovementTaskDic = new Dictionary<SkillTargetMovementType, ISkillTargetMovementTask>();
 
-    LayerMask layerMask = 1 << 6 | 1 << 7 | 1 << 8;
+    LayerMask layerMask = 1 << 7 | 1 << 8 | 1 << 9;
 
 
     public SkillData currentSkillData;
