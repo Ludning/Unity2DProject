@@ -12,19 +12,217 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bffc7b1523873c745b1811fa8c33471b, type: 3}
   m_Name: NormalAttack
   m_EditorClassIdentifier: 
-  skillId: 0
-  skillName: 
-  skillDiscription: 
+  skillId: 1
+  skillName: "\uC77C\uBC18\uACF5\uACA9"
+  skillDiscription: "\uC77C\uBC18\uACF5\uACA9\uC744 \uD569\uB2C8"
   skillIcon: {fileID: 0}
   skillEquipmentType: 0
   skillOneShotDatas:
   - selfEffectData:
       value: 0
       skillBuffType: 0
-    value: 0
+    value: 100
     skillRangeData:
-      range: 0
+      range: 10
       angle: 10
+      skillRangeType: 0
+    targetEffectData:
+      value: 0
+      skillDebuffType: 0
+    playerMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    bladeMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    targetMovementData:
+      skillMovementValue: 0
+      skillTargetMovementType: 0
+  - selfEffectData:
+      value: 0
+      skillBuffType: 0
+    value: 100
+    skillRangeData:
+      range: 10
+      angle: 10
+      skillRangeType: 0
+    targetEffectData:
+      value: 0
+      skillDebuffType: 0
+    playerMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    bladeMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    targetMovementData:
+      skillMovementValue: 0
+      skillTargetMovementType: 0
+  - selfEffectData:
+      value: 0
+      skillBuffType: 0
+    value: 100
+    skillRangeData:
+      range: 10
+      angle: 10
+      skillRangeType: 0
+    targetEffectData:
+      value: 0
+      skillDebuffType: 0
+    playerMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    bladeMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    targetMovementData:
+      skillMovementValue: 0
+      skillTargetMovementType: 0
+  - selfEffectData:
+      value: 0
+      skillBuffType: 0
+    value: 100
+    skillRangeData:
+      range: 10
+      angle: 10
+      skillRangeType: 0
+    targetEffectData:
+      value: 0
+      skillDebuffType: 0
+    playerMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    bladeMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    targetMovementData:
+      skillMovementValue: 0
+      skillTargetMovementType: 0
+  - selfEffectData:
+      value: 0
+      skillBuffType: 0
+    value: 100
+    skillRangeData:
+      range: 10
+      angle: 10
+      skillRangeType: 0
+    targetEffectData:
+      value: 0
+      skillDebuffType: 0
+    playerMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    bladeMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    targetMovementData:
+      skillMovementValue: 0
+      skillTargetMovementType: 0
+  - selfEffectData:
+      value: 0
+      skillBuffType: 0
+    value: 100
+    skillRangeData:
+      range: 10
+      angle: 10
+      skillRangeType: 0
+    targetEffectData:
+      value: 0
+      skillDebuffType: 0
+    playerMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    bladeMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    targetMovementData:
+      skillMovementValue: 0
+      skillTargetMovementType: 0
+  - selfEffectData:
+      value: 0
+      skillBuffType: 0
+    value: 100
+    skillRangeData:
+      range: 10
+      angle: 10
+      skillRangeType: 0
+    targetEffectData:
+      value: 0
+      skillDebuffType: 0
+    playerMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    bladeMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    targetMovementData:
+      skillMovementValue: 0
+      skillTargetMovementType: 0
+  - selfEffectData:
+      value: 0
+      skillBuffType: 0
+    value: 100
+    skillRangeData:
+      range: 10
+      angle: 10
+      skillRangeType: 0
+    targetEffectData:
+      value: 0
+      skillDebuffType: 0
+    playerMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    bladeMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    targetMovementData:
+      skillMovementValue: 0
+      skillTargetMovementType: 0
+  - selfEffectData:
+      value: 0
+      skillBuffType: 0
+    value: 100
+    skillRangeData:
+      range: 10
+      angle: 10
+      skillRangeType: 0
+    targetEffectData:
+      value: 0
+      skillDebuffType: 0
+    playerMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    bladeMovementData:
+      skillMovementType: 0
+      skillMovementValue: 0
+      skillDirectionType: 0
+    targetMovementData:
+      skillMovementValue: 0
+      skillTargetMovementType: 0
+  - selfEffectData:
+      value: 0
+      skillBuffType: 0
+    value: 100
+    skillRangeData:
+      range: 10
+      angle: 1
       skillRangeType: 0
     targetEffectData:
       value: 0
@@ -42,4 +240,5 @@ MonoBehaviour:
       skillTargetMovementType: 0
   coolTime: 0
   manaCost: 0
-  animation: {fileID: 0}
+  skillPrefab: {fileID: 8386623960526949756, guid: c61679121c448f641bbb0ed3ccd4de9d,
+    type: 3}

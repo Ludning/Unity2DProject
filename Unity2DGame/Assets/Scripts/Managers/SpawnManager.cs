@@ -24,7 +24,9 @@ public class SpawnManager : Manager<SpawnManager>
         //플레이어 초기화
         Player playerComponent = player.GetComponent<Player>();
         playerComponent.Init(playerStatusBar);
-        blade.GetComponent<WeaponController>().Player = playerComponent;
+        WeaponController weaponController = blade.GetComponent<WeaponController>();
+        playerComponent.SetWeaponController(weaponController);
+        weaponController.Player = playerComponent;
         GameManager.Instance.player = playerComponent;
         return player;
     }

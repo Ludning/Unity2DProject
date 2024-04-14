@@ -42,7 +42,7 @@ public class ObjectPool : Manager<ObjectPool>
         go.SetActive(false);
         pool[go.name].Enqueue(go);
     }
-    private void CreatePool(GameObject go)
+    public void CreatePool(GameObject go)
     {
         if (pool.ContainsKey(go.name))
             return;

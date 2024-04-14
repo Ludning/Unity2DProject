@@ -20,6 +20,21 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     Rigidbody2D rigidbody;
     Player player;
+    SkillSystem skillSystem;
+    WeaponController weaponController;
+    public WeaponController WeaponController
+    {
+        get
+        {
+            if (weaponController == null)
+                weaponController = player.GetWeaponController();
+            return weaponController;
+        }
+        set
+        {
+            weaponController = value;
+        }
+    }
     Direction playerDir;
     bool IsRun;
 
@@ -33,6 +48,7 @@ public class PlayerController : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody2D>();
         player = GetComponent<Player>();
+        skillSystem = GetComponent<SkillSystem>();
         playerDir = Direction.IDLE;
     }
 
@@ -78,11 +94,12 @@ public class PlayerController : MonoBehaviour
 
         playerNormal = playerInput.normalized;
         playerMagnitude = Mathf.Sqrt(playerInput.x * playerInput.x + playerInput.y * playerInput.y);
+        player.LookDirection = new Vector2(playerInput.x, playerInput.y);
         SetDirection();
     }
     public void OnAttackInput(InputValue context)
     {
-        //player.attackData
+        skillSystem.StartSkillInvoke(player.testSkill);
     }
     public void OnSkillInput(InputValue context)
     {

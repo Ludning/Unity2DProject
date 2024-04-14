@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class GameSceneInstaller : SceneInstaller
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    GameObject playerPrefab;
+    [SerializeField]
+    GameObject bladePrefab;
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField]
+    GameObject monsterPrefab;
+    private void Awake()
     {
-        
+        SpawnManager.Instance.SpawnPlayer(playerPrefab, bladePrefab);
+        SpawnManager.Instance.SpawnMonster(monsterPrefab);
     }
 }

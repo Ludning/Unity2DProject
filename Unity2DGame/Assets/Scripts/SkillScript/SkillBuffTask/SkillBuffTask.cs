@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+public class NoneBuffTask : ISkillBuffTask
+{
+    public void Activate(Unit unit)
+    {
+
+    }
+}
 public class IncreaseAttackTask : ISkillBuffTask
 {
     public void Activate(Unit unit)

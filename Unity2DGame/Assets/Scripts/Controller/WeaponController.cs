@@ -16,10 +16,11 @@ public class WeaponController : InteractiveObject
         set
         {
             player = value;
-            player.SetWeaponController(this);
-            player.GetComponent<SkillSystem>().SetWeaponController(this);
+            skillSystem = player.GetComponent<SkillSystem>();
+            skillSystem.SetWeaponController(this);
         }
     }
+    
     public float lerpSpeed = 1.0f;
 
     private Vector3 offset = new Vector3(0.38f, 0.32f, 0);
@@ -32,6 +33,8 @@ public class WeaponController : InteractiveObject
 
     [SerializeField]
     private Transform Sprite;
+
+    SkillSystem skillSystem;
 
 
     // Start is called before the first frame update
@@ -104,4 +107,17 @@ public class WeaponController : InteractiveObject
         Left, 
         Right,
     }
+
+    /*public void SkillPlay(SkillData skillData)
+    {
+        //animator.
+        //animator.Play(clip.name);
+        //ObjectPool에서 skillObjectPrefab로 불러온다
+        //skillObjectPrefab으로 객체InstanceID SkillHandler로 묶여진 딕셔너리에서 가져온다
+        GameObject skill = ObjectPool.Instance.GetGameObject(skillData.skillPrefab);
+        skill.transform.SetParent(transform);
+        skill.transform.position = Vector3.zero;
+        SkillHandler handler = GameManager.Instance.GetSkillHandler(skill);
+        handler.Init(skillSystem.InvokeNextTask, skillData.name);
+    }*/
 }

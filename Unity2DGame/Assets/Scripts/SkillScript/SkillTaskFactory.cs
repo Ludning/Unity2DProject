@@ -21,6 +21,8 @@ public class SkillTaskFactory
     {
         switch (type)
         {
+            case SkillBuffType.None:
+                return new NoneBuffTask();
             case SkillBuffType.IncreaseAttack:
                 return new IncreaseAttackTask();
             case SkillBuffType.IncreaseMoveSpeed:
@@ -36,6 +38,8 @@ public class SkillTaskFactory
     {
         switch (type)
         {
+            case SkillDebuffType.None:
+                return new NoneDebuffTask();
             case SkillDebuffType.Slowdown:
                 return new SlowdownTask();
             case SkillDebuffType.Weak:

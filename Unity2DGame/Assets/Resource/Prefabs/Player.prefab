@@ -51,10 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7d2a90034a51d14380fd18bd51007ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackData: []
-  skillData: []
-  specialData: []
-  weapon: {fileID: 0}
+  attackIndex: 0
+  skillIndex: 0
+  skillSystem: {fileID: 0}
+  testSkill: {fileID: 11400000, guid: 7b73a15cceac58143b2b4c61ec59466d, type: 2}
 --- !u!114 &1176411103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0abd132296a1ac647bed6b05a67bd9ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSkillData: {fileID: 0}
 --- !u!50 &1176411102
 Rigidbody2D:
   serializedVersion: 4

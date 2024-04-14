@@ -31,8 +31,8 @@ public class SkillData : ScriptableObject
     [Header("스킬 소모값")]
     public int manaCost;
     [Space]
-    [Header("스킬 애니메이션")]
-    public Animation animation;
+    [Header("스킬 프리팹")]
+    public GameObject skillPrefab;
     
 }
 
@@ -69,7 +69,7 @@ public struct SkillRangeData
     public float range;
 
     [Header("스킬 각도")]
-    [Range(1,360)]
+    [Range(1,179)]
     public float angle;
 
     [Header("스킬 범위 종류")]

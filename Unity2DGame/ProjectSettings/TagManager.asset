@@ -50,3 +50,15 @@ TagManager:
   - name: Layer 3
     uniqueID: 4189426099
     locked: 0
+  - name: Ground
+    uniqueID: 507244351
+    locked: 0
+  - name: Prop
+    uniqueID: 3696363913
+    locked: 0
+  - name: Monster
+    uniqueID: 4251554349
+    locked: 0
+  - name: Player
+    uniqueID: 1576902123
+    locked: 0

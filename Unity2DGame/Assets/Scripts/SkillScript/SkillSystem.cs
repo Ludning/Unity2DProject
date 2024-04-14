@@ -11,8 +11,6 @@ public class SkillSystem : MonoBehaviour
     PlayerController playerController;
     private WeaponController weaponController;
 
-    Animation animation = null;
-
     private readonly Dictionary<SkillRangeType, ISkillRangeTask> SkillRangeTaskDic = new Dictionary<SkillRangeType, ISkillRangeTask>();
     private readonly Dictionary<SkillBuffType, ISkillBuffTask> SkillBuffTaskDic = new Dictionary<SkillBuffType, ISkillBuffTask>();
     private readonly Dictionary<SkillDebuffType, ISkillDebuffTask> SkillDebuffTaskDic = new Dictionary<SkillDebuffType, ISkillDebuffTask>();
@@ -97,16 +95,24 @@ public class SkillSystem : MonoBehaviour
         skillData.skillOneShotDatas.ForEach(data => GetSkillMovementTask(data.playerMovementData.skillMovementType));//skillMovementType 따라  객체 생성
         skillData.skillOneShotDatas.ForEach(data => GetSkillMovementTask(data.bladeMovementData.skillMovementType));//skillMovementType 따라  객체 생성
         skillData.skillOneShotDatas.ForEach(data => GetSkillDirectionTask(data.playerMovementData.skillDirectionType));//skillDirectionType 따라  객체 생성
-        skillData.skillOneShotDatas.ForEach(data => GetSkillDirectionTask(data.bladeMovementData.skillDirectionType));//skillDirectionType 따라  객체 생
+        skillData.skillOneShotDatas.ForEach(data => GetSkillDirectionTask(data.bladeMovementData.skillDirectionType));//skillDirectionType 따라  객체 생성
         skillData.skillOneShotDatas.ForEach(data => GetSkillTargetMovementTask(data.targetMovementData.skillTargetMovementType));//skillTargetMovementType 따라  객체 생성
+
+        //skillTargetMovementType 따라 객체 생성후 오브젝트 풀에 저장
+        ObjectPool.Instance.CreatePool(skillData.skillPrefab);
     }
-    public void StartSkillInvoke()
+    public void StartSkillInvoke(SkillData skillData)
     {
-        animation?.Stop();
         currentIndex = 0;
 
-        //애니메이션 생성, 출력
-        //skillData.animation;
+        currentSkillData = skillData;
+
+        //스킬 생성, 출력
+        GameObject skill = ObjectPool.Instance.GetGameObject(skillData.skillPrefab);
+        skill.transform.SetParent(weaponController.transform);
+        skill.transform.localPosition = Vector3.zero;
+        SkillHandler handler = GameManager.Instance.GetSkillHandler(skill);
+        handler.Init(InvokeNextTask, skillData.name);
     }
     public void InvokeNextTask()
     {
@@ -121,8 +127,7 @@ public class SkillSystem : MonoBehaviour
 
             //범위 종류, 모든 조건에 충족하는 게임오브젝트? 를 반환
             Unit[] unitInRange = GetSkillRangeTask(data.skillRangeData.skillRangeType).Activate(player.GetWeaponController(), data.skillRangeData, layerMask);
-            //타겟에 데미지를 줌
-            unitInRange.ToList().ForEach(x => x.OnDamaged(data.value));
+            
             //스킬 디버프 타입, 매개변수로 범위에서 받아온 객체들과 디버프 타입과 디버프 지속시간 수치를 입력
             GetSkillDebuffTask(data.targetEffectData.skillDebuffType).Activate(unitInRange, data.targetEffectData);
             //타겟 당기기 또는 밀치기
@@ -138,6 +143,8 @@ public class SkillSystem : MonoBehaviour
             //블레이드 움직임 타입, 매개변수로 받아온 벡터와 움직일 객체를 넣고 Activate내부에 Rigidbody로 이동하수 호출
             GetSkillMovementTask(data.bladeMovementData.skillMovementType).Activate(player.GetWeaponObject());
 
+            //타겟에 데미지를 줌
+            unitInRange.ToList().ForEach(x => x.OnDamaged(data.value));
             currentIndex++;
         }
     }

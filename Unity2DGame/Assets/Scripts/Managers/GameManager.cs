@@ -13,6 +13,8 @@ public class GameManager : Manager<GameManager>
 
     private Dictionary<int, Monster> monsterDic = new Dictionary<int, Monster>();
 
+    private Dictionary<int, SkillHandler> skillHandlerDic = new Dictionary<int, SkillHandler>();
+
     public void AddMonster(Monster monster)
     {
         int instanceID = monster.InteractiveCollider.GetInstanceID();
@@ -23,6 +25,20 @@ public class GameManager : Manager<GameManager>
         int instanceID = monster.InteractiveCollider.GetInstanceID();
         monsterDic.Remove(instanceID);
     }
+
+    public SkillHandler GetSkillHandler(GameObject skillObject)
+    {
+        int instanceID = skillObject.GetInstanceID();
+        if (!monsterDic.ContainsKey(instanceID))
+            AddSkillHandler(skillObject);
+        return skillHandlerDic[instanceID];
+    }
+    public void AddSkillHandler(GameObject skillObject)
+    {
+        int instanceID = skillObject.GetInstanceID();
+        skillHandlerDic.Add(instanceID, skillObject.GetComponent<SkillHandler>());
+    }
+
     public Monster[] GetMonsterByInstanceID(int[] InstanceID)
     {
         return InstanceID.Where(k => monsterDic.ContainsKey(k))

@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public class NoneDebuffTask : ISkillDebuffTask
+{
+    public void Activate(Unit[] unit, TargetEffectData targetEffectData)
+    {
+
+    }
+}
 public class SlowdownTask : ISkillDebuffTask
 {
     public void Activate(Unit[] unit, TargetEffectData targetEffectData)

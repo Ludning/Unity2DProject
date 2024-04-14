@@ -43,13 +43,14 @@ public class Unit : InteractiveObject
     public void OnDamaged(int value)
     {
         if (status.hp <= value)
-        {
             status.hp = 0;
-            OnDie();
-        }
         else
             status.hp -= value;
+
         uiStatusBar.HPBarRefresh(HpRatio);
+
+        if (status.hp <= 0)
+            OnDie();
     }
     public float HpRatio
     {

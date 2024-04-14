@@ -15,6 +15,9 @@ public class Player : Unit
 
     [SerializeField]
     private SkillSystem skillSystem;
+
+    [SerializeField]
+    public SkillData testSkill;
     
     public SkillData[] AttackData
     {
@@ -57,6 +60,10 @@ public class Player : Unit
         #region uiStatusBar 초기화
         uiStatusBar.Init(gameObject.name, HpRatio);
         #endregion
+
+        //스킬 초기화 테스트
+        skillSystem = GetComponent<SkillSystem>();
+        skillSystem.SkillInit(testSkill);
     }
 
     public WeaponController GetWeaponController()
@@ -74,6 +81,27 @@ public class Player : Unit
     }
     //스킬 장착
     public void SkillEquip(SkillData data, SkillEquipmentType type, int index = 0)
+    {
+        /*
+        스킬은 AttackData3개, AttackData3개, SpecialData1개로 구성됨
+        만약 Special이 아니면서 배열에서 벗어나면 리턴
+        */
+        if (type != SkillEquipmentType.Special && (index < 0 || index > 2))
+            return;
+        switch (type)
+        {
+            case SkillEquipmentType.Attack:
+                AttackData[index] = data;
+                break;
+            case SkillEquipmentType.Skill:
+                SkillData[index] = data;
+                break;
+            case SkillEquipmentType.Special:
+                SpecialData = data;
+                break;
+        }
+    }
+    public void SkillUnequip(SkillData data, SkillEquipmentType type, int index = 0)
     {
         /*
         스킬은 AttackData3개, AttackData3개, SpecialData1개로 구성됨

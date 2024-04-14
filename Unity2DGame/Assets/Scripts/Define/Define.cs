@@ -39,6 +39,8 @@ public enum RewardType
 //버프의 종류
 public enum SkillBuffType
 {
+    //없음
+    None,
     //공격력 증가
     IncreaseAttack,
     //이동속도 증가
