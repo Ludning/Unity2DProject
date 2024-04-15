@@ -152,6 +152,90 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Inventory",
+            "id": "23915a67-ae4d-4354-ab13-a26a065dd044",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "4f2e1f00-e5c2-4ead-87ef-65657f2d2b36",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "956d3fc4-f71b-4f38-83bf-adc7fb23643f",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "SkillTree",
+            "id": "9484e3e2-0f72-41fd-b1da-9b4ef1c318a6",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "68016fd4-d23c-4e4b-a66a-7eea2c301636",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "dca62d41-0f0c-41e0-8834-0009f235d199",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "GameScene",
+            "id": "5d4fdce3-0080-4da9-b81f-d225958dc8ab",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "bc6bb265-963a-4b74-97bd-bb12b14251db",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a65c7c3d-c8e8-41ef-8cd9-b89173a52755",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

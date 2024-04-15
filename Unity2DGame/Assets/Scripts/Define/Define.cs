@@ -12,6 +12,20 @@ public enum ObjectType
     Monster,
 }
 
+public enum CanvasType
+{
+    //인벤토리
+    InventoryBack,
+    InventoryFront,
+    //스킬트리
+    SkillTreeBack,
+    SkillTreeFront,
+    //게임 버튼 UI
+    GameSceneUI,
+    //게임 정보 UI
+    GameInformation,
+}
+
 #region 몬스터
 public enum MonsterType
 {
@@ -34,6 +48,7 @@ public enum RewardType
     SkillPoint,
 }
 #endregion
+
 
 #region 상태이상
 //버프의 종류

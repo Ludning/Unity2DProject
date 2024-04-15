@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51490168a75f3494b96333e33c8e79c2, type: 3}
+  m_Name: LevelUpData
+  m_EditorClassIdentifier: 
+  levelDatas:
+  - level: 1
+    Exp: 100
+  - level: 2
+    Exp: 110
+  - level: 3
+    Exp: 140
+  - level: 4
+    Exp: 180
+  - level: 5
+    Exp: 250
+  - level: 6
+    Exp: 400
+  - level: 7
+    Exp: 600
+  - level: 8
+    Exp: 900
+  - level: 9
+    Exp: 1500
+  - level: 10
+    Exp: 2300
+  - level: 11
+    Exp: 3300
+  - level: 12
+    Exp: 4800
+  - level: 13
+    Exp: 6800
+  - level: 14
+    Exp: 9800
+  - level: 15
+    Exp: 13800
+  - level: 16
+    Exp: 19800
+  - level: 17
+    Exp: 29800
+  - level: 18
+    Exp: 44800
+  - level: 19
+    Exp: 69800
+  - level: 20
+    Exp: 100000

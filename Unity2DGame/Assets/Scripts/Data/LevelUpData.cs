@@ -1,18 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelUpData : MonoBehaviour
+[CreateAssetMenu(fileName = "LevelUpData", menuName = "Data/LevelUpData", order = 0)]
+public class LevelUpData : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public List<LevelData> levelDatas;
+}
+[Serializable]
+public class LevelData
+{
+    public int level = 0;
+    public int Exp = 0;
 }

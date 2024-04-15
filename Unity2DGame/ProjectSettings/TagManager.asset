@@ -62,3 +62,9 @@ TagManager:
   - name: Player
     uniqueID: 1576902123
     locked: 0
+  - name: UIBackGround
+    uniqueID: 3243922175
+    locked: 0
+  - name: UIFront
+    uniqueID: 1030773805
+    locked: 0

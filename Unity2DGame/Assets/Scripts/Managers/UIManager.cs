@@ -1,35 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 
 public class UIManager : Manager<UIManager>
 {
+    private Dictionary<CanvasType, CanvasData> canvasDic = new Dictionary<CanvasType, CanvasData>();
 
-    Canvas canvas;
-    public Canvas Canvas
+    public CanvasData GetCanvasData(CanvasType canvasType)
     {
-        get
-        {
-            if (canvas == null)
-            {
-                GameObject go = GameObject.Find("Canvas");
-                if (go == null)
-                {
-                    go = new GameObject() { name = "Canvas" };
-                }
-                if(!go.TryGetComponent(out canvas))
-                {
-                    canvas = go.AddComponent<Canvas>();
-                }
+        if (!canvasDic.ContainsKey(canvasType))
+            InstantiateCanvas(canvasType);
+        canvasDic[canvasType].gameObject.SetActive(true);
+        return canvasDic[canvasType];
+    }
 
-                if (canvas.renderMode != RenderMode.ScreenSpaceCamera)
-                    canvas.renderMode = RenderMode.ScreenSpaceCamera;
-                if (canvas.worldCamera == null)
-                    canvas.worldCamera = Camera.main;
-            }
-            return canvas;
-        }
+    public void HideCanvas(CanvasType canvasType)
+    {
+        if (!canvasDic.ContainsKey(canvasType))
+            InstantiateCanvas(canvasType);
+        canvasDic[canvasType].gameObject.SetActive(false);
+    }
+
+    public void InstantiateCanvas(CanvasType canvasType)
+    {
+        GameObject prefab = Addressables.LoadAssetAsync<GameObject>(canvasType.ToString()).WaitForCompletion();
+        GameObject go = Instantiate(prefab);
+        canvasDic.Add(canvasType, new CanvasData(go, go.GetComponent<Canvas>(), go.GetComponent<CanvasController>()));
+        HideCanvas(canvasType);
+    }
+
+    public void Clear()
+    {
+        canvasDic.Clear();
+    }
+}
+public class CanvasData
+{
+    public GameObject gameObject;
+    public Canvas canvas;
+    public CanvasController controller;
+    public CanvasData(GameObject gameObject, Canvas canvas, CanvasController controller)
+    {
+        this.gameObject = gameObject;
+        this.canvas = canvas;
+        this.controller = controller;
+        if (this.canvas.renderMode != RenderMode.ScreenSpaceCamera)
+            this.canvas.renderMode = RenderMode.ScreenSpaceCamera;
+        if (this.canvas.worldCamera == null)
+            this.canvas.worldCamera = Camera.main;
     }
 }
 
