@@ -158,9 +158,27 @@
             "id": "23915a67-ae4d-4354-ab13-a26a065dd044",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "InventoryItem",
                     "type": "Button",
                     "id": "4f2e1f00-e5c2-4ead-87ef-65657f2d2b36",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "EquipMentItem",
+                    "type": "Button",
+                    "id": "72f9b20d-4006-412c-a9c3-c7b63cb83103",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CloseUI",
+                    "type": "Button",
+                    "id": "cfccb06b-f260-49b9-91a3-7b1600022c02",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -171,11 +189,33 @@
                 {
                     "name": "",
                     "id": "956d3fc4-f71b-4f38-83bf-adc7fb23643f",
-                    "path": "",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "InventoryItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d6c4ece2-4b76-4ce8-b326-2990a4a7404c",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EquipMentItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5434eddf-c691-49e2-8488-dd56103c9a82",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -186,9 +226,18 @@
             "id": "9484e3e2-0f72-41fd-b1da-9b4ef1c318a6",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "SkillTree",
                     "type": "Button",
                     "id": "68016fd4-d23c-4e4b-a66a-7eea2c301636",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SkillEquipSlot",
+                    "type": "Button",
+                    "id": "fe3d9184-69d7-4fa4-9106-19b77ef25331",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -199,11 +248,22 @@
                 {
                     "name": "",
                     "id": "dca62d41-0f0c-41e0-8834-0009f235d199",
-                    "path": "",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "SkillTree",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "42ed22db-50ba-44d1-a013-3133eee6a004",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SkillEquipSlot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -214,9 +274,27 @@
             "id": "5d4fdce3-0080-4da9-b81f-d225958dc8ab",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Pause",
                     "type": "Button",
                     "id": "bc6bb265-963a-4b74-97bd-bb12b14251db",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "InventoryIcon",
+                    "type": "Button",
+                    "id": "846fa137-7ca0-4bab-a5a0-7d206d4dc438",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SkillTreeIcon",
+                    "type": "Button",
+                    "id": "8a84ac19-5969-4774-9641-453e8e08153b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -227,11 +305,33 @@
                 {
                     "name": "",
                     "id": "a65c7c3d-c8e8-41ef-8cd9-b89173a52755",
-                    "path": "",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a49aceeb-31e6-4d29-b788-9a64634d0e9e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InventoryIcon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "415292d3-23f8-49b6-ad5e-3f2a3a784f6f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SkillTreeIcon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

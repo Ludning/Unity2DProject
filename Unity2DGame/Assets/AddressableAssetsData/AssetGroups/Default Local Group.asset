@@ -65,6 +65,18 @@ MonoBehaviour:
     m_Address: LevelUpData
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 8a491b11364c20a448b9c22504c4d915
+    m_Address: ItemData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ab88e530aa4f9914193f3cdcbe0b9dc6
+    m_Address: GameData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5fd6cc998b9e9ca44957f89a4e8ba2ac
+    m_Address: EventSystem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1de0419587956f147b530cd7cd220994, type: 2}
   m_SchemaSet:

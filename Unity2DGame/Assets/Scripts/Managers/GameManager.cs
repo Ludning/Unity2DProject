@@ -1,19 +1,43 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class GameManager : Manager<GameManager>
 {
-    private GameData gamedata;
-    private UserData userdata;
-    private GameSettingData gameSettingData;
-
     public Player player;
+    private GameData gameData;
+    private UserData userData;
+
+    public GameData GameData
+    {
+        get { return gameData; }
+        set { gameData = value; }
+    }
+    public UserData UserData 
+    {
+        get { return userData; }
+        set { userData = value; }
+    }
+
 
     private Dictionary<int, Monster> monsterDic = new Dictionary<int, Monster>();
 
     private Dictionary<int, SkillHandler> skillHandlerDic = new Dictionary<int, SkillHandler>();
+
+    /*private void Awake()
+    {
+        gameData = DataManager.Instance.LoadObject<GameData>("GameData");
+        userData = DataManager.Instance.LoadJsonData<UserData>("UserData");
+        if (userData == null)
+        {
+            MakeFirstUserData();
+        }
+
+        TestUserData(userData, gameData);
+    }*/
 
     public void AddMonster(Monster monster)
     {
@@ -58,4 +82,28 @@ public class GameManager : Manager<GameManager>
     {
         return;
     }
+
+
+    /*#region 게임실행 초기화
+    //테스트용 유저 데이터 생성
+    static void TestUserData(UserData userData, GameData gameData)
+    {
+        userData.inventoryItem.Add(1);
+        userData.inventoryItem.Add(2);
+    }
+
+    // 첫 유저 데이터 생성
+    private static UserData MakeFirstUserData()
+    {
+        UserData userData = new UserData();
+
+        userData.playerStatus = new Status();
+        userData.gold = 100;
+
+        var json = JsonConvert.SerializeObject(userData);
+        DataManager.Instance.SaveJsonData(typeof(UserData).Name, json);
+
+        return userData;
+    }
+    #endregion*/
 }

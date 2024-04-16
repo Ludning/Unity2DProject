@@ -5,5 +5,15 @@ using UnityEngine;
 public class UI_Equipment : MonoBehaviour
 {
     [SerializeField]
-    List<ItemButton> itemButton;
+    List<UI_ItemButton> itemButton;
+
+    public List<UI_ItemButton> ItemButton
+    {
+        get { return itemButton; }
+    }
+
+    public void ItemSpriteChange(EquipmentItemEvent equipmentItem)
+    {
+        itemButton[equipmentItem.itemSlotIndex].ChangeItem(GameManager.Instance.UserData.equipmentItem[equipmentItem.itemSlotIndex]);
+    }
 }

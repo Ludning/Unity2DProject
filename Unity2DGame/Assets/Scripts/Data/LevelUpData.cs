@@ -11,6 +11,10 @@ public class LevelUpData : ScriptableObject
 [Serializable]
 public class LevelData
 {
-    public int level = 0;
-    public int Exp = 0;
+    public int level;
+    public int Exp;
+
+    public int maxHp;
+    public int attack;
+    public int defence;
 }

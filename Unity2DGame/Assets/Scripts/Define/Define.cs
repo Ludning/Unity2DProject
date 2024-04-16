@@ -49,7 +49,6 @@ public enum RewardType
 }
 #endregion
 
-
 #region 상태이상
 //버프의 종류
 public enum SkillBuffType
@@ -84,8 +83,6 @@ public enum SkillDebuffType
     Bleeding,
 }
 #endregion
-
-
 
 #region 스킬타입
 public enum SkillEquipmentType
@@ -124,5 +121,33 @@ public enum SkillTargetMovementType
     Grab,
     //밀치다
     Thrust,
+}
+#endregion
+
+#region 아이템
+public enum SlotType
+{
+    Equipment,
+    Inventory,
+}
+public enum EquipType
+{
+    First,
+    Second,
+    Third,
+}
+public enum IntrinsicProperties
+{
+    None,
+    VenomousSnake,
+    PermanentOrgan,
+}
+public enum ItemStatType
+{
+    None,
+    Hp,
+    Mp,
+    Attack,
+    Defence,
 }
 #endregion

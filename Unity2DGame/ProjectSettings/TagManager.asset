@@ -62,9 +62,15 @@ TagManager:
   - name: Player
     uniqueID: 1576902123
     locked: 0
-  - name: UIBackGround
+  - name: SceneUIBack
+    uniqueID: 608540319
+    locked: 0
+  - name: SceneUIFront
+    uniqueID: 2408096083
+    locked: 0
+  - name: PopupUIBack
     uniqueID: 3243922175
     locked: 0
-  - name: UIFront
+  - name: PopupUIFront
     uniqueID: 1030773805
     locked: 0

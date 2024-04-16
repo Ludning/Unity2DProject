@@ -7,6 +7,16 @@ public class EventBusManager : Manager<EventBusManager>
 {
     private Dictionary<Type, Delegate> delegateDictionary = new Dictionary<Type, Delegate>();
 
+    private Dictionary<Type, BaseEvent> eventInstanceDictionary = new Dictionary<Type, BaseEvent>();
+
+    public T GetEventInstance<T>() where T : BaseEvent, new()
+    {
+        if(!eventInstanceDictionary.ContainsKey(typeof(T)))
+        {
+            eventInstanceDictionary.Add(typeof(T), new T());
+        }
+        return (T)eventInstanceDictionary[typeof(T)];
+    }
     public void Publish<T>(T e)
     {
         if (delegateDictionary.TryGetValue(typeof(T), out var subscribers))
@@ -26,20 +36,24 @@ public class EventBusManager : Manager<EventBusManager>
             delegateDictionary[typeof(T)] = subscriber;
         }
     }
-    public void Unsubscribe<TEvent>(Action<TEvent> subscriber)
+    public void Unsubscribe<T>(Action<T> subscriber)
     {
-        if (delegateDictionary.ContainsKey(typeof(TEvent)))
+        if (delegateDictionary.ContainsKey(typeof(T)))
         {
-            var currentDelegate = delegateDictionary[typeof(TEvent)];
+            var currentDelegate = delegateDictionary[typeof(T)];
             var newDelegate = Delegate.Remove(currentDelegate, subscriber);
             if (newDelegate == null)
             {
-                delegateDictionary.Remove(typeof(TEvent));
+                delegateDictionary.Remove(typeof(T));
             }
             else
             {
-                delegateDictionary[typeof(TEvent)] = newDelegate;
+                delegateDictionary[typeof(T)] = newDelegate;
             }
         }
     }
+}
+public class BaseEvent
+{
+
 }

@@ -8,6 +8,17 @@ public class UIManager : Manager<UIManager>
 {
     private Dictionary<CanvasType, CanvasData> canvasDic = new Dictionary<CanvasType, CanvasData>();
 
+    public GameObject eventSystem = null;
+
+    public void Init()
+    {
+        if (eventSystem == null)
+        {
+            eventSystem = Instantiate(ResourceManager.Instance.GetPrefab("EventSystem"));
+            DontDestroyOnLoad(eventSystem);
+        }
+    }
+
     public CanvasData GetCanvasData(CanvasType canvasType)
     {
         if (!canvasDic.ContainsKey(canvasType))
