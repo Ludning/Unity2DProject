@@ -242,10 +242,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384068791683297}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 5
 --- !u!1 &6366384066846533962
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,9 +435,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384067649191263}
+  skillEquipmentType: 1
   skillIndex: 0
-  skillSlotType: 0
+  skillSlotType: 1
   SkillSlotIndex: 0
 --- !u!222 &6366384066849542251
 CanvasRenderer:
@@ -743,10 +745,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384067407339488}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 5
 --- !u!1 &6366384066903736809
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,10 +1154,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384068186984427}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 3
 --- !u!1 &6366384066935577969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,6 +1220,7 @@ MonoBehaviour:
   - {fileID: 9013490517854312475}
   - {fileID: 2900403671471608962}
   - {fileID: 6979084207971983900}
+  skillTreeType: 0
 --- !u!222 &6366384066935577972
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1459,10 +1464,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384068627090973}
+  skillEquipmentType: 0
   skillIndex: 0
-  skillSlotType: 0
-  SkillSlotIndex: 0
+  skillSlotType: 1
+  SkillSlotIndex: 2
 --- !u!222 &6366384067016284084
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1863,10 +1869,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384067609849459}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 3
 --- !u!1 &6366384067102736328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1957,10 +1964,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384067574533067}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 3
 --- !u!1 &6366384067109109357
 GameObject:
   m_ObjectHideFlags: 0
@@ -2309,6 +2317,7 @@ MonoBehaviour:
   - {fileID: 8215403577182366953}
   - {fileID: 8881476638115151414}
   - {fileID: 6557136618733982801}
+  skillTreeType: 0
 --- !u!222 &6366384067147446102
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2564,10 +2573,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384067819301133}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 4
 --- !u!1 &6366384067191859518
 GameObject:
   m_ObjectHideFlags: 0
@@ -2734,10 +2744,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384067253660116}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 4
 --- !u!1 &6366384067253660118
 GameObject:
   m_ObjectHideFlags: 0
@@ -2867,10 +2878,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384068193468224}
+  skillEquipmentType: 1
   skillIndex: 0
-  skillSlotType: 0
-  SkillSlotIndex: 0
+  skillSlotType: 1
+  SkillSlotIndex: 2
 --- !u!222 &6366384067298390383
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3043,10 +3055,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384067939784242}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 6
 --- !u!1 &6366384067319250844
 GameObject:
   m_ObjectHideFlags: 0
@@ -3288,10 +3301,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384066916008075}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 2
 --- !u!1 &6366384067366549580
 GameObject:
   m_ObjectHideFlags: 0
@@ -3572,9 +3586,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384067135267527}
+  skillEquipmentType: 0
   skillIndex: 0
-  skillSlotType: 0
+  skillSlotType: 1
   SkillSlotIndex: 0
 --- !u!222 &6366384067415559839
 CanvasRenderer:
@@ -3711,10 +3726,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384066715884756}
+  skillEquipmentType: 0
   skillIndex: 0
-  skillSlotType: 0
-  SkillSlotIndex: 0
+  skillSlotType: 1
+  SkillSlotIndex: 1
 --- !u!222 &6366384067496918902
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4673,10 +4689,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384068458715076}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 5
 --- !u!1 &6366384067643452564
 GameObject:
   m_ObjectHideFlags: 0
@@ -5199,10 +5216,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384067191859516}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 1
 --- !u!1 &6366384067720650374
 GameObject:
   m_ObjectHideFlags: 0
@@ -5369,10 +5387,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384068818154523}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 2
 --- !u!1 &6366384067756266413
 GameObject:
   m_ObjectHideFlags: 0
@@ -5628,10 +5647,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384066993228417}
+  skillEquipmentType: 1
   skillIndex: 0
-  skillSlotType: 0
-  SkillSlotIndex: 0
+  skillSlotType: 1
+  SkillSlotIndex: 1
 --- !u!222 &6366384067811217290
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5880,10 +5900,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384066772941797}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 4
 --- !u!1 &6366384067939784236
 GameObject:
   m_ObjectHideFlags: 0
@@ -6050,10 +6071,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384067129650186}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 1
 --- !u!1 &6366384067949125605
 GameObject:
   m_ObjectHideFlags: 0
@@ -6520,7 +6542,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.77918655, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7015,7 +7037,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384067571294862}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
   SkillSlotIndex: 0
@@ -7422,9 +7445,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384067605971971}
+  skillEquipmentType: 2
   skillIndex: 0
-  skillSlotType: 0
+  skillSlotType: 1
   SkillSlotIndex: 0
 --- !u!222 &6366384068532302813
 CanvasRenderer:
@@ -7602,7 +7626,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6366384068541075773
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7645,6 +7669,7 @@ MonoBehaviour:
   - {fileID: 2687112661338775380}
   - {fileID: 1195323119192210259}
   - {fileID: 5056759923031062581}
+  skillTreeType: 0
 --- !u!222 &6366384068541075712
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8253,7 +8278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384067648906017}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
   SkillSlotIndex: 0
@@ -8369,9 +8395,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -17}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &6366384068698221234
 CanvasRenderer:
@@ -8514,10 +8540,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384067600443188}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 1
 --- !u!1 &6366384068719557383
 GameObject:
   m_ObjectHideFlags: 0
@@ -8811,10 +8838,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384067622143172}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 6
 --- !u!1 &6366384068781521191
 GameObject:
   m_ObjectHideFlags: 0
@@ -8905,10 +8933,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384068617967231}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 6
 --- !u!1 &6366384068790279587
 GameObject:
   m_ObjectHideFlags: 0
@@ -8999,10 +9028,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384068312650807}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
-  SkillSlotIndex: 0
+  SkillSlotIndex: 2
 --- !u!1 &6366384068791683299
 GameObject:
   m_ObjectHideFlags: 0
@@ -9294,7 +9324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cbcb0a1fdfa2e4193c71fd925cf628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6366384068771065037}
+  skillEquipmentType: 0
   skillIndex: 0
   skillSlotType: 0
   SkillSlotIndex: 0
@@ -9362,4 +9393,7 @@ MonoBehaviour:
   canvasType: 1
   backElement: {fileID: 0}
   equipment: {fileID: 5070022459753131379}
-  skillTree: []
+  skillTree:
+  - {fileID: 7202225939779191672}
+  - {fileID: 3209218121495326461}
+  - {fileID: 869142551658697687}

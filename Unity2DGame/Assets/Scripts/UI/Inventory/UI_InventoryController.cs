@@ -14,6 +14,7 @@ public class UI_InventoryController : UI_PopupController
 
     private void OnEnable()
     {
+        GameManager.Instance.isGamePaused = true;
         //초기화
         //인벤토리 초기화
         foreach (var item in inventory.ItemButton)

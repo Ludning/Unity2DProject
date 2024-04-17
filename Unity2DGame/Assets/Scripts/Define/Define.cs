@@ -18,6 +18,7 @@ public enum CanvasType
     PopupFrontCanvas,
     SceneInformationCanvas,
     SceneStaticCanvas,
+    OverlayCanvas,
 }
 public enum ElementType
 {
@@ -26,6 +27,7 @@ public enum ElementType
     InventoryFront,
     SkillTreeBack,
     SkillTreeFront,
+    InformationOverlay,
 }
 
 #region 몬스터
@@ -125,6 +127,17 @@ public enum SkillTargetMovementType
     //밀치다
     Thrust,
 }
+public enum SkillSlotType
+{
+    SkillTree,
+    SkillEquip,
+}
+public enum SkillTreeType
+{
+    Fire,
+    Frost,
+    Tetanus
+}
 #endregion
 
 #region 아이템
@@ -132,11 +145,6 @@ public enum ItemSlotType
 {
     Equipment,
     Inventory,
-}
-public enum SkillSlotType
-{
-    SkillTree,
-    SkillEquip,
 }
 public enum EquipType
 {
@@ -158,4 +166,5 @@ public enum ItemStatType
     Attack,
     Defence,
 }
+
 #endregion

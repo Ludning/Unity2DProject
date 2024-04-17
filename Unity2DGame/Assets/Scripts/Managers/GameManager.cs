@@ -10,6 +10,8 @@ public class GameManager : Manager<GameManager>
     public Player player;
     private UserData userData;
 
+    public bool isGamePaused = false;
+
     public UserData UserData 
     {
         get { return userData; }

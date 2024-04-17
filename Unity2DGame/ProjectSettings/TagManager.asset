@@ -74,3 +74,6 @@ TagManager:
   - name: PopupFrontCanvas
     uniqueID: 1030773805
     locked: 0
+  - name: OverlayCanvas
+    uniqueID: 3073065831
+    locked: 0

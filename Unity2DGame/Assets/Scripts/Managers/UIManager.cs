@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 
 public class UIManager : Manager<UIManager>
@@ -10,7 +11,20 @@ public class UIManager : Manager<UIManager>
 
     private Dictionary<ElementType, ElementData> elementDic = new Dictionary<ElementType, ElementData>();
 
-    public GameObject eventSystem = null;
+    private GameObject eventSystem = null;
+
+    public GameObject EventSystem 
+    {
+        get
+        {
+            if (eventSystem == null)
+            {
+                eventSystem = Instantiate(ResourceManager.Instance.GetPrefab("EventSystem"));
+                DontDestroyOnLoad(eventSystem);
+            }
+            return eventSystem;
+        }
+    }
 
     public void Init()
     {

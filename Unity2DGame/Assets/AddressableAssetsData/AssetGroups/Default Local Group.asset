@@ -89,6 +89,14 @@ MonoBehaviour:
     m_Address: SkillDataBundle
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 721796b0add684348b33acbdd9974c86
+    m_Address: OverlayCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8644616e66c8b7346a4bd5a89a99271f
+    m_Address: InformationOverlay
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1de0419587956f147b530cd7cd220994, type: 2}
   m_SchemaSet:

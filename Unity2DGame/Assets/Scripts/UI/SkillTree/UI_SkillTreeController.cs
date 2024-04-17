@@ -15,26 +15,36 @@ public class UI_SkillTreeController : UI_PopupController
     //초기화
     private void OnEnable()
     {
-        //인벤토리 초기화
-        foreach (var tree in skillTree)
+        GameManager.Instance.isGamePaused = true;
+
+        SkillDataBundle skillDataBundle = ResourceManager.Instance.GetScriptableData<SkillDataBundle>("SkillDataBundle");
+        //스킬트리 초기화
+
+        for (int i = 0; i < skillTree.Count; i++)
         {
-            foreach(var skill in tree.SkillButton)
+            for (int k = 0; k < skillTree[i].SkillButton.Count; k++)
             {
-                skill.ChangeSkill(GameManager.Instance.UserData.inventoryItem[skill.SkillSlotIndex]);
+                if(skillTree[i].skillTreeType == SkillTreeType.Fire)
+                    skillTree[i].SkillButton[k].ChangeSkill(skillDataBundle.fire[k].skillId);
+                else if(skillTree[i].skillTreeType == SkillTreeType.Frost)
+                    skillTree[i].SkillButton[k].ChangeSkill(skillDataBundle.fire[k].skillId);
+                else if (skillTree[i].skillTreeType == SkillTreeType.Tetanus)
+                    skillTree[i].SkillButton[k].ChangeSkill(skillDataBundle.fire[k].skillId);
             }
         }
+
         //AttackButton 초기화
         foreach (var skill in equipment.AttackButton)
         {
-            skill.ChangeSkill(GameManager.Instance.UserData.equipmentItem[skill.SkillSlotIndex]);
+            skill.ChangeSkill(GameManager.Instance.UserData.equipmentAttack[skill.SkillSlotIndex]);
         }
         //SkillButton 초기화
         foreach (var skill in equipment.SkillButton)
         {
-            skill.ChangeSkill(GameManager.Instance.UserData.equipmentItem[skill.SkillSlotIndex]);
+            skill.ChangeSkill(GameManager.Instance.UserData.equipmentSkill[skill.SkillSlotIndex]);
         }
         //SpecialButton 초기화
-        equipment.SpecialButton.ChangeSkill(GameManager.Instance.UserData.equipmentItem[equipment.SpecialButton.SkillSlotIndex]);
+        equipment.SpecialButton.ChangeSkill(GameManager.Instance.UserData.equipmentSpecial);
 
 
         //equipmentSkill 바꾸는거

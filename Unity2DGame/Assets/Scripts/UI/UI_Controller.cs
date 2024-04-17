@@ -7,6 +7,7 @@ public class UI_Controller : MonoBehaviour
     [SerializeField]
     protected CanvasType canvasType;
     public CanvasType CanvasType => canvasType;
+
     private void Awake()
     {
         UIManager.Instance.Init();

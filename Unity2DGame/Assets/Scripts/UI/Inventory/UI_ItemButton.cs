@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_ItemButton : MonoBehaviour
+public class UI_ItemButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     Image image;
@@ -56,17 +56,20 @@ public class UI_ItemButton : MonoBehaviour
             image.sprite = ResourceManager.Instance.GetScriptableData<ItemData>("ItemData").items[0].itemIcon;
             textComponent.enabled = true;
             textComponent.text = "Empty";
+            return;
         }
         this.itemIndex = itemIndex;
         image.sprite = ResourceManager.Instance.GetScriptableData<ItemData>("ItemData").items.Find(x => x.id == itemIndex).itemIcon;
         textComponent.enabled = false;
     }
-    public void EmptyItem()
+
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        itemIndex = 0;
-        //빈 배경 이미지 출력
-        image.sprite = null;
-        textComponent.enabled = true;
-        textComponent.text = "Empty";
+        Debug.Log("enter");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        Debug.Log("exit");
     }
 }

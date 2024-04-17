@@ -8,6 +8,9 @@ public class UI_SkillTree : MonoBehaviour
     [SerializeField]
     List<UI_SkillButton> skillButton;
 
+    [SerializeField]
+    public SkillTreeType skillTreeType;
+
     public List<UI_SkillButton> SkillButton
     {
         get { return skillButton; }
@@ -15,6 +18,7 @@ public class UI_SkillTree : MonoBehaviour
 
     public void SkillSpriteChange(SkillTreeEvent skillTreeItem)
     {
-        skillButton[skillTreeItem.skillSlotIndex].ChangeSkill(ResourceManager.Instance.GetScriptableData<SkillDataBundle>("SkillDataBundle").data[skillTreeItem.skillTreeIndex].skillId);
+        List<SkillData> skilldatas = ResourceManager.Instance.GetScriptableData<SkillDataBundle>("SkillDataBundle").GetAllData();
+        skillButton[skillTreeItem.skillSlotIndex].ChangeSkill(skilldatas[skillTreeItem.skillTreeIndex].skillId);
     }
 }

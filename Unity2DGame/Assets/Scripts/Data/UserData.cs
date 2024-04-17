@@ -93,18 +93,18 @@ public class UserData
         if (slot.Key == SkillEquipmentType.MaxCount)
             return;
 
-        SkillDataBundle skillDataBundle = ResourceManager.Instance.GetScriptableData<SkillDataBundle>("SkillDataBundle");
+        List<SkillData> skilldatas = ResourceManager.Instance.GetScriptableData<SkillDataBundle>("SkillDataBundle").GetAllData();
 
         switch (slot.Key)
         {
             case SkillEquipmentType.Attack:
-                equipmentAttack[slot.Value] = skillDataBundle.data[skillIndex].skillId;
+                equipmentAttack[slot.Value] = skilldatas[skillIndex].skillId;
                 break;
             case SkillEquipmentType.Skill:
-                equipmentSkill[slot.Value] = skillDataBundle.data[skillIndex].skillId;
+                equipmentSkill[slot.Value] = skilldatas[skillIndex].skillId;
                 break;
             case SkillEquipmentType.Special:
-                equipmentSpecial = skillDataBundle.data[skillIndex].skillId;
+                equipmentSpecial = skilldatas[skillIndex].skillId;
                 break;
         }
 
@@ -120,7 +120,7 @@ public class UserData
         EventBusManager.Instance.Publish(equipmentItemEvent);
     }
     //스킬 해제
-    public void UnequipSkill(SkillEquipmentType skillEquipmentType, int skillIndex)
+    public void UnequipSkill(SkillEquipmentType skillEquipmentType)
     {
         EquipSkill(skillEquipmentType, 0);
     }
@@ -150,11 +150,6 @@ public class UserData
         }
         return new KeyValuePair<SkillEquipmentType, int>(SkillEquipmentType.MaxCount, 0);
     }
-    public void SetSkillSlot(SkillEquipmentType skillEquipmentType, int skillSlot)
-    {
-
-    }
-
     public string GetStatusText()
     {
         return $"Character Status\nLv : {playerStatus.level}\nHp : {playerStatus.maxHp}\nMp : {playerStatus.maxMp}\nDamage : {playerStatus.attack}\nDefence : {playerStatus.defence}"; ;

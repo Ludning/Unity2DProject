@@ -29,6 +29,6 @@ public class UI_EquipmentSkill : MonoBehaviour
 
     public void SkillSpriteChange(EquipmentSkillEvent equipmentSkill)
     {
-        skillButton[equipmentSkill.skillSlotIndex].ChangeSkill(GameManager.Instance.UserData.equipmentItem[equipmentSkill.skillSlotIndex]);
+        skillButton[equipmentSkill.skillSlotIndex].ChangeSkill(GameManager.Instance.UserData.equipmentSkill[equipmentSkill.skillSlotIndex]);
     }
 }
