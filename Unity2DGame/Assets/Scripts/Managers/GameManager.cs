@@ -8,14 +8,8 @@ using UnityEngine.AddressableAssets;
 public class GameManager : Manager<GameManager>
 {
     public Player player;
-    private GameData gameData;
     private UserData userData;
 
-    public GameData GameData
-    {
-        get { return gameData; }
-        set { gameData = value; }
-    }
     public UserData UserData 
     {
         get { return userData; }

@@ -62,15 +62,15 @@ TagManager:
   - name: Player
     uniqueID: 1576902123
     locked: 0
-  - name: SceneUIBack
+  - name: SceneInformationCanvas
     uniqueID: 608540319
     locked: 0
-  - name: SceneUIFront
+  - name: SceneStaticCanvas
     uniqueID: 2408096083
     locked: 0
-  - name: PopupUIBack
+  - name: PopupBackCanvas
     uniqueID: 3243922175
     locked: 0
-  - name: PopupUIFront
+  - name: PopupFrontCanvas
     uniqueID: 1030773805
     locked: 0

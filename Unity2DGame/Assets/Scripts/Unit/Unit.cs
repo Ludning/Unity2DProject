@@ -29,7 +29,7 @@ public class Unit : InteractiveObject
         statusBarBar = ObjectPool.Instance.GetGameObject(statusBarPrefab);
         statusBarBar.GetComponent<UI_TrackTarget>().Target = gameObject;
         uiStatusBar = statusBarBar.GetComponent<UIStatusBar>();
-        statusBarBar.transform.parent = UIManager.Instance.GetCanvasData(CanvasType.GameInformation).gameObject.transform;//Canvas.transform;
+        statusBarBar.transform.parent = UIManager.Instance.GetCanvasData(CanvasType.SceneInformationCanvas).gameObject.transform;//Canvas.transform;
         statusBarBar.transform.localScale = Vector3.one;
         #endregion
     }

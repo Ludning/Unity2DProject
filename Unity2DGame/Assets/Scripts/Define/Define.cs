@@ -14,16 +14,18 @@ public enum ObjectType
 
 public enum CanvasType
 {
-    //인벤토리
+    PopupBackCanvas,
+    PopupFrontCanvas,
+    SceneInformationCanvas,
+    SceneStaticCanvas,
+}
+public enum ElementType
+{
+    GameStatic,
     InventoryBack,
     InventoryFront,
-    //스킬트리
     SkillTreeBack,
     SkillTreeFront,
-    //게임 버튼 UI
-    GameSceneUI,
-    //게임 정보 UI
-    GameInformation,
 }
 
 #region 몬스터
@@ -90,6 +92,7 @@ public enum SkillEquipmentType
     Attack,
     Skill,
     Special,
+    MaxCount
 }
 public enum SkillRangeType
 {
@@ -125,10 +128,15 @@ public enum SkillTargetMovementType
 #endregion
 
 #region 아이템
-public enum SlotType
+public enum ItemSlotType
 {
     Equipment,
     Inventory,
+}
+public enum SkillSlotType
+{
+    SkillTree,
+    SkillEquip,
 }
 public enum EquipType
 {

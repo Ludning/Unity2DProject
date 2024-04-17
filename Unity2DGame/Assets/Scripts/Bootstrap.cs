@@ -24,7 +24,6 @@ public class Bootstrap
         TestUserSetting(userdata, gameData);*/
 
 
-        GameManager.Instance.GameData = DataManager.Instance.LoadObject<GameData>("GameData");
         GameManager.Instance.UserData = DataManager.Instance.LoadJsonData<UserData>("UserData");
         if (GameManager.Instance.UserData == null)
         {

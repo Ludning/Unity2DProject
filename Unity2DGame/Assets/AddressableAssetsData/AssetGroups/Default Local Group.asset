@@ -37,28 +37,16 @@ MonoBehaviour:
     m_Address: UI_PlayerStatusBar
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 5a96197aacba4d24e8ef70e459f6951d
+  - m_GUID: 857cfdeb7e7764743a6521354f32f716
     m_Address: InventoryBack
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: dc74cc4e09d119247ba87e6cee7357a5
-    m_Address: InventoryFront
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 48985e42fd16f93468bf684aa2726de3
-    m_Address: SkillTreeBack
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 0c1dfadc3799ac348858f38e0763ea64
-    m_Address: SkillTreeFront
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 0be0e3a929437e042a45cd994fe3e94d
-    m_Address: GameSceneUI
+  - m_GUID: 1b872d3756e3a2d45b5f8e9c7e889ed2
+    m_Address: GameStatic
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 652a33c674772724bbfc7d96c3c43975
-    m_Address: GameInformation
+    m_Address: SceneInformationCanvas
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 6f53f1791dd73924fa7732934fac5463
@@ -69,12 +57,36 @@ MonoBehaviour:
     m_Address: ItemData
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: ab88e530aa4f9914193f3cdcbe0b9dc6
-    m_Address: GameData
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 5fd6cc998b9e9ca44957f89a4e8ba2ac
     m_Address: EventSystem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: be14a1e3194c4b54c9305765847bd37c
+    m_Address: SceneStaticCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 67f54e28bfc1d9c4b92dc6dbaeb9e75f
+    m_Address: PopupFrontCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9495469033f4d214b9342f4810752d56
+    m_Address: PopupBackCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 899264c743b48ad49a441c4280165d0f
+    m_Address: InventoryFront
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cf88d4dcad36768458f26b7846619760
+    m_Address: SkillTreeBack
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9732181c3373cc54e899e75fa82f8cfb
+    m_Address: SkillTreeFront
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7aff461a339b73f4f9b123efece5d63b
+    m_Address: SkillDataBundle
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
