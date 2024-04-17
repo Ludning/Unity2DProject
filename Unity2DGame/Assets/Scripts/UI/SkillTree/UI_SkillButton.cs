@@ -60,12 +60,10 @@ public class UI_SkillButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerEnter(PointerEventData eventData)
     {
         UIManager.Instance.GetElementData(ElementType.InformationOverlay);
-        Debug.Log("enter");
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         UIManager.Instance.HideElement(ElementType.InformationOverlay);
-        Debug.Log("exit");
     }
 }

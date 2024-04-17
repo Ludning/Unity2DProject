@@ -65,11 +65,11 @@ public class UI_ItemButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("enter");
+        UIManager.Instance.GetElementData(ElementType.InformationOverlay);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("exit");
+        UIManager.Instance.HideElement(ElementType.InformationOverlay);
     }
 }

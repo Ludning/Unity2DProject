@@ -15,8 +15,6 @@ public class UI_SkillTreeController : UI_PopupController
     //초기화
     private void OnEnable()
     {
-        GameManager.Instance.isGamePaused = true;
-
         SkillDataBundle skillDataBundle = ResourceManager.Instance.GetScriptableData<SkillDataBundle>("SkillDataBundle");
         //스킬트리 초기화
 

@@ -11,7 +11,21 @@ public class UI_OverlayController : UI_Controller
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        size = new Vector2(rectTransform.rect.width, rectTransform.rect.height);
+        size = new Vector2(rectTransform.rect.width, -rectTransform.rect.height);
+    }
+    private void OnEnable()
+    {
+        Vector2 mousePosition = Mouse.current.position.ReadValue() - new Vector2(Screen.width, Screen.height) * 0.5f + size * 0.6f;
+        transform.localPosition = mousePosition;
+    }
+    private void FixedUpdate()
+    {
+        //화면의 왼쪽에 있으면 오른쪽으로 출력
+        //화면의 오른쪽에 있으면 왼쪽에 출력
+        Debug.Log(Mouse.current.position.ReadValue());
+        Debug.Log(size);
+        Vector2 mousePosition = Mouse.current.position.ReadValue() - new Vector2(Screen.width, Screen.height) * 0.5f + size * 0.6f;
+        transform.localPosition = mousePosition;
     }
     public void SetPosition(Vector3 vec)
     {
