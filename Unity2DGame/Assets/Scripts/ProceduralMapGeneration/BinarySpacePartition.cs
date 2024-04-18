@@ -176,16 +176,6 @@ public class BSPNode
         rightNode.Partition();
     }
 
-    //노드안에 방 만들기
-    public void GenerateRoom()
-    {
-
-    }
-    //노드끼리 연결된 길 만들기
-    public void GenerateRoad()
-    {
-
-    }
 }
 
 public enum NodeType
