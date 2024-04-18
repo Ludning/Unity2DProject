@@ -8,6 +8,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
+using UnityEngine.U2D;
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.RuleTile.TilingRuleOutput;
@@ -30,7 +31,8 @@ public class CellularAutomata : MonoBehaviour
     //private const int WALL = 1;
     //private const int WALL = 1;
 
-    [SerializeField] private Tile tile;
+    [SerializeField] private List<Tile> planeTiles;
+
     [SerializeField] private Tile routeTile;
 
     [Space]
@@ -56,6 +58,7 @@ public class CellularAutomata : MonoBehaviour
     public void OnClickButton()
     {
         Clear();
+
         if (BSP == null)
             BSP = new BinarySpacePartition(new Vector2Int(70, 70));
 
@@ -73,13 +76,15 @@ public class CellularAutomata : MonoBehaviour
             //타일맵 오브젝트 생성
             GameObject front = new GameObject("PlainTilemap");
             front.isStatic = true;
-            front.AddComponent<TilemapRenderer>();
+            TilemapRenderer frontRenderer = front.AddComponent<TilemapRenderer>();
+            frontRenderer.sortingLayerName = "Background";
             front.transform.SetParent(frontParent.transform, false);
             front.transform.localPosition = new Vector2(node.mapRect.position.x, node.mapRect.position.y);
 
             GameObject back = new GameObject("BackTilemap");
             back.isStatic = true;
-            back.AddComponent<TilemapRenderer>();
+            TilemapRenderer backRenderer = back.AddComponent<TilemapRenderer>();
+            backRenderer.sortingLayerName = "Frontground";
             back.transform.SetParent(backParent.transform, false);
             back.transform.localPosition = new Vector2(node.mapRect.position.x, node.mapRect.position.y);
 
@@ -87,7 +92,8 @@ public class CellularAutomata : MonoBehaviour
             wall.isStatic = true;
             Rigidbody2D wallRigid = wall.AddComponent<Rigidbody2D>();
             wallRigid.isKinematic = true;
-            wall.AddComponent<TilemapRenderer>();
+            TilemapRenderer wallRenderer = wall.AddComponent<TilemapRenderer>();
+            wallRenderer.sortingLayerName = "Wall";
             wall.transform.SetParent(wallParent.transform, false);
             wall.transform.localPosition = new Vector2(node.mapRect.position.x, node.mapRect.position.y);
             TilemapCollider2D tilemapCollider = wall.AddComponent<TilemapCollider2D>();
@@ -181,7 +187,8 @@ public class CellularAutomata : MonoBehaviour
         }
         else if (block.map[x, y] == PLAIN)
         {
-            block.frontTilemap.SetTile(pos, tile);
+            int index = UnityEngine.Random.Range(0, planeTiles.Count);
+            block.frontTilemap.SetTile(pos, planeTiles[index]);
         }
         else if (block.map[x, y] == ROAD)
         {
@@ -509,56 +516,6 @@ public class CellularAutomata : MonoBehaviour
             }
         }
     }
-
-
-    /*void DrawRoute(Block block, RectInt currentRect, RectInt targetRect)
-    {
-        //start는 node의 center
-        //end는 기타
-        //start에서 어느 방향으로 가야할 지 구하기
-
-        Vector2Int currentPoint = new Vector2Int((int)currentRect.center.x, (int)currentRect.center.y);
-
-        Vector2Int direction = CalculateDirection(currentRect.center, targetRect.center);
-
-        //RectInt currentRect = new RectInt(new Vector2Int(0,0), new Vector2Int(block.node.mapRect.width, block.node.mapRect.height));
-        while (currentRect.Contains(currentPoint))
-        {
-            block.map[currentPoint.x, currentPoint.y] = ROAD;
-
-            // 다음 포인트로 이동
-            currentPoint += direction;
-
-            // 이 부분에서 반복을 종료하기 위한 조건을 추가할 수 있습니다.
-            if (!currentRect.Contains(currentPoint)) break;
-        }
-    }*/
-    /*Vector2Int CalculateDirection(Vector2 center, Vector2 target)
-    {
-        Vector2 diff = target - center;
-        if (Mathf.Abs(diff.x) > Mathf.Abs(diff.y))
-        {
-            if(diff.x > 0)
-            {
-                return Vector2Int.right;
-            }
-            else
-            {
-                return Vector2Int.left;
-            }
-        }
-        else
-        {
-            if (diff.y > 0)
-            {
-                return Vector2Int.up;
-            }
-            else
-            {
-                return Vector2Int.down;
-            }
-        }
-    }*/
 }
 
 //배경, 지형을 묶어 Block으로 보관

@@ -3,12 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.U2D.Path;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class ResourceManager : Manager<ResourceManager>
 {
     Dictionary<string, GameObject> _prefabs = new Dictionary<string, GameObject>();
 
     private Dictionary<Type, Dictionary<string, ScriptableObject>> _scriptableData = new Dictionary<Type, Dictionary<string, ScriptableObject>>();
+
+    private Dictionary<string, SpriteAtlas> _atlasData = new Dictionary<string, SpriteAtlas>();
+
 
     public GameObject GetPrefab(string addressableAssetKey)
     {
@@ -30,5 +34,13 @@ public class ResourceManager : Manager<ResourceManager>
             _scriptableData[typeof(T)].Add(addressableAssetKey, data);
         }
         return (T)_scriptableData[typeof(T)][addressableAssetKey];
+    }
+    public SpriteAtlas GetAtlasData(AtlasType atlasType)
+    {
+        if (!_atlasData.ContainsKey(atlasType.ToString()))
+        {
+            _atlasData.Add(atlasType.ToString(), DataManager.Instance.LoadObject<SpriteAtlas>(atlasType.ToString()));
+        }
+        return _atlasData[atlasType.ToString()];
     }
 }

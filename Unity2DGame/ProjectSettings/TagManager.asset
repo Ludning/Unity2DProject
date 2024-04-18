@@ -50,8 +50,14 @@ TagManager:
   - name: Layer 3
     uniqueID: 4189426099
     locked: 0
-  - name: Ground
+  - name: Background
+    uniqueID: 3968139031
+    locked: 0
+  - name: Frontground
     uniqueID: 507244351
+    locked: 0
+  - name: Wall
+    uniqueID: 4286746119
     locked: 0
   - name: Prop
     uniqueID: 3696363913

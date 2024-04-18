@@ -170,3 +170,9 @@ public enum ItemStatType
 }
 
 #endregion
+
+public enum AtlasType
+{
+    TileSprite,
+    UnitSprite,
+}
