@@ -12,4 +12,10 @@ public class UI_Controller : MonoBehaviour
     {
         UIManager.Instance.Init();
     }
+
+    public virtual void OnEnableElements()
+    {
+
+    }
+
 }

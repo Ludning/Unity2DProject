@@ -13,7 +13,7 @@ public class UI_OverlayController : UI_Controller
         rectTransform = GetComponent<RectTransform>();
         size = new Vector2(rectTransform.rect.width, -rectTransform.rect.height);
     }
-    private void OnEnable()
+    public override void OnEnableElements()
     {
         Vector2 mousePosition = Mouse.current.position.ReadValue() - new Vector2(Screen.width, Screen.height) * 0.5f + size * 0.6f;
         transform.localPosition = mousePosition;

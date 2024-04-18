@@ -12,7 +12,7 @@ public class UI_InventoryController : UI_PopupController
     [SerializeField]
     UI_StatusText statusText;
 
-    private void OnEnable()
+    public override void OnEnableElements()
     {
         //초기화
         //인벤토리 초기화
@@ -41,8 +41,7 @@ public class UI_InventoryController : UI_PopupController
         EventBusManager.Instance.Unsubscribe<InventoryItemEvent>(inventory.ItemSpriteChange);
         EventBusManager.Instance.Unsubscribe<StatusTextEvent>(statusText.StatusTextChange);
 
-        gameObject.SetActive(false);
-        backElement.SetActive(false);
+        UIManager.Instance.HidePopupElement(ElementType.InventoryBack, ElementType.InventoryFront);
     }
 }
 

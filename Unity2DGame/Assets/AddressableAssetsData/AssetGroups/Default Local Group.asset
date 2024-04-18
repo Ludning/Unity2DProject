@@ -97,6 +97,14 @@ MonoBehaviour:
     m_Address: InformationOverlay
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 25836cbddcd572648b9119b1954b1185
+    m_Address: MenuBack
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bb78aa8774af01f4ea2ef00b2de3e763
+    m_Address: MenuFront
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1de0419587956f147b530cd7cd220994, type: 2}
   m_SchemaSet:

@@ -7,8 +7,13 @@ public class TestController : MonoBehaviour
     private void Start()
     {
         //UIManager.Instance.GetPopupElementData(ElementType.InventoryBack, ElementType.InventoryFront);
+        UIManager.Instance.GetElementData(ElementType.GameStatic);
     }
-    public void OnAttackInput()
+    private void FixedUpdate()
+    {
+        Debug.Log(GameManager.Instance.IsGamePaused);
+    }
+    /*public void OnAttackInput()
     {
         UIManager.Instance.GetPopupElementData(ElementType.InventoryBack, ElementType.InventoryFront);
     }
@@ -19,5 +24,5 @@ public class TestController : MonoBehaviour
     public void OnSpecialInput()
     {
         //UIManager.Instance.GetPopupElementData(ElementType.InventoryBack, ElementType.InventoryFront);
-    }
+    }*/
 }

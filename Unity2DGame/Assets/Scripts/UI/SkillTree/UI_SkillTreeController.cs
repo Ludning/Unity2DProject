@@ -1,3 +1,4 @@
+using MBT;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
@@ -13,7 +14,7 @@ public class UI_SkillTreeController : UI_PopupController
     List<UI_SkillTree> skillTree;
 
     //초기화
-    private void OnEnable()
+    public override void OnEnableElements()
     {
         SkillDataBundle skillDataBundle = ResourceManager.Instance.GetScriptableData<SkillDataBundle>("SkillDataBundle");
         //스킬트리 초기화
@@ -62,8 +63,7 @@ public class UI_SkillTreeController : UI_PopupController
             EventBusManager.Instance.Unsubscribe<SkillTreeEvent>(tree.SkillSpriteChange);
         }
 
-        gameObject.SetActive(false);
-        backElement.SetActive(false);
+        UIManager.Instance.HidePopupElement(ElementType.SkillTreeBack, ElementType.SkillTreeFront);
     }
     public class EquipmentSkillEvent : BaseEvent
     {

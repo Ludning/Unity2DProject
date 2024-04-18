@@ -24,7 +24,7 @@ public class MapTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BSP = new BinarySpacePartition(new Vector2Int(100, 100));
+        BSP = new BinarySpacePartition(new Vector2Int(70, 70));
 
         List<BSPNode> bspNodes = BSP.GetLastNode();
 

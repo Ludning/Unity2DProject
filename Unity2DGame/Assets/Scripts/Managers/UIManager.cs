@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : Manager<UIManager>
 {
@@ -12,6 +13,8 @@ public class UIManager : Manager<UIManager>
     private Dictionary<ElementType, ElementData> elementDic = new Dictionary<ElementType, ElementData>();
 
     private GameObject eventSystem = null;
+
+    private Dictionary<ElementType, GameObject> activatedPopupUI = new Dictionary<ElementType, GameObject>();
 
     public GameObject EventSystem 
     {
@@ -34,13 +37,27 @@ public class UIManager : Manager<UIManager>
             DontDestroyOnLoad(eventSystem);
         }
     }
-
     public ElementData GetPopupElementData(ElementType backElementType, ElementType frontElementType)
     {
         ElementData backData = GetElementData(backElementType);
         ElementData frontData = GetElementData(frontElementType);
         UI_PopupController frontPopup = (UI_PopupController)frontData.controller;
         frontPopup.SetBackElement(backData.gameObject);
+
+        if(frontElementType == ElementType.MenuFront)
+        {
+            foreach (var go in activatedPopupUI.Values)
+            {
+                go.SetActive(false);
+            }
+        }
+        else
+        {
+            activatedPopupUI.Add(backElementType, backData.gameObject);
+            activatedPopupUI.Add(frontElementType, frontData.gameObject);
+        }
+
+        GameManager.Instance.AddPauseCount();
         return frontData;
     }
     public ElementData GetElementData(ElementType elementType)
@@ -48,6 +65,7 @@ public class UIManager : Manager<UIManager>
         if (!elementDic.ContainsKey(elementType))
             InstantiateElement(elementType);
         elementDic[elementType].gameObject.SetActive(true);
+        elementDic[elementType].controller.OnEnableElements();
         return elementDic[elementType];
     }
     //Äµ¹ö½º »ý¼º
@@ -63,6 +81,24 @@ public class UIManager : Manager<UIManager>
         go.transform.SetParent(canvasData.gameObject.transform, false);
         
         HideElement(elementType);
+    }
+    public void HidePopupElement(ElementType back, ElementType front)
+    {
+        HideElement(back);
+        HideElement(front);
+
+        activatedPopupUI.Remove(back);
+        activatedPopupUI.Remove(front);
+
+        if (front == ElementType.MenuFront)
+        {
+            foreach (var go in activatedPopupUI.Values)
+            {
+                go.SetActive(true);
+            }
+        }
+
+        GameManager.Instance.SubPauseCount();
     }
     public void HideElement(ElementType elementType)
     {
@@ -99,6 +135,8 @@ public class UIManager : Manager<UIManager>
     public void Clear()
     {
         canvasDic.Clear();
+        elementDic.Clear();
+        activatedPopupUI.Clear();
     }
 }
 public class CanvasData

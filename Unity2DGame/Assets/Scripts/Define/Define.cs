@@ -28,6 +28,8 @@ public enum ElementType
     SkillTreeBack,
     SkillTreeFront,
     InformationOverlay,
+    MenuBack,
+    MenuFront,
 }
 
 #region ∏ÛΩ∫≈Õ

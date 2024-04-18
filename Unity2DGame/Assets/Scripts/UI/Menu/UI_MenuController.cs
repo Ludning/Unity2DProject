@@ -4,45 +4,29 @@ using UnityEngine;
 
 public class UI_MenuController : UI_PopupController
 {
-    private void OnEnable()
-    {
-        GameManager.Instance.isGamePaused = true;
-        //equipment 바꾸는거
-        EventBusManager.Instance.Subscribe<ToResumeEvent>(OnClickResume);
-        //inventory 바꾸는거
-        EventBusManager.Instance.Subscribe<ToMainEvent>(OnClickMain);
-        //statusText 바꾸는거
-        EventBusManager.Instance.Subscribe<ToExitEvent>(OnClickExit);
-    }
     public override void OnDisablePopupElements()
     {
-        EventBusManager.Instance.Unsubscribe<ToResumeEvent>(OnClickResume);
-        EventBusManager.Instance.Unsubscribe<ToMainEvent>(OnClickMain);
-        EventBusManager.Instance.Unsubscribe<ToExitEvent>(OnClickExit);
-
-        gameObject.SetActive(false);
-        backElement.SetActive(false);
+        UIManager.Instance.HidePopupElement(ElementType.MenuBack, ElementType.MenuFront);
     }
 
-    public void OnClickResume(ToResumeEvent toResumeEvent)
+    public void OnClickResume()
     {
-        GameManager.Instance.isGamePaused = false;
+        OnDisablePopupElements();
     }
-    public void OnClickMain(ToMainEvent toMainEvent)
+    public void OnClickMain()
     {
-        GameManager.Instance.isGamePaused = false;
+        //저장후 메인
+        GameManager.Instance.UserData.Save();
+        ScenesManager.Instance.LoadScene("MainScene");
     }
-    public void OnClickExit(ToExitEvent toExitEvent)
+    public void OnClickExit()
     {
-        GameManager.Instance.isGamePaused = false;
+        //저장후 종료
+        GameManager.Instance.UserData.Save();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
-}
-public class ToResumeEvent : BaseEvent
-{
-}
-public class ToMainEvent : BaseEvent
-{
-}
-public class ToExitEvent : BaseEvent
-{
 }

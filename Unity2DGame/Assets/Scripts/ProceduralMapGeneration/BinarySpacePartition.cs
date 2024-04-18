@@ -27,14 +27,13 @@ public class BSPNode
 
     public BSPNode parentNode = null;
 
-
     public BSPNode leftNode;
     public BSPNode rightNode;
 
     public int Depth = 0;
 
     //최소면적 사이즈!
-    public const int nodeMinimumArea = 500;
+    public const int nodeMinimumArea = 400;
 
     public BSPNode(RectInt area)
     {
@@ -136,7 +135,7 @@ public class BSPNode
     public void Partition()
     {
         //면적이 nodeMinimumArea보다 작은지 확인한다
-        if (mapRect.size.x <=40 && mapRect.size.y<= 40)// <= nodeMinimumArea)
+        if (mapRect.size.x <=30 && mapRect.size.y<= 30)// <= nodeMinimumArea)
             return;
         //왼쪽과 오른쪽 노드로 분할후 할당한다
         RectInt leftRect;
