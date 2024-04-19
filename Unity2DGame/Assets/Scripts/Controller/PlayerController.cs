@@ -54,6 +54,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(GameManager.Instance.IsGamePaused)
+        {
+            rigidbody.velocity = Vector2.zero;
+            animator.speed = 0f;
+            return;
+        }
+        animator.speed = 1f;
+
         if (playerNormal == Vector2.zero)
             IsRun = false;
         else
@@ -63,6 +71,14 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (GameManager.Instance.IsGamePaused)
+        {
+            rigidbody.velocity = Vector2.zero;
+            animator.speed = 0f;
+            return;
+        }
+        animator.speed = 1f;
+
         // 이동속도*방향벡터*Magnitude를 velocity로
         rigidbody.velocity = speed * playerNormal * playerMagnitude;
         int dir = animator.GetInteger("Direction");
@@ -100,14 +116,17 @@ public class PlayerController : MonoBehaviour
     public void OnAttackInput(InputValue context)
     {
         skillSystem.StartSkillInvoke(player.testSkill);
+        GameManager.Instance.UserData.UseActiveAttack();
     }
     public void OnSkillInput(InputValue context)
     {
         //player.skillData
+        GameManager.Instance.UserData.UseActiveSkill();
     }
     public void OnSpecialInput(InputValue context)
     {
         //player.specialData
+        GameManager.Instance.UserData.UseActiveSpecial();
     }
 
     public enum Direction

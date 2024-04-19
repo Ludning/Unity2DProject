@@ -23,6 +23,7 @@ public enum CanvasType
 public enum ElementType
 {
     GameStatic,
+    SkillPanel,
     InventoryBack,
     InventoryFront,
     SkillTreeBack,
@@ -35,9 +36,11 @@ public enum ElementType
 #region ∏ÛΩ∫≈Õ
 public enum MonsterType
 {
-    Slime,
+    FlyingEye,
     Goblin,
-    Orc,
+    Mushroom,
+    Skeleton,
+    MaxCount,
 }
 #endregion
 

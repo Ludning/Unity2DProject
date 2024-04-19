@@ -10,16 +10,18 @@ public class SpawnManager : Manager<SpawnManager>
     string monsterStatusBar = "UI_MonsterStatusBar";
     //string bossStatusBar = "UI_BossStatusBar";
 
-    public GameObject SpawnPlayer(GameObject playerPrefab, GameObject bladePrefab)
+    public GameObject SpawnPlayer(GameObject playerPrefab, GameObject bladePrefab, Vector3 pos)
     {
         //플레이어, 무기 생성
-        GameObject player = Instantiate(playerPrefab);
+        GameObject player = Instantiate(playerPrefab, pos, Quaternion.identity);
         GameObject blade = Instantiate(bladePrefab);
         player.name = playerPrefab.name;
         blade.name = bladePrefab.name;
 
         //카메라 타겟 설정
-        Camera.main.gameObject.GetComponent<CameraFollow>().target = player.transform;
+        Camera camera = Camera.main;
+        camera.transform.position = player.transform.position;
+        camera.gameObject.GetComponent<CameraFollow>().Target = player.transform;
 
         //플레이어 초기화
         Player playerComponent = player.GetComponent<Player>();
@@ -30,18 +32,34 @@ public class SpawnManager : Manager<SpawnManager>
         GameManager.Instance.player = playerComponent;
         return player;
     }
-    public GameObject SpawnMonster(GameObject prefab)
+    public GameObject SpawnMonster(MonsterType type, Vector3 pos)
     {
+        var prefab = ResourceManager.Instance.GetPrefab(type.ToString());
         GameObject go = ObjectPool.Instance.GetGameObject(prefab);
+        go.transform.position = pos;
         Monster monster = go.GetComponent<Monster>();
         monster.Init(monsterStatusBar);
         GameManager.Instance.AddMonster(monster);
         return go;
     }
-    public GameObject Spawn(GameObject prefab)
+    public GameObject SpawnUnit(GameObject prefab)
     {
         GameObject go = ObjectPool.Instance.GetGameObject(prefab);
         go.GetComponent<Unit>().Init(monsterStatusBar);
+        return go;
+    }
+    public GameObject SpawnPortal(string addressableAssetKey)
+    {
+        GameObject prefab = ResourceManager.Instance.GetPrefab(addressableAssetKey);
+        GameObject go = Instantiate(prefab);
+        //go.GetComponent<Portal>().Init();
+        return go;
+    }
+    public GameObject SpawnTrader(string addressableAssetKey)
+    {
+        GameObject prefab = ResourceManager.Instance.GetPrefab(addressableAssetKey);
+        GameObject go = Instantiate(prefab);
+        //go.GetComponent<Portal>().Init();
         return go;
     }
 }

@@ -39,17 +39,13 @@ public class GameManager : Manager<GameManager>
 
     private Dictionary<int, SkillHandler> skillHandlerDic = new Dictionary<int, SkillHandler>();
 
-    /*private void Awake()
-    {
-        gameData = DataManager.Instance.LoadObject<GameData>("GameData");
-        userData = DataManager.Instance.LoadJsonData<UserData>("UserData");
-        if (userData == null)
-        {
-            MakeFirstUserData();
-        }
 
-        TestUserData(userData, gameData);
-    }*/
+    private void Update()
+    {
+        if (IsGamePaused)
+            return;
+        userData.UpdateCoolTime(Time.deltaTime);
+    }
 
     public void AddMonster(Monster monster)
     {

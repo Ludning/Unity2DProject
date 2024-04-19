@@ -1,4 +1,4 @@
-using System;
+using NavMeshPlus.Components;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using UnityEngine.U2D;
@@ -24,16 +25,14 @@ public class CellularAutomata : MonoBehaviour
 
     private const int PLAIN = 0;
     private const int EMPTY = 1;
-
     private const int ROAD = 2;
 
-    //private const int WALL = 1;
-    //private const int WALL = 1;
-    //private const int WALL = 1;
 
     [SerializeField] private List<Tile> planeTiles;
 
     [SerializeField] private Tile routeTile;
+
+    [SerializeField] private Tile backgroungTile;
 
     [Space]
     [SerializeField] private Tile upperLeftCorner;  //좌상
@@ -53,9 +52,75 @@ public class CellularAutomata : MonoBehaviour
 
 
     BinarySpacePartition BSP;
-    Dictionary<BSPNode, Block> blockDic = new Dictionary<BSPNode, Block>();
+    public Dictionary<BSPNode, Block> blockDic = new Dictionary<BSPNode, Block>();
 
-    public void OnClickButton()
+    public NavMeshSurface Surface2D;
+
+    public Vector2 RandomSpawnPos(Block block = null)
+    {
+        if (block == null)
+            block = blockDic.First().Value;
+        int width = block.map.GetLength(0);
+        int height = block.map.GetLength(1);
+
+        int xPos;
+        int yPos;
+        while (true)
+        {
+            xPos = UnityEngine.Random.Range(0, width);
+            yPos = UnityEngine.Random.Range(0, height);
+            if (block.map[xPos, yPos] == PLAIN)
+                break;
+        }
+        Vector3Int tilePos = new Vector3Int(xPos, yPos);
+        return block.frontTilemap.CellToWorld(tilePos);
+    }
+    public Vector2 StartBlockPosition()
+    {
+        Block block = blockDic.First().Value;
+        int xCenter = (int)(block.map.GetLength(0) * 0.5f);
+        int yCenter = (int)(block.map.GetLength(1) * 0.5f);
+
+        Vector3Int tilePos = Vector3Int.zero;
+        if (block.map[xCenter, yCenter] != PLAIN)
+            tilePos = FindNearestPlainTile(block.map, xCenter, yCenter);
+        tilePos = new Vector3Int(xCenter, yCenter);
+        return block.frontTilemap.CellToWorld(tilePos);
+    }
+    Vector3Int FindNearestPlainTile(int[,] map, int startX, int startY)
+    {
+        int[] dx = { -1, 1, 0, 0 };
+        int[] dy = { 0, 0, -1, 1 };
+        bool[,] visited = new bool[map.GetLength(0), map.GetLength(1)];
+        Queue<Vector3Int> queue = new Queue<Vector3Int>();
+        queue.Enqueue(new Vector3Int(startX, startY));
+        visited[startX, startY] = true;
+
+        while (queue.Count > 0)
+        {
+            Vector3Int current = queue.Dequeue();
+
+            for (int i = 0; i < 4; i++)
+            {
+                int nx = (int)current.x + dx[i];
+                int ny = (int)current.y + dy[i];
+
+                if (nx >= 0 && nx < map.GetLength(0) && ny >= 0 && ny < map.GetLength(1) && !visited[nx, ny])
+                {
+                    visited[nx, ny] = true;
+                    if (map[nx, ny] == PLAIN)
+                    {
+                        return new Vector3Int(nx, ny);
+                    }
+                    queue.Enqueue(new Vector3Int(nx, ny));
+                }
+            }
+        }
+
+        return Vector3Int.zero;
+    }
+
+    public void OnGeneraterMap()
     {
         Clear();
 
@@ -75,30 +140,41 @@ public class CellularAutomata : MonoBehaviour
         {
             //타일맵 오브젝트 생성
             GameObject front = new GameObject("PlainTilemap");
-            front.isStatic = true;
+            //front.isStatic = true;
             TilemapRenderer frontRenderer = front.AddComponent<TilemapRenderer>();
             frontRenderer.sortingLayerName = "Background";
             front.transform.SetParent(frontParent.transform, false);
             front.transform.localPosition = new Vector2(node.mapRect.position.x, node.mapRect.position.y);
+            //네비메쉬
+            NavMeshModifier nmF = front.AddComponent<NavMeshModifier>();
+            nmF.overrideArea = true;
+            nmF.area = 0;
+
 
             GameObject back = new GameObject("BackTilemap");
-            back.isStatic = true;
+            //back.isStatic = true;
+            Rigidbody2D backRigid = back.AddComponent<Rigidbody2D>();
+            backRigid.isKinematic = true;
             TilemapRenderer backRenderer = back.AddComponent<TilemapRenderer>();
             backRenderer.sortingLayerName = "Frontground";
             back.transform.SetParent(backParent.transform, false);
             back.transform.localPosition = new Vector2(node.mapRect.position.x, node.mapRect.position.y);
+            TilemapCollider2D tilemapCollider = back.AddComponent<TilemapCollider2D>();
+            back.AddComponent<CompositeCollider2D>();
+            tilemapCollider.usedByComposite = true;
+            //네비메쉬
+            NavMeshModifier nmB = back.AddComponent<NavMeshModifier>();
+            nmB.overrideArea = true;
+            nmB.area = 1;
+
 
             GameObject wall = new GameObject("WallTilemap");
-            wall.isStatic = true;
-            Rigidbody2D wallRigid = wall.AddComponent<Rigidbody2D>();
-            wallRigid.isKinematic = true;
+            //wall.isStatic = true;
             TilemapRenderer wallRenderer = wall.AddComponent<TilemapRenderer>();
             wallRenderer.sortingLayerName = "Wall";
             wall.transform.SetParent(wallParent.transform, false);
             wall.transform.localPosition = new Vector2(node.mapRect.position.x, node.mapRect.position.y);
-            TilemapCollider2D tilemapCollider = wall.AddComponent<TilemapCollider2D>();
-            wall.AddComponent<CompositeCollider2D>();
-            tilemapCollider.usedByComposite = true;
+            
 
             Tilemap frontTilemap = front.GetComponent<Tilemap>();
             Tilemap backTilemap = back.GetComponent<Tilemap>();
@@ -109,15 +185,15 @@ public class CellularAutomata : MonoBehaviour
 
         GenerateByMapNode(blockDic);
 
-        /*foreach (var block in blockDic)
-        {
-            GenerateByMapNode(block.Value);
-        }*/
-        //GenerationRoute(bspNodes);
+        
     }
     public void Clear()
     {
         blockDic = new Dictionary<BSPNode, Block>();
+    }
+    private void Start()
+    {
+        Surface2D.BuildNavMeshAsync();
     }
 
     private void GenerateByMapNode(Dictionary<BSPNode, Block> blockDic)
@@ -142,6 +218,31 @@ public class CellularAutomata : MonoBehaviour
             OnDrawNode(block);
 
             FillWall(block);
+        }
+
+        foreach(var block in blockDic.Values)
+        {
+            FillBackground(block);
+        }
+    }
+    private void FillBackground(Block block)
+    {
+        // 첫 번째 타일맵의 모든 셀을 순회
+        BoundsInt bounds = block.frontTilemap.cellBounds;
+        
+        for (int x = 0; x < block.map.GetLength(0); x++)
+        {
+            for (int y = 0; y < block.map.GetLength(1); y++)
+            {
+                Tile tile = (block.map[x,y] == EMPTY) ? backgroungTile : null;
+
+                // 첫 번째 타일맵에 타일이 없는 경우 두 번째 타일맵에 타일을 채웁니다.
+                if (tile == backgroungTile)
+                {
+                    Vector3Int pos = new Vector3Int(x, y);
+                    block.backTilemap.SetTile(pos, tile);
+                }
+            }
         }
     }
 
@@ -526,7 +627,8 @@ public class Block
     public Tilemap backTilemap;
     public Tilemap wallTilemap;
     public int[,] map;
-    public Vector2Int center = Vector2Int.zero;
+
+    public List<(int, int)> coordinate = null;
 
     public Block(BSPNode node, Tilemap frontTilemap, Tilemap backTilemap, Tilemap wallTilemap)
     {
@@ -534,5 +636,29 @@ public class Block
         this.frontTilemap = frontTilemap;
         this.backTilemap = backTilemap;
         this.wallTilemap = wallTilemap;
+    }
+
+    public Vector2 RandomPlainPos()
+    {
+        if(coordinate == null)
+        {
+            int width = map.GetLength(0);
+            int height = map.GetLength(1);
+            coordinate = new List<(int, int)>();
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    if (map[x, y] == 0)
+                        coordinate.Add((x, y));
+                }
+            }
+        }
+
+        int index = Random.Range(0, coordinate.Count);
+        Vector3Int tilePos = new Vector3Int(coordinate[index].Item1, coordinate[index].Item2);
+        Vector3 vec = frontTilemap.CellToWorld(tilePos);
+
+        return vec + new Vector3(0.5f, 0.5f);
     }
 }

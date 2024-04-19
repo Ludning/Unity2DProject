@@ -7,6 +7,7 @@ public class ScenesManager : Manager<ScenesManager>
 {
     public void LoadScene(string sceneName)
     {
+        GameManager.Instance.UserData.Save();
         StartCoroutine(LoadAsyncScene(sceneName));
     }
 

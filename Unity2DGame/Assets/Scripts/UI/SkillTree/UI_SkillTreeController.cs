@@ -1,4 +1,3 @@
-using MBT;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
@@ -65,14 +64,14 @@ public class UI_SkillTreeController : UI_PopupController
 
         UIManager.Instance.HidePopupElement(ElementType.SkillTreeBack, ElementType.SkillTreeFront);
     }
-    public class EquipmentSkillEvent : BaseEvent
-    {
-        public SkillEquipmentType skillSlotType;
-        public int skillSlotIndex;
-    }
-    public class SkillTreeEvent : BaseEvent
-    {
-        public int skillTreeIndex;
-        public int skillSlotIndex;
-    }
+}
+public class EquipmentSkillEvent : BaseEvent
+{
+    public SkillEquipmentType skillSlotType;
+    public int skillSlotIndex;
+}
+public class SkillTreeEvent : BaseEvent
+{
+    public int skillTreeIndex;
+    public int skillSlotIndex;
 }

@@ -8,9 +8,9 @@ public class Player : Unit
     public int attackIndex = 0;
     public int skillIndex = 0;
 
-    private SkillData[] attackData = null;
-    private SkillData[] skillData = null;
-    private SkillData specialData = null;
+    //private SkillData[] attackData = null;
+    //private SkillData[] skillData = null;
+    //private SkillData specialData = null;
     private WeaponController weapon;
 
     [SerializeField]
@@ -19,7 +19,7 @@ public class Player : Unit
     [SerializeField]
     public SkillData testSkill;
     
-    public SkillData[] AttackData
+    /*public SkillData[] AttackData
     {
         get 
         {
@@ -51,11 +51,13 @@ public class Player : Unit
         {
             specialData = value;
         }
-    }
+    }*/
 
     //초기화
     public override void Init(string statusBarName)
     {
+        status = GameManager.Instance.UserData.playerStatus;
+
         base.Init(statusBarName);
         #region uiStatusBar 초기화
         uiStatusBar.Init(gameObject.name, HpRatio);
@@ -79,13 +81,9 @@ public class Player : Unit
     {
         weapon = weaponController;
     }
-    //스킬 장착
+    /*//스킬 장착
     public void SkillEquip(SkillData data, SkillEquipmentType type, int index = 0)
     {
-        /*
-        스킬은 AttackData3개, AttackData3개, SpecialData1개로 구성됨
-        만약 Special이 아니면서 배열에서 벗어나면 리턴
-        */
         if (type != SkillEquipmentType.Special && (index < 0 || index > 2))
             return;
         switch (type)
@@ -103,10 +101,6 @@ public class Player : Unit
     }
     public void SkillUnequip(SkillData data, SkillEquipmentType type, int index = 0)
     {
-        /*
-        스킬은 AttackData3개, AttackData3개, SpecialData1개로 구성됨
-        만약 Special이 아니면서 배열에서 벗어나면 리턴
-        */
         if (type != SkillEquipmentType.Special && (index < 0 || index > 2))
             return;
         switch (type)
@@ -121,5 +115,5 @@ public class Player : Unit
                 SpecialData = data;
                 break;
         }
-    }
+    }*/
 }

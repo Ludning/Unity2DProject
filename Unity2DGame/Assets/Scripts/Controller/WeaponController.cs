@@ -16,6 +16,7 @@ public class WeaponController : InteractiveObject
         set
         {
             player = value;
+            transform.position = player.transform.position;
             skillSystem = player.GetComponent<SkillSystem>();
             skillSystem.SetWeaponController(this);
         }
@@ -36,29 +37,30 @@ public class WeaponController : InteractiveObject
 
     SkillSystem skillSystem;
 
+    public BladeIdle idle = new BladeIdle();
+    public BladeTracking tracking = new BladeTracking();
+    public BladeAttack attack = new BladeAttack();
 
-    // Start is called before the first frame update
-    void Start()
+
+    private AIStateMachine<WeaponController> aiStateMachine;
+    public AIStateMachine<WeaponController> AIStateMachine
     {
-        if (player == null) return;
-
-        //offset = transform.position - target.position;
+        get
+        {
+            if (aiStateMachine == null)
+                aiStateMachine = new AIStateMachine<WeaponController>(this, tracking);
+            return aiStateMachine;
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.IsGamePaused)
+            return;
+
         if (player == null) return;
 
-        SetPosition();
-        SetRotation();
-    }
-
-    IEnumerator FollowPlayer()
-    {
-        SetPosition();
-        SetRotation();
-        yield return null;
+        AIStateMachine.DoOperateUpdate();
     }
 
     public void SetPosition()
@@ -67,12 +69,10 @@ public class WeaponController : InteractiveObject
         if (player.transform.position.x > transform.position.x)
         {
             dis = new Vector3(-offset.x, offset.y, offset.z);
-            Debug.Log("blade is left");
         }
         else if (player.transform.position.x < transform.position.x)
         {
             dis = new Vector3(offset.x, offset.y, offset.z);
-            Debug.Log("blade is right");
         }
         else
         {
@@ -87,12 +87,10 @@ public class WeaponController : InteractiveObject
         if(player.transform.position.x > transform.position.x)
         {
             flippedRotation = leftQuaternion;
-            Debug.Log("blade is left");
         }
         else if(player.transform.position.x < transform.position.x)
         {
             flippedRotation = rightQuaternion;
-            Debug.Log("blade is right");
         }
         else
         {
@@ -100,6 +98,7 @@ public class WeaponController : InteractiveObject
         }
         Sprite.transform.rotation = Quaternion.Lerp(Sprite.transform.rotation, flippedRotation, lerpSpeed * Time.deltaTime);
     }
+
     enum Direction
     {
         Up, 
@@ -120,4 +119,82 @@ public class WeaponController : InteractiveObject
         SkillHandler handler = GameManager.Instance.GetSkillHandler(skill);
         handler.Init(skillSystem.InvokeNextTask, skillData.name);
     }*/
+}
+
+public class BladeIdle : IState<WeaponController>
+{
+    private WeaponController _blade;
+
+
+    public void OperateEnter(WeaponController sender)
+    {
+        _blade = sender;
+    }
+
+    public void OperateExit(WeaponController sender)
+    {
+
+    }
+
+    public void OperateUpdate(WeaponController sender)
+    {
+        Vector3 targetPos = sender.Player.gameObject.transform.position;
+        Vector3 currentPos = sender.gameObject.transform.position;
+        if ((currentPos - targetPos).magnitude > 0.1f)
+            sender.AIStateMachine.SetState(sender.tracking);
+    }
+}
+public class BladeTracking : IState<WeaponController>
+{
+    private WeaponController _blade;
+
+
+    public void OperateEnter(WeaponController sender)
+    {
+        _blade = sender;
+    }
+
+    public void OperateExit(WeaponController sender)
+    {
+
+    }
+
+    public void OperateUpdate(WeaponController sender)
+    {
+        /*Debug.Log($"{sender.gameObject.name}Traking");
+        float mag = (sender.target.transform.position - sender.transform.position).magnitude;
+        if (mag < 0.8f)
+            sender.AIStateMachine.SetState(sender.attack);
+        sender.agent.SetDestination(new Vector3(sender.target.transform.position.x, sender.target.transform.position.y));*/
+
+        Vector3 targetPos = sender.Player.gameObject.transform.position;
+        Vector3 currentPos = sender.gameObject.transform.position;
+        if ((currentPos - targetPos).magnitude < 0.1f)
+            sender.AIStateMachine.SetState(sender.idle);
+        sender.SetPosition();
+        sender.SetRotation();
+    }
+}
+public class BladeAttack : IState<WeaponController>
+{
+    private WeaponController _blade;
+
+
+    public void OperateEnter(WeaponController sender)
+    {
+        _blade = sender;
+    }
+
+    public void OperateExit(WeaponController sender)
+    {
+
+    }
+
+    public void OperateUpdate(WeaponController sender)
+    {
+        /*float mag = (sender.target.transform.position - sender.transform.position).magnitude;
+        if (mag > 2)
+            sender.AIStateMachine.SetState(sender.tracking);
+        Debug.Log("Attack");*/
+    }
 }

@@ -15,7 +15,9 @@ public class Unit : InteractiveObject
     protected GameObject statusBarPrefab;
     protected UIStatusBar uiStatusBar;
 
-    Status status = new Status();
+    public Status status = new Status();
+
+
 
     //유닛 초기화, 체력바 호출
     public virtual void Init(string statusBarName)

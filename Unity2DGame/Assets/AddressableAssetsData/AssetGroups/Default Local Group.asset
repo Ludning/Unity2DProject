@@ -18,11 +18,11 @@ MonoBehaviour:
   m_GUID: 92e43a014fed8af42ad0596e8ba30c1c
   m_SerializeEntries:
   - m_GUID: 842fc690bdc59b14e969408eec403311
-    m_Address: Prefabs/Blade
+    m_Address: Blade
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: e90f450a81b6f194e9709f3815abd567
-    m_Address: Prefabs/Player.prefab
+    m_Address: Player
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: e29f54d9029176843b7fcbee8fa9c599
@@ -111,6 +111,26 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 80657b8a752b83d4f92ad5139a2e479e
     m_Address: UnitSprite
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 65116aa0e46593b4587716bf1eaf24ed
+    m_Address: Goblin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b0ef87f8963dd104ebeebba371a35a17
+    m_Address: SkillPanel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2aa3185f4ddec9549b8f9dd486d497e3
+    m_Address: Mushroom
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3b38f082b67c35145b26d144fedc8691
+    m_Address: Skeleton
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5abb1a885c173b14ca5cc7a888671835
+    m_Address: FlyingEye
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
