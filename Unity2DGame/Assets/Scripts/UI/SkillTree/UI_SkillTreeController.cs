@@ -22,12 +22,12 @@ public class UI_SkillTreeController : UI_PopupController
         {
             for (int k = 0; k < skillTree[i].SkillButton.Count; k++)
             {
-                if(skillTree[i].skillTreeType == SkillTreeType.Fire)
+                if (skillTree[i].skillTreeType == SkillTreeType.Fire)
                     skillTree[i].SkillButton[k].ChangeSkill(skillDataBundle.fire[k].skillId);
-                else if(skillTree[i].skillTreeType == SkillTreeType.Frost)
+                /*else if(skillTree[i].skillTreeType == SkillTreeType.Frost)
                     skillTree[i].SkillButton[k].ChangeSkill(skillDataBundle.fire[k].skillId);
                 else if (skillTree[i].skillTreeType == SkillTreeType.Tetanus)
-                    skillTree[i].SkillButton[k].ChangeSkill(skillDataBundle.fire[k].skillId);
+                    skillTree[i].SkillButton[k].ChangeSkill(skillDataBundle.fire[k].skillId);*/
             }
         }
 
@@ -37,10 +37,7 @@ public class UI_SkillTreeController : UI_PopupController
             skill.ChangeSkill(GameManager.Instance.UserData.equipmentAttack[skill.SkillSlotIndex]);
         }
         //SkillButton 초기화
-        foreach (var skill in equipment.SkillButton)
-        {
-            skill.ChangeSkill(GameManager.Instance.UserData.equipmentSkill[skill.SkillSlotIndex]);
-        }
+        equipment.SkillButton.ChangeSkill(GameManager.Instance.UserData.equipmentSkill);
         //SpecialButton 초기화
         equipment.SpecialButton.ChangeSkill(GameManager.Instance.UserData.equipmentSpecial);
 

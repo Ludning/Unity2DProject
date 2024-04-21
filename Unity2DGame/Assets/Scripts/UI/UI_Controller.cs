@@ -17,5 +17,9 @@ public class UI_Controller : MonoBehaviour
     {
 
     }
+    public virtual void SetContext(string context)
+    {
+
+    }
 
 }

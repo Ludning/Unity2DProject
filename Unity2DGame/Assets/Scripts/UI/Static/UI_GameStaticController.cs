@@ -6,14 +6,14 @@ public class UI_GameStaticController : UI_Controller
 {
     public void OnClickSkillButton()
     {
-        UIManager.Instance.GetPopupElementData(ElementType.SkillTreeBack, ElementType.SkillTreeFront);
+        UIManager.Instance.ShowPopupElement(ElementType.SkillTreeBack, ElementType.SkillTreeFront);
     }
     public void OnClickInventoryButton()
     {
-        UIManager.Instance.GetPopupElementData(ElementType.InventoryBack, ElementType.InventoryFront);
+        UIManager.Instance.ShowPopupElement(ElementType.InventoryBack, ElementType.InventoryFront);
     }
     public void OnClickPauseButton()
     {
-        UIManager.Instance.GetPopupElementData(ElementType.MenuBack, ElementType.MenuFront);
+        UIManager.Instance.ShowPopupElement(ElementType.MenuBack, ElementType.MenuFront);
     }
 }

@@ -73,6 +73,15 @@ TagManager:
   - name: SceneInformationCanvas
     uniqueID: 608540319
     locked: 0
+  - name: Information_Text
+    uniqueID: 969593803
+    locked: 0
+  - name: Information_Slider
+    uniqueID: 274419147
+    locked: 0
+  - name: Information_Icon
+    uniqueID: 2510715395
+    locked: 0
   - name: SceneStaticCanvas
     uniqueID: 2408096083
     locked: 0

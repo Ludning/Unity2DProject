@@ -14,12 +14,19 @@ public class UIStatusBar : MonoBehaviour
     Transform StatusEffectIMGContainer;
     Dictionary<string, GameObject> StatusEffectIMGList = new Dictionary<string, GameObject>();
 
+    private void Start()
+    {
+        //nameField.transform.SetAsFirstSibling();  // 텍스트를 가장 먼저
+        //hpBarSlider.transform.SetSiblingIndex(1);  // 체력바를 두 번째로
+        //StatusEffectIMGContainer.SetAsLastSibling();  // 아이콘을 가장 마지막으로
+    }
     //초기화
     public void Init(string name, float hpRatio)
     {
         nameField.text = name;
         HPBarRefresh(hpRatio);
     }
+
 
     //Hp게이지 갱신
     public void HPBarRefresh(float hpRatio)

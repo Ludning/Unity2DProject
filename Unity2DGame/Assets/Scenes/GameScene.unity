@@ -305,6 +305,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapGenerater
       objectReference: {fileID: 0}
+    - target: {fileID: 6095139423246220092, guid: 7f61d2e3a4199794895173ff5a9ec64b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f61d2e3a4199794895173ff5a9ec64b, type: 3}
 --- !u!114 &1778407933 stripped
@@ -331,6 +336,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneInstaller
       objectReference: {fileID: 0}
+    - target: {fileID: 1730207412563979556, guid: 05c453f1112ffc44c8c57f104865bac0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1730207412563979557, guid: 05c453f1112ffc44c8c57f104865bac0,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 1393617012}
     - target: {fileID: 1730207412563979557, guid: 05c453f1112ffc44c8c57f104865bac0,
         type: 3}
       propertyPath: MapGenerater
@@ -459,6 +474,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavMesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 4057286504509701089, guid: d28ca35ea252d4c4e972baa07862a7cd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d28ca35ea252d4c4e972baa07862a7cd, type: 3}

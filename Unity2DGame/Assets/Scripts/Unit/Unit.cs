@@ -31,21 +31,33 @@ public class Unit : InteractiveObject
         statusBarBar = ObjectPool.Instance.GetGameObject(statusBarPrefab);
         statusBarBar.GetComponent<UI_TrackTarget>().Target = gameObject;
         uiStatusBar = statusBarBar.GetComponent<UIStatusBar>();
+
         statusBarBar.transform.parent = UIManager.Instance.GetCanvasData(CanvasType.SceneInformationCanvas).gameObject.transform;//Canvas.transform;
+        UIManager.Instance.ShowUI_Status(statusBarBar);
+
         statusBarBar.transform.localScale = Vector3.one;
         #endregion
     }
     public virtual void OnDie()
     {
+        statusBarBar.SetActive(false);
         ObjectPool.Instance.ReturnToPool(statusBarBar);
         statusBarBar = null;
         uiStatusBar = null;
         ObjectPool.Instance.ReturnToPool(gameObject);
     }
-    public void OnDamaged(int value)
+    public virtual void OnDamaged(int value)
     {
-        if (status.hp <= value)
+        int calValue = value - status.defence;
+        if (calValue < 0)
+        {
+            calValue = 0;
+        }
+
+        if (status.hp - value <= 0)
             status.hp = 0;
+        else if(status.hp - value >= status.maxHp)
+            status.hp = status.maxHp;
         else
             status.hp -= value;
 

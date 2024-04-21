@@ -8,7 +8,7 @@ public class UI_EquipmentSkill : MonoBehaviour
     [SerializeField]
     List<UI_SkillButton> attackButton;
     [SerializeField]
-    List<UI_SkillButton> skillButton;
+    UI_SkillButton skillButton;
     [SerializeField]
     UI_SkillButton specialButton;
 
@@ -16,7 +16,7 @@ public class UI_EquipmentSkill : MonoBehaviour
     {
         get { return attackButton; }
     }
-    public List<UI_SkillButton> SkillButton
+    public UI_SkillButton SkillButton
     {
         get { return skillButton; }
     }
@@ -29,6 +29,18 @@ public class UI_EquipmentSkill : MonoBehaviour
 
     public void SkillSpriteChange(EquipmentSkillEvent equipmentSkill)
     {
-        skillButton[equipmentSkill.skillSlotIndex].ChangeSkill(GameManager.Instance.UserData.equipmentSkill[equipmentSkill.skillSlotIndex]);
+        switch(equipmentSkill.skillSlotType)
+        {
+            case SkillEquipmentType.Attack:
+                attackButton[equipmentSkill.skillSlotIndex].ChangeSkill(GameManager.Instance.UserData.equipmentAttack[equipmentSkill.skillSlotIndex]);
+                break;
+            case SkillEquipmentType.Skill:
+                skillButton.ChangeSkill(GameManager.Instance.UserData.equipmentSkill);
+                break;
+            case SkillEquipmentType.Special:
+                specialButton.ChangeSkill(GameManager.Instance.UserData.equipmentSpecial);
+                break;
+        }
+        
     }
 }

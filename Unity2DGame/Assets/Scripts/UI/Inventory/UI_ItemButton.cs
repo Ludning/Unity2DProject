@@ -4,9 +4,10 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class UI_ItemButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class UI_ItemButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [SerializeField]
     Image image;
@@ -65,11 +66,19 @@ public class UI_ItemButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UIManager.Instance.GetElementData(ElementType.InformationOverlay);
+        UIManager.Instance.ShowItemOverlayElement(itemIndex);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        UIManager.Instance.HideElement(ElementType.InformationOverlay);
+        UIManager.Instance.HideItemOverlayElement();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            GameManager.Instance.UserData.RemoveItem(ItemSlotIndex);
+        }
     }
 }

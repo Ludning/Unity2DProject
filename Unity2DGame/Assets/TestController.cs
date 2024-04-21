@@ -7,8 +7,8 @@ public class TestController : MonoBehaviour
     private void Start()
     {
         //UIManager.Instance.GetPopupElementData(ElementType.InventoryBack, ElementType.InventoryFront);
-        UIManager.Instance.GetElementData(ElementType.GameStatic);
-        UIManager.Instance.GetElementData(ElementType.SkillPanel);
+        UIManager.Instance.ShowElement(ElementType.GameStatic);
+        UIManager.Instance.ShowElement(ElementType.SkillPanel);
     }
     private void FixedUpdate()
     {

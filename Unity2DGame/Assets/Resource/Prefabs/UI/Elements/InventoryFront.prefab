@@ -158,8 +158,9 @@ MonoBehaviour:
     Damage
     : 10000'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fd60716f5e5271545b9099b7413dd6dd, type: 2}
+  m_sharedMaterial: {fileID: 5791151332947386985, guid: fd60716f5e5271545b9099b7413dd6dd,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -632,6 +633,23 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5791151332947386985, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5034407135871106958, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
         type: 3}
       propertyPath: ItemSlotType
@@ -813,6 +831,23 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5791151332947386985, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5034407135871106958, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
         type: 3}
@@ -996,6 +1031,23 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5791151332947386985, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5034407135871106958, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
         type: 3}
       propertyPath: ItemSlotIndex
@@ -1173,6 +1225,23 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5791151332947386985, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7489992722275151240, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1344,6 +1413,23 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5791151332947386985, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5034407135871106958, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
         type: 3}
@@ -1527,6 +1613,23 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5791151332947386985, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5034407135871106958, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
         type: 3}
       propertyPath: ItemSlotType
@@ -1708,6 +1811,23 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5791151332947386985, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5034407135871106958, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
         type: 3}
@@ -1891,6 +2011,23 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5791151332947386985, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5034407135871106958, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
         type: 3}
       propertyPath: ItemSlotType
@@ -2073,6 +2210,23 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5791151332947386985, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5034407135871106958, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
         type: 3}
       propertyPath: ItemSlotIndex
@@ -2249,6 +2403,23 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5791151332947386985, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5034407135871106958, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
         type: 3}
@@ -2432,6 +2603,23 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5791151332947386985, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5034407135871106958, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
         type: 3}
       propertyPath: ItemSlotType
@@ -2614,6 +2802,23 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5791151332947386985, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5034407135871106958, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
         type: 3}
       propertyPath: ItemSlotType
@@ -2790,6 +2995,23 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5791151332947386985, guid: fd60716f5e5271545b9099b7413dd6dd,
+        type: 2}
+    - target: {fileID: 4137140835701191980, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5034407135871106958, guid: 2641538c3d6cf8e40898bf0e02b4c4d0,
         type: 3}

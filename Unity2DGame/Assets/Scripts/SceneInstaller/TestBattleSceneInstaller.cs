@@ -15,6 +15,10 @@ public class TestBattleSceneInstaller : SceneInstaller
     private void Awake()
     {
         SpawnManager.Instance.SpawnPlayer(playerPrefab, bladePrefab, Vector3.zero);
+
+        UIManager.Instance.ShowElement(ElementType.GameStatic);
+        UIManager.Instance.ShowElement(ElementType.SkillPanel);
+
         SpawnManager.Instance.SpawnMonster(MonsterType.Goblin, Vector3.zero);
     }
 }

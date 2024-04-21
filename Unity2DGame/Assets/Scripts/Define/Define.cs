@@ -22,6 +22,7 @@ public enum CanvasType
 }
 public enum ElementType
 {
+
     GameStatic,
     SkillPanel,
     InventoryBack,

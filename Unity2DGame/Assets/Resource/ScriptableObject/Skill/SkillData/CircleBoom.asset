@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bffc7b1523873c745b1811fa8c33471b, type: 3}
+  m_Name: CircleBoom
+  m_EditorClassIdentifier: 
+  skillId: 5
+  skillName: "\uB300\uD3ED\uBC1C"
+  skillDiscription: "\uC790\uC2E0\uC758 \uCCB4\uB825\uC744 \uD68C\uBCF5\uD558\uACE0
+    \uC8FC\uC704\uC758 \uC801\uC5D0\uAC8C \uB370\uBBF8\uC9C0\uB97C \uAC00\uD569\uB2C8\uB2E4"
+  skillIcon: {fileID: 21300000, guid: 87ec6b831fb124967a04a44483fc8e28, type: 3}
+  isProjectile: 0
+  skillEquipmentType: 1
+  skillDamage: 300
+  coolTime: 7
+  manaCost: 40
+  skillPrefab: {fileID: 407603673795121094, guid: dd50b46459fe9e94185e01ea0414b436,
+    type: 3}

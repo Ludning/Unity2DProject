@@ -20,8 +20,20 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     Rigidbody2D rigidbody;
     Player player;
-    SkillSystem skillSystem;
+    //SkillSystem skillSystem;
     WeaponController weaponController;
+
+    [SerializeField]
+    GameObject cursor;
+
+    public Vector2 LookDirection
+    {
+        get
+        {
+            return player.LookDirection;
+        }
+    }
+
     public WeaponController WeaponController
     {
         get
@@ -48,7 +60,7 @@ public class PlayerController : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody2D>();
         player = GetComponent<Player>();
-        skillSystem = GetComponent<SkillSystem>();
+        //skillSystem = GetComponent<SkillSystem>();
         playerDir = Direction.IDLE;
     }
 
@@ -110,23 +122,58 @@ public class PlayerController : MonoBehaviour
 
         playerNormal = playerInput.normalized;
         playerMagnitude = Mathf.Sqrt(playerInput.x * playerInput.x + playerInput.y * playerInput.y);
-        player.LookDirection = new Vector2(playerInput.x, playerInput.y);
+        if(playerInput != Vector2.zero)
+        {
+            cursor.transform.localPosition = playerInput;
+            player.LookDirection = new Vector2(playerInput.x, playerInput.y);
+        }
         SetDirection();
     }
     public void OnAttackInput(InputValue context)
     {
-        skillSystem.StartSkillInvoke(player.testSkill);
+        SkillData data = GameManager.Instance.UserData.GetCurrentAttackData();
+        if (WeaponController.IsUsingSkill && !data.isProjectile)
+            return;
+        if (data.skillId == 0)
+            return;
+
+        //스킬 생성, 출력
+        SkillSetUp(data);
+
         GameManager.Instance.UserData.UseActiveAttack();
     }
     public void OnSkillInput(InputValue context)
     {
-        //player.skillData
+        if (GameManager.Instance.UserData.GetCurrentSkillCoolTiem != 0)
+            return;
+        SkillData data = GameManager.Instance.UserData.GetCurrentSkillData();
+        if (WeaponController.IsUsingSkill && !data.isProjectile)
+            return;
+        if (data.skillId == 0)
+            return;
+
+        //스킬 생성, 출력
+        SkillSetUp(data);
+
         GameManager.Instance.UserData.UseActiveSkill();
     }
     public void OnSpecialInput(InputValue context)
     {
-        //player.specialData
+        if (GameManager.Instance.UserData.GetCurrentSpecialCoolTime != 0)
+            return;
+        SkillData data = GameManager.Instance.UserData.GetCurrentSpecialData();
+        if (WeaponController.IsUsingSkill && !data.isProjectile)
+            return;
+
+        //스킬 생성, 출력
+        SkillSetUp(data);
+
         GameManager.Instance.UserData.UseActiveSpecial();
+    }
+    private void SkillSetUp(SkillData data)
+    {
+        GameObject skill = ObjectPool.Instance.GetGameObject(data.skillPrefab);
+        skill.GetComponent<ISkillEventReception>().InstallSkill(this, WeaponController, data);
     }
 
     public enum Direction

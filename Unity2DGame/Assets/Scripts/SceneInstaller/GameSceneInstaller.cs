@@ -16,19 +16,52 @@ public class GameSceneInstaller : SceneInstaller
     [SerializeField]
     CellularAutomata MapGenerater;
 
+    [SerializeField]
+    Camera camera;
+
     private void Awake()
     {
         MapGenerater.OnGeneraterMap();
+
+        GameObject map = Instantiate(DataManager.Instance.LoadObject<GameObject>("BossMap"));
+        map.transform.position = new Vector3(-100, 0, 0);
+
+        int ran = Random.Range(0, 4);
+        GameObject boss;
+        switch (ran)
+        {
+            case 0:
+                boss = Instantiate(DataManager.Instance.LoadObject<GameObject>("BigFlyingEye"));
+                break;
+            case 1:
+                boss = Instantiate(DataManager.Instance.LoadObject<GameObject>("GoblinKing"));
+                break;
+            case 2:
+                boss = Instantiate(DataManager.Instance.LoadObject<GameObject>("SuperMushroom"));
+                break;
+            default:
+                boss = Instantiate(DataManager.Instance.LoadObject<GameObject>("UltimateSkeleton"));
+                break;
+        }
+        boss.transform.position = new Vector3(-100, 5, 0);
+
         MapGenerater.Surface2D.BuildNavMesh();
 
         Vector2 pos = MapGenerater.RandomSpawnPos();
         SpawnManager.Instance.SpawnPlayer(playerPrefab, bladePrefab, pos + new Vector2(0.5f, 0.5f));
 
-        UIManager.Instance.GetElementData(ElementType.GameStatic);
-        UIManager.Instance.GetElementData(ElementType.SkillPanel);
+        UIManager.Instance.ShowElement(ElementType.GameStatic);
+        UIManager.Instance.ShowElement(ElementType.SkillPanel);
 
         MonsterDisposition(MapGenerater.blockDic.Values.ToList());
+
+        PortalDisposition(MapGenerater.blockDic.Values.ToList());
+
+        CullingSystem cs = camera.gameObject.AddComponent<CullingSystem>();
+        cs.OnStartCullingMap(MapGenerater.blockDic);
     }
+
+
 
     //Æ÷Å» ·£´ý »ý¼º
     private void PortalDisposition(List<Block> blockList)
@@ -51,11 +84,12 @@ public class GameSceneInstaller : SceneInstaller
     {
         foreach (Block block in blockList)
         {
+            if(block == blockList.First())
+                continue;
             int monsterCount = Random.Range(5, 10);
             RandomSpawn(block, monsterCount);
         }
     }
-    
     
     private void RandomSpawn(Block block, int count = 1)
     {

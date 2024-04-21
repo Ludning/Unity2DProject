@@ -56,6 +56,17 @@ public class CellularAutomata : MonoBehaviour
 
     public NavMeshSurface Surface2D;
 
+    Dictionary<BSPNode, List<BSPNode>> adjacencyNodeDic = null;
+    public Dictionary<BSPNode, List<BSPNode>> AdjacencyNodeDic
+    {
+        get
+        {
+            if (adjacencyNodeDic == null)
+                adjacencyNodeDic = BSP.GetAdjacencyList();
+            return adjacencyNodeDic;
+        }
+    }
+
     public Vector2 RandomSpawnPos(Block block = null)
     {
         if (block == null)
@@ -185,8 +196,24 @@ public class CellularAutomata : MonoBehaviour
 
         GenerateByMapNode(blockDic);
 
-        
+        GeneratorTilemapCurrlingData();
     }
+
+    private void GeneratorTilemapCurrlingData()
+    {
+        var adjacencyDatas = BSP.GetAdjacencyList();
+        foreach (var data in adjacencyDatas)
+        {
+            foreach (var adjNode in data.Value)
+            {
+                if (blockDic.ContainsKey(data.Key) && blockDic.ContainsKey(adjNode))
+                {
+                    blockDic[data.Key].adjacencyBlock.Add(blockDic[adjNode]);
+                }
+            }
+        }
+    }
+
     public void Clear()
     {
         blockDic = new Dictionary<BSPNode, Block>();
@@ -628,7 +655,41 @@ public class Block
     public Tilemap wallTilemap;
     public int[,] map;
 
+    private TilemapRenderer frontTilemapRenderer;
+    private TilemapRenderer backTilemapRenderer;
+    private TilemapRenderer wallTilemapRenderer;
+
+    public TilemapRenderer FrontTilemapRenderer
+    {
+        get
+        {
+            if (frontTilemapRenderer == null)
+                frontTilemapRenderer = frontTilemap.GetComponent<TilemapRenderer>();
+            return frontTilemapRenderer;
+        }
+    }
+    public TilemapRenderer BackTilemapRenderer
+    {
+        get
+        {
+            if (backTilemapRenderer == null)
+                backTilemapRenderer = backTilemap.GetComponent<TilemapRenderer>();
+            return backTilemapRenderer;
+        }
+    }
+    public TilemapRenderer WallTilemapRenderer
+    {
+        get
+        {
+            if (wallTilemapRenderer == null)
+                wallTilemapRenderer = wallTilemap.GetComponent<TilemapRenderer>();
+            return wallTilemapRenderer;
+        }
+    }
+
     public List<(int, int)> coordinate = null;
+
+    public List<Block> adjacencyBlock = new List<Block>();
 
     public Block(BSPNode node, Tilemap frontTilemap, Tilemap backTilemap, Tilemap wallTilemap)
     {

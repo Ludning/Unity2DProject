@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 
 public class Monster : Unit
@@ -27,6 +28,19 @@ public class Monster : Unit
 
     [SerializeField]
     public NavMeshAgent agent;
+    [SerializeField]
+    Collider2D collider;
+
+    [SerializeField]
+    SpriteRenderer spriteRenderer;
+
+    [SerializeField]
+    Animator animator;
+
+    public int GetColliderInstanceID()
+    {
+        return collider.GetInstanceID();
+    }
 
     public Rigidbody Rigid
     {
@@ -46,6 +60,12 @@ public class Monster : Unit
     public override void Init(string statusBarName)
     {
         base.Init(statusBarName);
+        MonsterData data = ResourceManager.Instance.GetScriptableData<MonsterData>(gameObject.name);
+        status.maxHp = data.maxHp;
+        status.hp = data.maxHp;
+        status.attack = data.attack;
+        status.defence = data.defence;
+
         rigid = GetComponent<Rigidbody>();
         #region uiStatusBar 초기화
         uiStatusBar.Init(gameObject.name, HpRatio);
@@ -53,6 +73,16 @@ public class Monster : Unit
     }
     public override void OnDie()
     {
+        ItemData itemData = ResourceManager.Instance.GetScriptableData<ItemData>("ItemData");
+        int index = Random.Range(0, itemData.items.Count * 3);
+
+        if(index < itemData.items.Count)
+        {
+            GameObject go = ObjectPool.Instance.GetGameObject(ResourceManager.Instance.GetPrefab("DropItem"));
+            go.GetComponent<DropItem>().Init(itemData.items[index]);
+            go.transform.position = transform.position;
+        }
+
         GameManager.Instance.RemoveMonster(this);
         base.OnDie();
     }
@@ -63,24 +93,17 @@ public class Monster : Unit
     }
     private void FixedUpdate()
     {
+        if (agent.velocity.x < -0.1f)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else if (agent.velocity.x > 0.1f)
+        {
+            spriteRenderer.flipX = false;
+        }
         AIStateMachine.DoOperateUpdate();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Player"))
-        {
-            target = collision.gameObject;
-            AIStateMachine.SetState(tracking);
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            target = null;
-            AIStateMachine.SetState(idle);
-        }
-    }
+    
 }
 
 
@@ -101,7 +124,7 @@ public class Idle : IState<Monster>
 
     public void OperateUpdate(Monster sender)
     {
-        Debug.Log("Idle");
+        //Debug.Log("Idle");
     }
 }
 public class Walk : IState<Monster>
@@ -141,7 +164,6 @@ public class Tracking : IState<Monster>
 
     public void OperateUpdate(Monster sender)
     {
-        Debug.Log($"{sender.gameObject.name}Traking");
         float mag = (sender.target.transform.position - sender.transform.position).magnitude;
         if (mag < 0.8f)
             sender.AIStateMachine.SetState(sender.attack);
@@ -151,7 +173,8 @@ public class Tracking : IState<Monster>
 public class Attack : IState<Monster>
 {
     private Monster _monster;
-
+    private float timer = 0;
+    private float delay = 2f;
 
     public void OperateEnter(Monster sender)
     {
@@ -168,6 +191,13 @@ public class Attack : IState<Monster>
         float mag = (sender.target.transform.position - sender.transform.position).magnitude;
         if (mag > 2)
             sender.AIStateMachine.SetState(sender.tracking);
-        Debug.Log("Attack");
+
+        timer += Time.deltaTime;  // 매 프레임마다 경과된 시간을 타이머에 더합니다.
+
+        if (timer >= delay)  // 타이머가 지정된 지연 시간을 초과하면,
+        {
+            GameManager.Instance.player.OnDamaged(sender.status.attack);
+            timer = 0;  // 타이머를 재설정합니다 (필요한 경우).
+        }
     }
 }

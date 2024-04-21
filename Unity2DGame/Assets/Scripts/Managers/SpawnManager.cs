@@ -30,6 +30,7 @@ public class SpawnManager : Manager<SpawnManager>
         playerComponent.SetWeaponController(weaponController);
         weaponController.Player = playerComponent;
         GameManager.Instance.player = playerComponent;
+        GameManager.Instance.playerController = playerComponent.GetPlayerController();
         return player;
     }
     public GameObject SpawnMonster(MonsterType type, Vector3 pos)

@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using static UnityEditor.Progress;
 
 [Serializable]
 public class UserData
@@ -12,11 +14,11 @@ public class UserData
     public int[] inventoryItem = new int[10];
 
     public int[] equipmentAttack = new int[3];
-    public int[] equipmentSkill = new int[3];
+    public int equipmentSkill = 0;
     public int equipmentSpecial = 0;
 
     public int attackCursor = 0;
-    public float[] equipmentSkillCooltime = new float[3];
+    public float equipmentSkillCooltime = 0;
     public float equipmentSpecialCooltime = 0;
 
     public int gold;
@@ -24,18 +26,14 @@ public class UserData
 
     public void UpdateCoolTime(float time)
     {
-        for (int i = 0; i < equipmentSkillCooltime.Count(); i++)
-        {
-            if (!(equipmentSkillCooltime[i] - time <= 0f))
-                equipmentSkillCooltime[i] -= time;
-            else
-                equipmentSkillCooltime[i] = 0f;
-        }
+        if (!(equipmentSkillCooltime - time <= 0f))
+            equipmentSkillCooltime -= time;
+        else
+            equipmentSkillCooltime = 0f;
         if (!(equipmentSpecialCooltime - time <= 0f))
             equipmentSpecialCooltime -= time;
         else
             equipmentSpecialCooltime = 0f;
-
     }
 
     public int GetCurrentAttack
@@ -49,35 +47,17 @@ public class UserData
     {
         get
         {
-            if (equipmentSkillCooltime[0] == 0 && equipmentSkill[0] != 0)
-                return equipmentSkill[0];
-            else if (equipmentSkillCooltime[1] == 0 && equipmentSkill[1] != 0)
-                return equipmentSkill[1];
-            else if (equipmentSkillCooltime[2] == 0 && equipmentSkill[2] != 0)
-                return equipmentSkill[2];
-            return equipmentSkill[0];
-        }
-    }
-    public int GetCurrentSkillIndex
-    {
-        get
-        {
-            if (equipmentSkillCooltime[0] == 0 && equipmentSkill[0] != 0)
-                return 0;
-            else if (equipmentSkillCooltime[1] == 0 && equipmentSkill[1] != 0)
-                return 1;
-            else if (equipmentSkillCooltime[2] == 0 && equipmentSkill[2] != 0)
-                return 2;
-            return 0;
+            return equipmentSkill;
         }
     }
     public float GetCurrentSkillCoolTiem
     {
         get
         {
-            return equipmentSkillCooltime[GetCurrentSkillIndex];
+            return equipmentSkillCooltime;
         }
     }
+
     public int GetCurrentSpecial
     {
         get
@@ -92,6 +72,9 @@ public class UserData
             return equipmentSpecialCooltime;
         }
     }
+
+
+
     private void AddAttackCursor()
     {
         attackCursor++;
@@ -103,18 +86,38 @@ public class UserData
     {
         //사용
         //equipmentSkill[attackCursor];
+
+        if (GetCurrentAttack == 0)
+            return;
         AddAttackCursor();
     }
     public void UseActiveSkill()
     {
-
-        equipmentSkillCooltime[GetCurrentSkillIndex] = GetSkillData(GetCurrentSkill).coolTime;
+        if (GetCurrentSkill == 0)
+            return;
+        equipmentSkillCooltime = GetSkillData(equipmentSkill).coolTime;
     }
     public void UseActiveSpecial()
     {
         if (equipmentSpecial == 0)
             return;
         equipmentSpecialCooltime = GetSkillData(equipmentSpecial).coolTime;
+    }
+
+    public SkillData GetCurrentAttackData()
+    {
+        List<SkillData> skilldatas = ResourceManager.Instance.GetScriptableData<SkillDataBundle>("SkillDataBundle").GetAllData();
+        return skilldatas.Find(x => x.skillId == GetCurrentAttack);
+    }
+    public SkillData GetCurrentSkillData()
+    {
+        List<SkillData> skilldatas = ResourceManager.Instance.GetScriptableData<SkillDataBundle>("SkillDataBundle").GetAllData();
+        return skilldatas.Find(x => x.skillId == GetCurrentSkill);
+    }
+    public SkillData GetCurrentSpecialData()
+    {
+        List<SkillData> skilldatas = ResourceManager.Instance.GetScriptableData<SkillDataBundle>("SkillDataBundle").GetAllData();
+        return skilldatas.Find(x => x.skillId == GetCurrentSpecial);
     }
 
     public SkillData GetSkillData(int skillId)
@@ -130,7 +133,7 @@ public class UserData
     //스킬 장착
     public void SkillEquip(SkillData data, SkillEquipmentType type, int index = 0)
     {
-        if (type != SkillEquipmentType.Special && (index < 0 || index > 2))
+        if (type == SkillEquipmentType.Attack && (index < 0 || index > 2))
             return;
         switch (type)
         {
@@ -138,7 +141,7 @@ public class UserData
                 equipmentAttack[index] = data.skillId;
                 break;
             case SkillEquipmentType.Skill:
-                equipmentSkill[index] = data.skillId;
+                equipmentSkill = data.skillId;
                 break;
             case SkillEquipmentType.Special:
                 equipmentSpecial = data.skillId;
@@ -158,8 +161,7 @@ public class UserData
                 SortAttack();
                 break;
             case SkillEquipmentType.Skill:
-                equipmentSkill[index] = 0;
-                SortSkill();
+                equipmentSkill = 0;
                 break;
             case SkillEquipmentType.Special:
                 equipmentSpecial = 0;
@@ -178,22 +180,6 @@ public class UserData
             }
         }
     }
-    public void SortSkill()
-    {
-        for (int i = 0; i < equipmentSkill.Length; i++)
-        {
-            if (equipmentSkill[i] == 0 && i + 1 < equipmentSkill.Length)
-            {
-                int temp = equipmentSkill[i];
-                equipmentSkill[i] = equipmentSkill[i + 1];
-                equipmentSkill[i + 1] = temp;
-
-                float tempCool = equipmentSkillCooltime[i];
-                equipmentSkillCooltime[i] = equipmentSkillCooltime[i + 1];
-                equipmentSkillCooltime[i + 1] = tempCool;
-            }
-        }
-    }
     public int LastEmptySlotIndex(SkillEquipmentType type)
     {
         switch (type)
@@ -206,12 +192,7 @@ public class UserData
                 }
                 break;
             case SkillEquipmentType.Skill:
-                for (int i = 0; i < 3; i++)
-                {
-                    if (equipmentSkill[i] == 0 || i == 2)
-                        return i;
-                }
-                break;
+                return 0;
             case SkillEquipmentType.Special:
                 return 0;
         }
@@ -225,10 +206,14 @@ public class UserData
             return;
         ItemData itemData = ResourceManager.Instance.GetScriptableData<ItemData>("ItemData");
         int equipSlot = (int)itemData.items.Find(x => x.id == inventoryItem[inventorySlot]).equipType;
-        
+
+        UnequipItemEffect(itemData.items.Find(x => x.id == equipmentItem[equipSlot]));
+        EquipItemEffect(itemData.items.Find(x => x.id == inventoryItem[inventorySlot]));
+
         int temp = equipmentItem[equipSlot];
         equipmentItem[equipSlot] = inventoryItem[inventorySlot];
         inventoryItem[inventorySlot] = temp;
+
 
         //이벤트 객체 재사용
         EquipmentItemEvent equipmentItemEvent = EventBusManager.Instance.GetEventInstance<EquipmentItemEvent>();
@@ -249,6 +234,8 @@ public class UserData
     //장비 해제
     public void UnequipItem(int equipmentSlot)
     {
+        if (equipmentItem[equipmentSlot] == 0)
+            return;
         int inventorySlot = int.MaxValue;
         for (int i = 0; i < inventoryItem.Count(); i++)
         {
@@ -262,6 +249,9 @@ public class UserData
         {
             return;
         }
+        ItemData itemData = ResourceManager.Instance.GetScriptableData<ItemData>("ItemData");
+        UnequipItemEffect(itemData.items.Find(x => x.id == equipmentItem[equipmentSlot]));
+
         inventoryItem[inventorySlot] = equipmentItem[equipmentSlot];
         equipmentItem[equipmentSlot] = 0;
 
@@ -271,7 +261,6 @@ public class UserData
         StatusTextEvent statusTextEvent = EventBusManager.Instance.GetEventInstance<StatusTextEvent>();
 
         //이벤트 객체 내용수정
-        Status status = GameManager.Instance.UserData.playerStatus;
         equipmentItemEvent.itemSlotIndex = equipmentSlot;
         inventoryItemEvent.itemSlotIndex = inventorySlot;
         statusTextEvent.statusText = GetStatusText();
@@ -281,10 +270,100 @@ public class UserData
         EventBusManager.Instance.Publish(inventoryItemEvent);
         EventBusManager.Instance.Publish(statusTextEvent);
     }
+    //장비 삭제
+    public void RemoveItem(int inventorySlot)
+    {
+        if (inventoryItem[inventorySlot] == 0)
+            return;
+        ItemData itemData = ResourceManager.Instance.GetScriptableData<ItemData>("ItemData");
+        Item nullItem = itemData.items.Find(x => x.id == 0);
 
+        inventoryItem[inventorySlot] = nullItem.id;
+
+        //이벤트 객체 재사용
+        InventoryItemEvent inventoryItemEvent = EventBusManager.Instance.GetEventInstance<InventoryItemEvent>();
+        //이벤트 객체 내용수정
+        inventoryItemEvent.itemSlotIndex = inventorySlot;
+        //이벤트버스 호출
+        EventBusManager.Instance.Publish(inventoryItemEvent);
+    }
+    //장비, 인벤토리와 스왑
+    public void PickUpItem(int itemId)
+    {
+        int inventorySlotIndex = int.MaxValue;
+        for (int i = 0; i < inventoryItem.Count(); i++)
+        {
+            if (inventoryItem[i] == 0)
+            {
+                inventorySlotIndex = i;
+                break;
+            }
+        }
+        if (inventorySlotIndex == int.MaxValue)
+            return;
+
+        inventoryItem[inventorySlotIndex] = itemId;
+
+        //이벤트 객체 재사용
+        InventoryItemEvent inventoryItemEvent = EventBusManager.Instance.GetEventInstance<InventoryItemEvent>();
+
+        //이벤트 객체 내용수정
+        inventoryItemEvent.itemSlotIndex = inventorySlotIndex;
+
+        //이벤트버스 호출
+        EventBusManager.Instance.Publish(inventoryItemEvent);
+    }
+    public void EquipItemEffect(Item item)
+    {
+        Status status = GameManager.Instance.UserData.playerStatus;
+        foreach (var stat in item.itemStat)
+        {
+            switch (stat.itemStatType)
+            {
+                case ItemStatType.Hp:
+                    status.maxHp += stat.value;
+                    status.hp += stat.value;
+                    break;
+                case ItemStatType.Mp:
+                    status.maxMp += stat.value;
+                    status.mp += stat.value;
+                    break;
+                case ItemStatType.Attack:
+                    status.attack += stat.value;
+                    break;
+                case ItemStatType.Defence:
+                    status.defence += stat.value;
+                    break;
+            }
+        }
+    }
+    public void UnequipItemEffect(Item item)
+    {
+        Status status = GameManager.Instance.UserData.playerStatus;
+        foreach (var stat in item.itemStat)
+        {
+            switch (stat.itemStatType)
+            {
+                case ItemStatType.Hp:
+                    status.maxHp -= stat.value;
+                    status.hp -= stat.value;
+                    break;
+                case ItemStatType.Mp:
+                    status.maxMp -= stat.value;
+                    status.mp -= stat.value;
+                    break;
+                case ItemStatType.Attack:
+                    status.attack -= stat.value;
+                    break;
+                case ItemStatType.Defence:
+                    status.defence -= stat.value;
+                    break;
+            }
+        }
+    }
 
     //스킬 장착(요구사항 체크)
-    public void EquipSkill(SkillEquipmentType skillEquipmentType, int skillIndex)
+    public void EquipSkill(SkillEquipmentType skillEquipmentType, int skillSlotIndex, int skillIndex)
     {
         var slot = LastEmptySkillSlot(skillEquipmentType);
         if (slot.Key == SkillEquipmentType.MaxCount)
@@ -295,13 +374,13 @@ public class UserData
         switch (slot.Key)
         {
             case SkillEquipmentType.Attack:
-                equipmentAttack[slot.Value] = skilldatas[skillIndex].skillId;
+                equipmentAttack[slot.Value] = skilldatas.Find(x => x.skillId == skillIndex).skillId;
                 break;
             case SkillEquipmentType.Skill:
-                equipmentSkill[slot.Value] = skilldatas[skillIndex].skillId;
+                equipmentSkill = skilldatas.Find(x => x.skillId == skillIndex).skillId;
                 break;
             case SkillEquipmentType.Special:
-                equipmentSpecial = skilldatas[skillIndex].skillId;
+                equipmentSpecial = skilldatas.Find(x => x.skillId == skillIndex).skillId;
                 break;
         }
 
@@ -317,9 +396,34 @@ public class UserData
         EventBusManager.Instance.Publish(equipmentItemEvent);
     }
     //스킬 해제
-    public void UnequipSkill(SkillEquipmentType skillEquipmentType)
+    public void UnequipSkill(SkillEquipmentType skillEquipmentType, int SkillSlotIndex)
     {
-        EquipSkill(skillEquipmentType, 0);
+
+        List<SkillData> skilldatas = ResourceManager.Instance.GetScriptableData<SkillDataBundle>("SkillDataBundle").GetAllData();
+
+        switch (skillEquipmentType)
+        {
+            case SkillEquipmentType.Attack:
+                equipmentAttack[SkillSlotIndex] = skilldatas.Find(x => x.skillId == 0).skillId;
+                break;
+            case SkillEquipmentType.Skill:
+                equipmentSkill = skilldatas.Find(x => x.skillId == 0).skillId;
+                break;
+            case SkillEquipmentType.Special:
+                equipmentSpecial = skilldatas.Find(x => x.skillId == 0).skillId;
+                break;
+        }
+
+        //이벤트 객체 재사용
+        EquipmentSkillEvent equipmentItemEvent = EventBusManager.Instance.GetEventInstance<EquipmentSkillEvent>();
+
+        //이벤트 객체 내용수정
+        Status status = GameManager.Instance.UserData.playerStatus;
+        equipmentItemEvent.skillSlotType = skillEquipmentType;
+        equipmentItemEvent.skillSlotIndex = SkillSlotIndex;
+
+        //이벤트버스 호출
+        EventBusManager.Instance.Publish(equipmentItemEvent);
     }
 
 
@@ -360,7 +464,7 @@ public class UserData
     }
     public void Save()
     {
-        playerStatus = GameManager.Instance.player.status;
+        //playerStatus = GameManager.Instance.player.status;
         DataManager.Instance.SaveJsonData("UserData", this);
     }
 }

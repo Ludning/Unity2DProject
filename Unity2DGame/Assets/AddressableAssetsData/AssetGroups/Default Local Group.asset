@@ -133,6 +133,98 @@ MonoBehaviour:
     m_Address: FlyingEye
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 3f5d9cff6d5d59147baa843dde243cc2
+    m_Address: ChargeThrust
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5a7760e88dd738949a5266023db7c71e
+    m_Address: NormalAttack
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 11769364a6d15844eb426dae1dc3f5a4
+    m_Address: Swap
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3033c8de24da17243b6a8646abe3e79b
+    m_Address: CircleBoom
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9ea81d090712c084da62f1d8c49210bb
+    m_Address: FireSkill
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4794a73b17edff9488642affb802bc4b
+    m_Address: Laser
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bbc6d0044be7e9d48908eea54e5b4698
+    m_Address: ChargeThrust
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: dd50b46459fe9e94185e01ea0414b436
+    m_Address: CircleBoom
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7a8ba42e84e5b9d4abfe041795c3a209
+    m_Address: FireAttack
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 23d3c763d92f78b478301660a4e74369
+    m_Address: Laser
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a69515d5d871f3748a0fd5d8649200f5
+    m_Address: Swap
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0499568c62d98584ca2e37d0ead8ec3c
+    m_Address: NormalAttack
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9e3dec38e11ef0d468c9d41fedf23a21
+    m_Address: Skeleton
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a132f30ce0455d34d8d7490dc7734256
+    m_Address: Mushroom
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f8a43de8c7298724ab1aef2f5ce7bf49
+    m_Address: Goblin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c95600d3a3c458c439f0644927d858b7
+    m_Address: FlyingEye
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 09ce9c3264b6c7b4ca48ec40b238360c
+    m_Address: BossMap
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 795a793bfebdbe34693f43a95da466fe
+    m_Address: DropItem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0f22bc7eb1890ce41918352cc2bbf216
+    m_Address: UltimateSkeleton
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 74154df351738b84abc369cfa9de6644
+    m_Address: SuperMushroom
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2285d254777e8b14083ec2d68b8167bb
+    m_Address: GoblinKing
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 47df803473cbbd3438e5994a3fd01ff9
+    m_Address: BigFlyingEye
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 81f38a9f574aa6244b46b43e2a8caeae
+    m_Address: Portal
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1de0419587956f147b530cd7cd220994, type: 2}
   m_SchemaSet:

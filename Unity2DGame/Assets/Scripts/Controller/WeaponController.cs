@@ -17,8 +17,8 @@ public class WeaponController : InteractiveObject
         {
             player = value;
             transform.position = player.transform.position;
-            skillSystem = player.GetComponent<SkillSystem>();
-            skillSystem.SetWeaponController(this);
+            //skillSystem = player.GetComponent<SkillSystem>();
+            //skillSystem.SetWeaponController(this);
         }
     }
     
@@ -28,6 +28,8 @@ public class WeaponController : InteractiveObject
     private Quaternion leftQuaternion = new Quaternion(0, 0, -0.2f, 1.0f);
     private Quaternion rightQuaternion = new Quaternion(0, 0, 0.2f, 1.0f);
 
+    public bool IsUsingSkill = false;
+
     private Vector3 playerPos;
 
     private Direction targetDir;
@@ -35,11 +37,14 @@ public class WeaponController : InteractiveObject
     [SerializeField]
     private Transform Sprite;
 
-    SkillSystem skillSystem;
+    public SpriteRenderer spriteRenderer;
+
+    //SkillSystem skillSystem;
 
     public BladeIdle idle = new BladeIdle();
     public BladeTracking tracking = new BladeTracking();
     public BladeAttack attack = new BladeAttack();
+    public BladeRush rush = new BladeRush();
 
 
     private AIStateMachine<WeaponController> aiStateMachine;
@@ -80,6 +85,8 @@ public class WeaponController : InteractiveObject
         }
         playerPos = player.transform.position + dis;
         transform.position = Vector3.Lerp(transform.position, playerPos, lerpSpeed * Time.deltaTime);
+        if((playerPos - transform.position).magnitude > 0.1f)
+            LookDirection = playerPos - transform.position;
     }
     public void SetRotation()
     {
@@ -183,11 +190,12 @@ public class BladeAttack : IState<WeaponController>
     public void OperateEnter(WeaponController sender)
     {
         _blade = sender;
+        _blade.IsUsingSkill = true;
     }
 
     public void OperateExit(WeaponController sender)
     {
-
+        _blade.IsUsingSkill = false;
     }
 
     public void OperateUpdate(WeaponController sender)
@@ -196,5 +204,26 @@ public class BladeAttack : IState<WeaponController>
         if (mag > 2)
             sender.AIStateMachine.SetState(sender.tracking);
         Debug.Log("Attack");*/
+    }
+}
+public class BladeRush : IState<WeaponController>
+{
+    private WeaponController _blade;
+
+
+    public void OperateEnter(WeaponController sender)
+    {
+        _blade = sender;
+        _blade.IsUsingSkill = true;
+    }
+
+    public void OperateExit(WeaponController sender)
+    {
+        _blade.IsUsingSkill = false;
+    }
+
+    public void OperateUpdate(WeaponController sender)
+    {
+
     }
 }

@@ -7,7 +7,9 @@ using UnityEngine;
 public class MonsterData : ScriptableObject
 {
     [SerializeField]
-    public int hp;
+    public int maxHp;
     [SerializeField]
     public int attack;
+    [SerializeField]
+    public int defence;
 }

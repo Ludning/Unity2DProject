@@ -30,7 +30,7 @@ public class ResourceManager : Manager<ResourceManager>
         }
         if (!_scriptableData[typeof(T)].ContainsKey(addressableAssetKey))
         {
-            T data = DataManager.Instance.LoadObject<T>(typeof(T).Name);
+            T data = DataManager.Instance.LoadObject<T>(addressableAssetKey);
             _scriptableData[typeof(T)].Add(addressableAssetKey, data);
         }
         return (T)_scriptableData[typeof(T)][addressableAssetKey];

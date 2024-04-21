@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
@@ -18,6 +19,33 @@ public class BinarySpacePartition
     public List<BSPNode> GetLastNode()
     {
         return map.GetLastNode();
+    }
+    public Dictionary<BSPNode, List<BSPNode>> GetAdjacencyList()
+    {
+        Dictionary<BSPNode, List<BSPNode>> adjacentNodes = new Dictionary<BSPNode, List<BSPNode>>();
+        List<BSPNode> bspNodes = GetLastNode();
+        foreach (BSPNode currentNode in bspNodes)
+        {
+            adjacentNodes.Add(currentNode, new List<BSPNode>());
+            foreach (BSPNode otherNode in bspNodes)
+            {
+                if (!currentNode.mapRect.Equals(otherNode.mapRect) && AreRectsAdjacent(currentNode.mapRect, otherNode.mapRect))
+                {
+                    adjacentNodes[currentNode].Add(otherNode);
+                }
+            }
+        }
+        return adjacentNodes;
+    }
+
+    bool AreRectsAdjacent(RectInt rect1, RectInt rect2)
+    {
+        // 수평 인접 검사
+        bool horizontalAdjacency = (rect1.xMax == rect2.xMin || rect1.xMin == rect2.xMax) && (rect1.yMax >= rect2.yMin && rect1.yMin <= rect2.yMax);
+        // 수직 인접 검사
+        bool verticalAdjacency = (rect1.yMax == rect2.yMin || rect1.yMin == rect2.yMax) && (rect1.xMax >= rect2.xMin && rect1.xMin <= rect2.xMax);
+
+        return horizontalAdjacency || verticalAdjacency;
     }
 }
 

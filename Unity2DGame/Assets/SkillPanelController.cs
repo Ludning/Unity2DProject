@@ -14,8 +14,6 @@ public class SkillPanelController : UI_Controller
 
     [Space]
     [SerializeField]
-    Image attackCooltimeImage;
-    [SerializeField]
     Image skillCooltimeImage;
     [SerializeField]
     Image specialCooltimeImage;
@@ -31,7 +29,7 @@ public class SkillPanelController : UI_Controller
 
     public void UpdateAttackImage()
     {
-        int skillId = GameManager.Instance.UserData.GetCurrentSkill;
+        int skillId = GameManager.Instance.UserData.GetCurrentAttack;
         SkillData skillData = GameManager.Instance.UserData.GetSkillData(skillId);
         attackImage.sprite = skillData.skillIcon;
     }
@@ -41,6 +39,7 @@ public class SkillPanelController : UI_Controller
         SkillData skillData = GameManager.Instance.UserData.GetSkillData(skillId);
         skillImage.sprite = skillData.skillIcon;
         float currentCoolTime = GameManager.Instance.UserData.GetCurrentSkillCoolTiem;
+        Debug.Log($"SkillCoolTime : {currentCoolTime}");
         skillCooltimeImage.fillAmount = SkillCoolTimeRatio(skillData.coolTime, currentCoolTime);
     }
     public void UpdateSpecialCoolTimeImageFill()
@@ -49,7 +48,8 @@ public class SkillPanelController : UI_Controller
         SkillData skillData = GameManager.Instance.UserData.GetSkillData(skillId);
         specialImage.sprite = skillData.skillIcon;
         float currentCoolTime = GameManager.Instance.UserData.GetCurrentSpecialCoolTime;
-        skillCooltimeImage.fillAmount = SkillCoolTimeRatio(skillData.coolTime, currentCoolTime);
+        Debug.Log($"SpecialCoolTime : {currentCoolTime}");
+        specialCooltimeImage.fillAmount = SkillCoolTimeRatio(skillData.coolTime, currentCoolTime);
     }
     private float SkillCoolTimeRatio(float maxCoolTime, float currentCooltime)
     {

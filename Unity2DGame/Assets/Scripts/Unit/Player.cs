@@ -8,50 +8,9 @@ public class Player : Unit
     public int attackIndex = 0;
     public int skillIndex = 0;
 
-    //private SkillData[] attackData = null;
-    //private SkillData[] skillData = null;
-    //private SkillData specialData = null;
+    [SerializeField]
+    private PlayerController playerController;
     private WeaponController weapon;
-
-    [SerializeField]
-    private SkillSystem skillSystem;
-
-    [SerializeField]
-    public SkillData testSkill;
-    
-    /*public SkillData[] AttackData
-    {
-        get 
-        {
-            if (attackData == null)
-            {
-                attackData = new SkillData[3];
-            }
-            return attackData; 
-        }
-    }
-    public SkillData[] SkillData
-    {
-        get
-        {
-            if (skillData == null)
-            {
-                skillData = new SkillData[3];
-            }
-            return skillData;
-        }
-    }
-    public SkillData SpecialData
-    {
-        get
-        {
-            return specialData;
-        }
-        set
-        {
-            specialData = value;
-        }
-    }*/
 
     //초기화
     public override void Init(string statusBarName)
@@ -62,12 +21,46 @@ public class Player : Unit
         #region uiStatusBar 초기화
         uiStatusBar.Init(gameObject.name, HpRatio);
         #endregion
-
-        //스킬 초기화 테스트
-        skillSystem = GetComponent<SkillSystem>();
-        skillSystem.SkillInit(testSkill);
+        GameManager.Instance.player = this;
+        GameManager.Instance.playerController = playerController;
     }
+    public override void OnDamaged(int value)
+    {
+        UserData userData = GameManager.Instance.UserData;
+        int calValue = value - userData.playerStatus.defence;
+        if (calValue <= 0)
+        {
+            return;
+        }
 
+        Debug.Log(userData.playerStatus.hp);
+
+        if (userData.playerStatus.hp - calValue <= 0)
+            userData.playerStatus.hp = 0;
+        else if (userData.playerStatus.hp - calValue >= userData.playerStatus.maxHp)
+            userData.playerStatus.hp = userData.playerStatus.maxHp;
+        else
+            userData.playerStatus.hp -= calValue;
+
+        uiStatusBar.HPBarRefresh(HpRatio);
+
+        Debug.Log(HpRatio);
+
+        if (userData.playerStatus.hp <= 0)
+            OnDie();
+    }
+    public void OnHeal(int value)
+    {
+        if (value < 0)
+            return;
+        GameManager.Instance.UserData.playerStatus.RecoveryHp(value);
+
+        uiStatusBar.HPBarRefresh(HpRatio);
+    }
+    public PlayerController GetPlayerController()
+    {
+        return playerController;
+    }
     public WeaponController GetWeaponController()
     {
         return weapon;
@@ -81,39 +74,4 @@ public class Player : Unit
     {
         weapon = weaponController;
     }
-    /*//스킬 장착
-    public void SkillEquip(SkillData data, SkillEquipmentType type, int index = 0)
-    {
-        if (type != SkillEquipmentType.Special && (index < 0 || index > 2))
-            return;
-        switch (type)
-        {
-            case SkillEquipmentType.Attack:
-                AttackData[index] = data;
-                break;
-            case SkillEquipmentType.Skill:
-                SkillData[index] = data;
-                break;
-            case SkillEquipmentType.Special:
-                SpecialData = data;
-                break;
-        }
-    }
-    public void SkillUnequip(SkillData data, SkillEquipmentType type, int index = 0)
-    {
-        if (type != SkillEquipmentType.Special && (index < 0 || index > 2))
-            return;
-        switch (type)
-        {
-            case SkillEquipmentType.Attack:
-                AttackData[index] = data;
-                break;
-            case SkillEquipmentType.Skill:
-                SkillData[index] = data;
-                break;
-            case SkillEquipmentType.Special:
-                SpecialData = data;
-                break;
-        }
-    }*/
 }

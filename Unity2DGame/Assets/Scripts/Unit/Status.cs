@@ -18,12 +18,31 @@ public class Status
     public Status()
     {
         level = 1;
-        maxHp = 100;
-        hp = 100;
+        maxHp = 1000;
+        hp = 800;
         maxMp = 100;
         mp = 100;
         attack = 100;
-        defence = 100;
+        defence = 20;
         statusEffects = new List<IStatusEffect>();
+    }
+    public void RecoveryHp(int value)
+    {
+        if (hp >= maxHp)
+        {
+            hp = maxHp;
+            return;
+        }
+        hp += value;
+    }
+    public void RestoreMp(float time)
+    {
+        int restoreSpeed = 5;
+        if (mp >= maxMp)
+        {
+            mp = maxMp;
+            return;
+        }
+        mp += (int)(time * restoreSpeed);
     }
 }

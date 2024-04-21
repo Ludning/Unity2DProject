@@ -14,26 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nullData: {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
   fire:
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  frost:
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  tetanus:
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
-  - {fileID: 11400000, guid: c3bb30c8991e1b34fac33efc5649c011, type: 2}
+  - {fileID: 11400000, guid: 3f5d9cff6d5d59147baa843dde243cc2, type: 2}
+  - {fileID: 11400000, guid: 5a7760e88dd738949a5266023db7c71e, type: 2}
+  - {fileID: 11400000, guid: 11769364a6d15844eb426dae1dc3f5a4, type: 2}
+  - {fileID: 11400000, guid: 3033c8de24da17243b6a8646abe3e79b, type: 2}
+  - {fileID: 11400000, guid: 9ea81d090712c084da62f1d8c49210bb, type: 2}
+  - {fileID: 11400000, guid: 4794a73b17edff9488642affb802bc4b, type: 2}
+  frost: []
+  tetanus: []

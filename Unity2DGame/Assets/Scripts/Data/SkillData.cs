@@ -19,11 +19,14 @@ public class SkillData : ScriptableObject
     [Header("스킬 아이콘")]
     public Sprite skillIcon;
     [Space]
+    [Header("스킬 발사 타입")]
+    public bool isProjectile = false;
+    [Space]
     [Header("스킬 장착 타입")]
     public SkillEquipmentType skillEquipmentType;
     [Space]
-    [Header("스킬 1타의 데이터 리스트")]
-    public List<SkillOneShotData> skillOneShotDatas;
+    [Header("스킬 데미지 배율")]
+    public float skillDamage;
     [Space]
     [Header("스킬 쿨타임")]
     public float coolTime;
@@ -36,31 +39,6 @@ public class SkillData : ScriptableObject
     
 }
 
-//애니메이션 이벤트에 의하여 각 이벤트마다 호출
-[Serializable]
-public struct SkillOneShotData
-{
-    [Header("자신에게 가할 버프 데이터")]
-    public SelfEffectData selfEffectData;
-
-    [Header("데미지 배율")]
-    public int value;
-
-    [Header("스킬 범위 설정")]
-    public SkillRangeData skillRangeData;
-
-    [Header("목표에게 가할 디버프 설정")]
-    public TargetEffectData targetEffectData;
-
-    [Header("플레이어 움직임")]
-    public PlayerMovementData playerMovementData;
-
-    [Header("블레이드 움직임")]
-    public BladeMovementData bladeMovementData;
-
-    [Header("타겟 움직임 설정")]
-    public TargetMovementData targetMovementData;
-}
 
 [Serializable]
 public struct SkillRangeData
@@ -79,7 +57,7 @@ public struct SkillRangeData
 [Serializable]
 public struct SelfEffectData
 {
-    [Header("버프 지속시간")]
+    [Header("버프 지속시간 또는 값")]
     public float value;
     [Header("버프 타입")]
     public SkillBuffType skillBuffType;

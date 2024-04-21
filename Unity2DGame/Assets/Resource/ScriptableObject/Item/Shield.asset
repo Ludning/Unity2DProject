@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   name: Shield
-  description: Use shield Attack Enemy!!
-  itemIcon: {fileID: -2413806693520163455, guid: 148be141e9a6ad443afe0d85c4213b9a,
-    type: 3}
+  description: "\uBC29\uD328\uB294 \uCD5C\uACE0\uC758 \uD0C0\uACA9\uBB34\uAE30\uC774\uB2E4.
+    \uACF5\uACA9\uB825 600 \uC99D\uAC00"
+  itemIcon: {fileID: 21300000, guid: 615f3cdaa1374bd4db14286066f31cde, type: 3}
   equipType: 1
   intrinsicProperties: 0
   itemStat:

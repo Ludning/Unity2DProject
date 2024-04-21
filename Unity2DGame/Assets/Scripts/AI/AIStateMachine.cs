@@ -20,7 +20,7 @@ public class AIStateMachine<T>
     //State변경
     public void SetState(IState<T> state)
     {
-        Debug.Log("SetState : " + state);
+        //Debug.Log("SetState : " + state);
 
         // null에러출력
         if (m_sender == null)

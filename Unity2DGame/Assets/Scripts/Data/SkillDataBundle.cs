@@ -14,13 +14,14 @@ public class SkillDataBundle : ScriptableObject
 
     public List<SkillData> GetAllData()
     {
-        if(allData == null)
-            allData = CombineLists(fire, frost, tetanus);
+        if(allData == null || allData.Count == 0)
+            allData = CombineLists(nullData, fire, frost, tetanus);
         return allData;
     }
-    List<T> CombineLists<T>(List<T> list1, List<T> list2, List<T> list3)
+    List<T> CombineLists<T>(T data, List<T> list1, List<T> list2, List<T> list3)
     {
         List<T> result = new List<T>();
+        result.Add(data);
         result.AddRange(list1);
         result.AddRange(list2);
         result.AddRange(list3);

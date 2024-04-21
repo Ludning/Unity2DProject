@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class InteractiveObject : MonoBehaviour
@@ -17,7 +18,7 @@ public class InteractiveObject : MonoBehaviour
         }
     }
 
-    private Collider2D interactiveCollider;
+    /*private Collider2D interactiveCollider;
     public Collider2D InteractiveCollider
     {
         get
@@ -26,5 +27,9 @@ public class InteractiveObject : MonoBehaviour
                 interactiveCollider = GetComponent<Collider2D>();
             return interactiveCollider;
         }
+    }*/
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position, transform.position + (Vector3)lookDirection);
     }
 }

@@ -8,9 +8,24 @@ using UnityEngine.AddressableAssets;
 public class GameManager : Manager<GameManager>
 {
     public Player player;
+    public PlayerController playerController;
+    public WeaponController weaponController;
     private UserData userData;
 
     private int pauseCount = 0;
+
+    private Camera camera;
+    public Camera Camera
+    {
+        get 
+        {
+            if (camera == null)
+            {
+                camera = Camera.main;
+            }
+            return camera; 
+        }
+    }
 
     public bool IsGamePaused
     {
@@ -37,7 +52,7 @@ public class GameManager : Manager<GameManager>
 
     private Dictionary<int, Monster> monsterDic = new Dictionary<int, Monster>();
 
-    private Dictionary<int, SkillHandler> skillHandlerDic = new Dictionary<int, SkillHandler>();
+    //private Dictionary<int, SkillHandler> skillHandlerDic = new Dictionary<int, SkillHandler>();
 
 
     private void Update()
@@ -45,31 +60,32 @@ public class GameManager : Manager<GameManager>
         if (IsGamePaused)
             return;
         userData.UpdateCoolTime(Time.deltaTime);
+        userData.playerStatus.RestoreMp(Time.deltaTime);
     }
 
     public void AddMonster(Monster monster)
     {
-        int instanceID = monster.InteractiveCollider.GetInstanceID();
+        int instanceID = monster.GetColliderInstanceID();
         monsterDic.Add(instanceID, monster);
     }
     public void RemoveMonster(Monster monster)
     {
-        int instanceID = monster.InteractiveCollider.GetInstanceID();
+        int instanceID = monster.GetColliderInstanceID();
         monsterDic.Remove(instanceID);
     }
-
+/*
     public SkillHandler GetSkillHandler(GameObject skillObject)
     {
         int instanceID = skillObject.GetInstanceID();
         if (!monsterDic.ContainsKey(instanceID))
             AddSkillHandler(skillObject);
         return skillHandlerDic[instanceID];
-    }
-    public void AddSkillHandler(GameObject skillObject)
+    }*/
+    /*public void AddSkillHandler(GameObject skillObject)
     {
         int instanceID = skillObject.GetInstanceID();
         skillHandlerDic.Add(instanceID, skillObject.GetComponent<SkillHandler>());
-    }
+    }*/
 
     public Monster[] GetMonsterByInstanceID(int[] InstanceID)
     {

@@ -42,6 +42,14 @@ public class Bootstrap
     {
         userData.inventoryItem[0] = 1;
         userData.inventoryItem[1] = 2;
+
+        userData.equipmentAttack[0] = 1;
+        userData.equipmentAttack[1] = 2;
+        userData.equipmentAttack[2] = 3;
+
+        userData.equipmentSkill = 4;
+
+        userData.equipmentSpecial = 6;
     }
 
     // 霉 蜡历 单捞磐 积己
