@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.U2D.Path.GUIFramework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,7 +20,7 @@ public class UI_OverlayController : UI_Controller
         Vector2 mousePosition = Mouse.current.position.ReadValue() - new Vector2(Screen.width, Screen.height) * 0.5f + size * 0.6f;
         transform.localPosition = mousePosition;
     }
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         Vector2 mousePosition = Mouse.current.position.ReadValue() - new Vector2(Screen.width, Screen.height) * 0.5f + size * 0.6f;
         transform.localPosition = mousePosition;

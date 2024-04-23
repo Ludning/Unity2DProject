@@ -26,26 +26,27 @@ public class GameSceneInstaller : SceneInstaller
         GameObject map = Instantiate(DataManager.Instance.LoadObject<GameObject>("BossMap"));
         map.transform.position = new Vector3(-100, 0, 0);
 
+        MapGenerater.Surface2D.BuildNavMesh();
+
         int ran = Random.Range(0, 4);
         GameObject boss;
         switch (ran)
         {
             case 0:
-                boss = Instantiate(DataManager.Instance.LoadObject<GameObject>("BigFlyingEye"));
+                SpawnManager.Instance.SpawnBoss(BossType.BigFlyingEye, new Vector3(-100, 5, 0));
                 break;
             case 1:
-                boss = Instantiate(DataManager.Instance.LoadObject<GameObject>("GoblinKing"));
+                SpawnManager.Instance.SpawnBoss(BossType.GoblinKing, new Vector3(-100, 5, 0));
                 break;
             case 2:
-                boss = Instantiate(DataManager.Instance.LoadObject<GameObject>("SuperMushroom"));
+                SpawnManager.Instance.SpawnBoss(BossType.SuperMushroom, new Vector3(-100, 5, 0));
                 break;
             default:
-                boss = Instantiate(DataManager.Instance.LoadObject<GameObject>("UltimateSkeleton"));
+                SpawnManager.Instance.SpawnBoss(BossType.UltimateSkeleton, new Vector3(-100, 5, 0));
                 break;
         }
-        boss.transform.position = new Vector3(-100, 5, 0);
 
-        MapGenerater.Surface2D.BuildNavMesh();
+        
 
         Vector2 pos = MapGenerater.RandomSpawnPos();
         SpawnManager.Instance.SpawnPlayer(playerPrefab, bladePrefab, pos + new Vector2(0.5f, 0.5f));

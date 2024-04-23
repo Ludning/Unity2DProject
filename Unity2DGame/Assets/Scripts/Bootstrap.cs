@@ -9,10 +9,10 @@ public class Bootstrap
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
     static void Initialize()
     {
-        /*UserData userdata = DataManager.LoadData<UserData>("UserData");
-        GameData gameData = Addressables.LoadAssetAsync<GameData>("Data/data.asset").WaitForCompletion();
+        UserData userdata = DataManager.Instance.LoadJsonData<UserData>("UserData");
+        //GameData gameData = Addressables.LoadAssetAsync<GameData>("Data/data.asset").WaitForCompletion();
 
-        gameData.Init();
+        /*gameData.Init();
 
         if (userdata == null)
         {

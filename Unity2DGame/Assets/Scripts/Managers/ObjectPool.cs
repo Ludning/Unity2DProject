@@ -27,8 +27,8 @@ public class ObjectPool : Manager<ObjectPool>
         if (pool[go.name].Count <= 1)
             ExpansionPool(go);
         GameObject copy = pool[go.name].Dequeue();
-        copy.transform.parent = SceneRig.transform;
-        copy.transform.parent = null;
+        copy.transform.SetParent(SceneRig.transform);
+        copy.transform.SetParent(null);
         copy.SetActive(true);
         return copy;
     }
@@ -38,7 +38,7 @@ public class ObjectPool : Manager<ObjectPool>
             return;
         if (!pool.ContainsKey(go.name))
             CreatePool(go);
-        go.transform.parent = transform;
+        go.transform.SetParent(transform);
         go.SetActive(false);
         pool[go.name].Enqueue(go);
     }

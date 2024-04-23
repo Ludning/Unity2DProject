@@ -7,7 +7,8 @@ public class UI_MainScene : MonoBehaviour
     public void OnClickStart()
     {
         //저장후 메인
-        GameManager.Instance.UserData.Save();
+        if(GameManager.Instance.UserData != null)
+            GameManager.Instance.UserData.Save();
         ScenesManager.Instance.LoadScene("GameScene");
     }
     public void OnClickExit()

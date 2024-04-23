@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SpawnManager : Manager<SpawnManager>
 {
@@ -37,10 +38,37 @@ public class SpawnManager : Manager<SpawnManager>
     {
         var prefab = ResourceManager.Instance.GetPrefab(type.ToString());
         GameObject go = ObjectPool.Instance.GetGameObject(prefab);
+
+
+        /*Vector3 sourcePostion = pos;//The position you want to place your agent
+        NavMeshHit closestHit;
+        if (NavMesh.SamplePosition(sourcePostion, out closestHit, 500, 1))
+        {
+            go.transform.position = closestHit.position;
+            
+            //TODO
+        }*/
         go.transform.position = pos;
+
         Monster monster = go.GetComponent<Monster>();
         monster.Init(monsterStatusBar);
         GameManager.Instance.AddMonster(monster);
+
+        go.GetComponent<NavMeshAgent>().enabled = true;
+        return go;
+    }
+    public GameObject SpawnBoss(BossType type, Vector3 pos)
+    {
+        var prefab = ResourceManager.Instance.GetPrefab(type.ToString());
+        GameObject go = ObjectPool.Instance.GetGameObject(prefab);
+
+        go.transform.position = pos;
+
+        Boss monster = go.GetComponent<Boss>();
+        monster.Init(monsterStatusBar);
+        GameManager.Instance.AddMonster(monster);
+
+        go.GetComponent<NavMeshAgent>().enabled = true;
         return go;
     }
     public GameObject SpawnUnit(GameObject prefab)

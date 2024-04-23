@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 [Serializable]
 public class UserData
@@ -42,6 +41,10 @@ public class UserData
         {
             return equipmentAttack[attackCursor];
         }
+        set
+        {
+            equipmentAttack[attackCursor] = value;
+        }
     }
     public int GetCurrentSkill
     {
@@ -49,12 +52,20 @@ public class UserData
         {
             return equipmentSkill;
         }
+        set
+        {
+            equipmentSkill = value;
+        }
     }
     public float GetCurrentSkillCoolTiem
     {
         get
         {
             return equipmentSkillCooltime;
+        }
+        set
+        {
+            equipmentSkillCooltime = value;
         }
     }
 
@@ -64,12 +75,20 @@ public class UserData
         {
             return equipmentSpecial;
         }
+        set
+        {
+            equipmentSpecial = value;
+        }
     }
     public float GetCurrentSpecialCoolTime
     {
         get
         {
             return equipmentSpecialCooltime;
+        }
+        set
+        {
+            equipmentSpecialCooltime = value;
         }
     }
 

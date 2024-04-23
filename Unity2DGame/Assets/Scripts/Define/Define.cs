@@ -43,6 +43,14 @@ public enum MonsterType
     Skeleton,
     MaxCount,
 }
+public enum BossType
+{
+    BigFlyingEye,
+    GoblinKing,
+    SuperMushroom,
+    UltimateSkeleton,
+    MaxCount,
+}
 #endregion
 
 #region 퀘스트 보상

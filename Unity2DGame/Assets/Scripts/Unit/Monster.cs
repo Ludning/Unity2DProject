@@ -24,7 +24,7 @@ public class Monster : Unit
     public Tracking tracking = new Tracking();
     public Attack attack = new Attack();
 
-    Rigidbody rigid;
+    protected Rigidbody rigid;
 
     [SerializeField]
     public NavMeshAgent agent;
@@ -83,6 +83,8 @@ public class Monster : Unit
             go.transform.position = transform.position;
         }
 
+        gameObject.GetComponent<NavMeshAgent>().enabled = false;
+
         GameManager.Instance.RemoveMonster(this);
         base.OnDie();
     }
@@ -93,6 +95,9 @@ public class Monster : Unit
     }
     private void FixedUpdate()
     {
+        if (GameManager.Instance.IsGamePaused)
+            return;
+
         if (agent.velocity.x < -0.1f)
         {
             spriteRenderer.flipX = true;

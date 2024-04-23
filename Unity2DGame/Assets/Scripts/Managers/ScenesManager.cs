@@ -7,8 +7,10 @@ public class ScenesManager : Manager<ScenesManager>
 {
     public void LoadScene(string sceneName)
     {
-        GameManager.Instance.UserData.Save();
-        StartCoroutine(LoadAsyncScene(sceneName));
+        if(GameManager.Instance.UserData != null)
+            GameManager.Instance.UserData.Save();
+        SceneManager.LoadScene(sceneName);
+        //StartCoroutine(LoadAsyncScene(sceneName));
     }
 
     IEnumerator LoadAsyncScene(string sceneName)

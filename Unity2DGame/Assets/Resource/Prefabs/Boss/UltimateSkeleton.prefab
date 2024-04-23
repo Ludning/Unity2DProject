@@ -189,7 +189,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6085816298479115477}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.2
   m_Speed: 3
@@ -225,10 +225,10 @@ MonoBehaviour:
     attack: 100
     defence: 20
   target: {fileID: 0}
-  agent: {fileID: 0}
-  collider: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  animator: {fileID: 0}
+  agent: {fileID: 489408592}
+  collider: {fileID: 4409608717774790477}
+  spriteRenderer: {fileID: 6085816296747497020}
+  animator: {fileID: 1456650096482513818}
 --- !u!1001 &8194926197998365278
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -301,6 +301,12 @@ PrefabInstance:
 --- !u!4 &3068277219066576407 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6570343021397595209, guid: ee12d0f08644ebd49ae8a3bb85860df4,
+    type: 3}
+  m_PrefabInstance: {fileID: 8194926197998365278}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &4409608717774790477 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 5514704135356855571, guid: ee12d0f08644ebd49ae8a3bb85860df4,
     type: 3}
   m_PrefabInstance: {fileID: 8194926197998365278}
   m_PrefabAsset: {fileID: 0}

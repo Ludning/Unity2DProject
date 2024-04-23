@@ -225,6 +225,22 @@ MonoBehaviour:
     m_Address: Portal
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: ddeb8ab5d351b264cbadaae82b03cb9b
+    m_Address: UltimateSkeletonData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ba0070a478a90584097694284a2e20d7
+    m_Address: BigFlyingEyeData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6fadae5d9b7a0ab44a2b7b5b0770e9bb
+    m_Address: GoblinKingData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8c2b40624d0414f48895a2669134f5a3
+    m_Address: SuperMushroomData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1de0419587956f147b530cd7cd220994, type: 2}
   m_SchemaSet:

@@ -37,16 +37,34 @@ public class GameManager : Manager<GameManager>
     public void AddPauseCount()
     {
         pauseCount++;
+        if(pauseCount > 0)
+        {
+            Time.timeScale = 0;
+        }
     }
     public void SubPauseCount()
     {
         pauseCount--;
+        if(pauseCount <= 0)
+        {
+            Time.timeScale = 1;
+        }
     }
 
     public UserData UserData 
     {
-        get { return userData; }
-        set { userData = value; }
+        get 
+        { 
+            if (userData == null)
+            {
+                userData = DataManager.Instance.LoadJsonData<UserData>("UserData");
+            }
+            return userData; 
+        }
+        set 
+        { 
+            userData = value; 
+        }
     }
 
 
@@ -59,11 +77,16 @@ public class GameManager : Manager<GameManager>
     {
         if (IsGamePaused)
             return;
-        userData.UpdateCoolTime(Time.deltaTime);
-        userData.playerStatus.RestoreMp(Time.deltaTime);
+        UserData.UpdateCoolTime(Time.deltaTime);
+        UserData.playerStatus.RestoreMp(Time.deltaTime);
     }
 
     public void AddMonster(Monster monster)
+    {
+        int instanceID = monster.GetColliderInstanceID();
+        monsterDic.Add(instanceID, monster);
+    }
+    public void AddBoss(Boss monster)
     {
         int instanceID = monster.GetColliderInstanceID();
         monsterDic.Add(instanceID, monster);

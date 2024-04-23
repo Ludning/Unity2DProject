@@ -167,7 +167,7 @@ public class UIManager : Manager<UIManager>
     }
     public void ShowUI_Status(GameObject go)
     {
-        go.transform.parent = GetCanvasData(CanvasType.SceneInformationCanvas).gameObject.transform;
+        go.transform.SetParent(GetCanvasData(CanvasType.SceneInformationCanvas).gameObject.transform);
         go.GetComponent<RenderController>().SetUpHpUI();
         GetCanvasData(CanvasType.SceneInformationCanvas).AddCount();
     }
@@ -211,10 +211,9 @@ public class UIManager : Manager<UIManager>
         {
             activatedPopupUI.Add(backElementType, backData.gameObject);
             activatedPopupUI.Add(frontElementType, frontData.gameObject);
-            GameManager.Instance.AddPauseCount();
         }
+        GameManager.Instance.AddPauseCount();
 
-        
         return (backData, frontData);
     }
     private ElementData GetElementData(ElementType elementType)

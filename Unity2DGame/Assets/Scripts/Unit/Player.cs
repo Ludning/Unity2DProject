@@ -15,8 +15,6 @@ public class Player : Unit
     //초기화
     public override void Init(string statusBarName)
     {
-        status = GameManager.Instance.UserData.playerStatus;
-
         base.Init(statusBarName);
         #region uiStatusBar 초기화
         uiStatusBar.Init(gameObject.name, HpRatio);
