@@ -20,7 +20,6 @@ public class Monster : Unit
     public GameObject target = null;
 
     public Idle idle = new Idle();
-    public Walk walk = new Walk();
     public Tracking tracking = new Tracking();
     public Attack attack = new Attack();
 
@@ -35,7 +34,7 @@ public class Monster : Unit
     SpriteRenderer spriteRenderer;
 
     [SerializeField]
-    Animator animator;
+    public Animator animator;
 
     public int GetColliderInstanceID()
     {
@@ -89,6 +88,11 @@ public class Monster : Unit
         base.OnDie();
     }
 
+    public void SendDamage()
+    {
+        GameManager.Instance.player.OnDamaged(status.attack);
+    }
+
     private void Update()
     {
 
@@ -120,6 +124,8 @@ public class Idle : IState<Monster>
     public void OperateEnter(Monster sender)
     {
         _monster = sender;
+        _monster.animator.SetBool("IsTracking", false);
+        _monster.animator.SetBool("IsAttack", false);
     }
 
     public void OperateExit(Monster sender)
@@ -132,26 +138,6 @@ public class Idle : IState<Monster>
         //Debug.Log("Idle");
     }
 }
-public class Walk : IState<Monster>
-{
-    private Monster _monster;
-
-
-    public void OperateEnter(Monster sender)
-    {
-        _monster = sender;
-    }
-
-    public void OperateExit(Monster sender)
-    {
-
-    }
-
-    public void OperateUpdate(Monster sender)
-    {
-        Debug.Log("Walk");
-    }
-}
 public class Tracking : IState<Monster>
 {
     private Monster _monster;
@@ -160,6 +146,8 @@ public class Tracking : IState<Monster>
     public void OperateEnter(Monster sender)
     {
         _monster = sender;
+        _monster.animator.SetBool("IsTracking", true);
+        _monster.animator.SetBool("IsAttack", false);
     }
 
     public void OperateExit(Monster sender)
@@ -178,17 +166,17 @@ public class Tracking : IState<Monster>
 public class Attack : IState<Monster>
 {
     private Monster _monster;
-    private float timer = 0;
-    private float delay = 2f;
 
     public void OperateEnter(Monster sender)
     {
         _monster = sender;
+        _monster.animator.SetBool("IsTracking", true);
+        _monster.animator.SetBool("IsAttack", true);
     }
 
     public void OperateExit(Monster sender)
     {
-
+        _monster.animator.SetBool("IsAttack", false);
     }
 
     public void OperateUpdate(Monster sender)
@@ -196,13 +184,5 @@ public class Attack : IState<Monster>
         float mag = (sender.target.transform.position - sender.transform.position).magnitude;
         if (mag > 2)
             sender.AIStateMachine.SetState(sender.tracking);
-
-        timer += Time.deltaTime;  // 매 프레임마다 경과된 시간을 타이머에 더합니다.
-
-        if (timer >= delay)  // 타이머가 지정된 지연 시간을 초과하면,
-        {
-            GameManager.Instance.player.OnDamaged(sender.status.attack);
-            timer = 0;  // 타이머를 재설정합니다 (필요한 경우).
-        }
     }
 }

@@ -66,7 +66,7 @@ public class Unit : InteractiveObject
         if (status.hp <= 0)
             OnDie();
     }
-    public float HpRatio
+    public virtual float HpRatio
     {
         get
         {

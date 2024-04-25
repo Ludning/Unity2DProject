@@ -40,7 +40,8 @@ public class Player : Unit
         else
             userData.playerStatus.hp -= calValue;
 
-        uiStatusBar.HPBarRefresh(HpRatio);
+        if(uiStatusBar != null)
+            uiStatusBar.HPBarRefresh(HpRatio);
 
         Debug.Log(HpRatio);
 
@@ -71,5 +72,28 @@ public class Player : Unit
     public void SetWeaponController(WeaponController weaponController)
     {
         weapon = weaponController;
+    }
+    public override float HpRatio
+    {
+        get
+        {
+            UserData userData = GameManager.Instance.UserData;
+            return (userData.playerStatus.maxHp != 0) ? userData.playerStatus.hp / (float)userData.playerStatus.maxHp : 0f;
+        }
+    }
+    public override void OnDie()
+    {
+        if(statusBarBar != null)
+        {
+            statusBarBar.SetActive(false);
+            ObjectPool.Instance.ReturnToPool(statusBarBar);
+            statusBarBar = null;
+            uiStatusBar = null;
+        }
+        
+        ObjectPool.Instance.ReturnToPool(gameObject);
+
+
+        ScenesManager.Instance.LoadScene("EndScene");
     }
 }
