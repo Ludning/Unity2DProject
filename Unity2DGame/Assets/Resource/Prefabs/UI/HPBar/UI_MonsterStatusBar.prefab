@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6319734919743667716}
   - component: {fileID: 6319734919743667718}
   - component: {fileID: 6319734919743667737}
-  - component: {fileID: 6864939359501718734}
+  - component: {fileID: 5817006109553165603}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!223 &6864939359501718734
+--- !u!223 &5817006109553165603
 Canvas:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 6319734919998771841}
   - component: {fileID: 6319734919998771843}
   - component: {fileID: 6319734919998771840}
-  - component: {fileID: 8300658618555959782}
+  - component: {fileID: 5643975707451812932}
   m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!223 &8300658618555959782
+--- !u!223 &5643975707451812932
 Canvas:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,7 +250,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 6319734921049991264}
   - component: {fileID: 6319734921049991267}
   - component: {fileID: 6319734921049991266}
-  - component: {fileID: -3360612168614080236}
+  - component: {fileID: -503153089928421407}
   m_Layer: 5
   m_Name: UI_MonsterStatusBar
   m_TagString: Untagged
@@ -334,7 +334,7 @@ MonoBehaviour:
   nameField: {fileID: 6319734919998771840}
   hpBarSlider: {fileID: 4247965279333210576}
   StatusEffectIMGContainer: {fileID: 6319734919743667716}
---- !u!114 &-3360612168614080236
+--- !u!114 &-503153089928421407
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -362,11 +362,6 @@ PrefabInstance:
     - target: {fileID: 1031598280482731237, guid: e29f54d9029176843b7fcbee8fa9c599,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5681889199659956790, guid: e29f54d9029176843b7fcbee8fa9c599,
-        type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6439605430976425124, guid: e29f54d9029176843b7fcbee8fa9c599,
@@ -479,37 +474,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: HPBar
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5681889199659956790, guid: e29f54d9029176843b7fcbee8fa9c599, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e29f54d9029176843b7fcbee8fa9c599, type: 3}
---- !u!1 &1074713690350278984 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6439605430976425125, guid: e29f54d9029176843b7fcbee8fa9c599,
-    type: 3}
-  m_PrefabInstance: {fileID: 6319734919838135789}
-  m_PrefabAsset: {fileID: 0}
---- !u!223 &1761044745664166192
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1074713690350278984}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!224 &1074713690350278985 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6439605430976425124, guid: e29f54d9029176843b7fcbee8fa9c599,
@@ -522,7 +488,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 6319734919838135789}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1074713690350278984}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}

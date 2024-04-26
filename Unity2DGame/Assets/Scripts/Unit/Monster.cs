@@ -119,20 +119,16 @@ public class Monster : Unit
 public class Idle : IState<Monster>
 {
     private Monster _monster;
-
-
     public void OperateEnter(Monster sender)
     {
         _monster = sender;
         _monster.animator.SetBool("IsTracking", false);
         _monster.animator.SetBool("IsAttack", false);
     }
-
     public void OperateExit(Monster sender)
     {
 
     }
-
     public void OperateUpdate(Monster sender)
     {
         //Debug.Log("Idle");
@@ -141,20 +137,16 @@ public class Idle : IState<Monster>
 public class Tracking : IState<Monster>
 {
     private Monster _monster;
-
-
     public void OperateEnter(Monster sender)
     {
         _monster = sender;
         _monster.animator.SetBool("IsTracking", true);
         _monster.animator.SetBool("IsAttack", false);
     }
-
     public void OperateExit(Monster sender)
     {
 
     }
-
     public void OperateUpdate(Monster sender)
     {
         float mag = (sender.target.transform.position - sender.transform.position).magnitude;
@@ -166,19 +158,16 @@ public class Tracking : IState<Monster>
 public class Attack : IState<Monster>
 {
     private Monster _monster;
-
     public void OperateEnter(Monster sender)
     {
         _monster = sender;
         _monster.animator.SetBool("IsTracking", true);
         _monster.animator.SetBool("IsAttack", true);
     }
-
     public void OperateExit(Monster sender)
     {
         _monster.animator.SetBool("IsAttack", false);
     }
-
     public void OperateUpdate(Monster sender)
     {
         float mag = (sender.target.transform.position - sender.transform.position).magnitude;
